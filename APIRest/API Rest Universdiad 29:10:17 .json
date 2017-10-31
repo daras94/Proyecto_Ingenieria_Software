@@ -1,0 +1,514 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor",
+    "description": "API Rest de la Universidad de Villamayor para acceder a los recursos del sistema."
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "simple.api",
+  "basePath": "/openapi101",
+  "paths": {
+    "/alumno": {
+      "post": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Dar de alta un alumno",
+        "description": "Integrar en la base de datos la informacion de un nuevo alumno.",
+        "parameters": [
+          {
+            "name": "alumno",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del alumno",
+            "schema": {
+              "$ref": "#/definitions/Alumno"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/alumnoByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Obtener alumno por NIF",
+        "description": "Busqueda de la informacion de un alumno con su NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Alumno"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Eliminar alumno por NIF",
+        "description": "Eliminar la cuenta de un almuno por NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Actualizar alumno",
+        "description": "Actualizacion de la informacion de la cuenta de un alumno",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno que se quiere actualizar",
+            "type": "string"
+          },
+          {
+            "name": "alumno",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del alumno",
+            "schema": {
+              "$ref": "#/definitions/Alumno"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/asignatura": {
+      "post": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Introducir una nueva asignatura",
+        "description": "Añadir una nueva asignatura a la base de datos",
+        "parameters": [
+          {
+            "name": "asignatura",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Asignatura"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/asignaturaById/{ID}": {
+      "get": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Obtener asignatura por ID",
+        "description": "Busqueda de la informacion de una asignatura con su ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "ID de la asignatura",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Asignatura"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Eliminar asignatura por ID",
+        "description": "Eliminar la asignatura de la base de datos por su ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "ID de la asignatura",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Actualizar asignatura por ID",
+        "description": "Actualizacion de la informacion de una asignatura.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "ID de la asignatura que se quiere actualizar",
+            "type": "integer"
+          },
+          {
+            "name": "asignatura",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la asignatura",
+            "schema": {
+              "$ref": "#/definitions/Asignatura"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/asignaturaByCarrera/{Carrera}": {
+      "get": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Obtener las asignaturas de cada carrera",
+        "description": "Busqueda de la asignaturas por carrera",
+        "parameters": [
+          {
+            "name": "Carrera",
+            "in": "path",
+            "required": true,
+            "description": "Carrera de la asignaturas que se quieren obtener",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Asignatura"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/carrera": {
+      "post": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "Ingresar en la base de datos una nueva carrera",
+        "description": "Integrar en la base de datos la informacion de un nueva carrera.",
+        "parameters": [
+          {
+            "name": "carrera",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la carrera",
+            "schema": {
+              "$ref": "#/definitions/Carrera"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/carreraByID/{ID}": {
+      "get": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "Obtener carrera por ID",
+        "description": "Busqueda de la informacion de una carrera con su ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "ID de la carrera",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Carrera"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "Eliminar carrera por ID",
+        "description": "Eliminar la carrera de la base de datos por su ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "ID de la carrera",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "Actualizar carrera por ID",
+        "description": "Actualizacion de la informacion de una carrera.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "ID de la carrera que se quiere actualizar",
+            "type": "integer"
+          },
+          {
+            "name": "carrera",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la carrera",
+            "schema": {
+              "$ref": "#/definitions/Carrera"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Alumno": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "Nombre",
+        "Apellidos",
+        "FechaNacimiento",
+        "Email",
+        "Carrera"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellidos": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "integer"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "string"
+        }
+      }
+    },
+    "Asignatura": {
+      "type": "object",
+      "required": [
+        "Nombre",
+        "Carrera",
+        "Coordinador",
+        "Tipo",
+        "Curso",
+        "Rama",
+        "Creditos"
+      ],
+      "properties": {
+        "Nombre": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "string"
+        },
+        "Coordinador": {
+          "type": "string"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Curso": {
+          "type": "string"
+        },
+        "Rama": {
+          "type": "string"
+        },
+        "Creditos": {
+          "type": "integer"
+        }
+      }
+    },
+    "Carrera": {
+      "type": "object",
+      "required": [
+        "Nombre",
+        "Facultad",
+        "Rama"
+      ],
+      "properties": {
+        "Nombre": {
+          "type": "string"
+        },
+        "Facultad": {
+          "type": "string"
+        },
+        "Rama": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
