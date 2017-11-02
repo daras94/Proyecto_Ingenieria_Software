@@ -364,7 +364,7 @@
           "Carrera"
         ],
         "summary": "Eliminar carrera por ID",
-        "description": "Eliminar la carrera de la base de datos por ID",
+        "description": "Eliminar la carrera de la base de datos por ID de usuario",
         "parameters": [
           {
             "name": "ID",
