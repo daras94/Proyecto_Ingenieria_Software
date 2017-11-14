@@ -2,23 +2,32 @@ package com.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * Alumno
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T09:20:41.795Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 public class Alumno   {
   @JsonProperty("NIF")
   private String NIF = null;
 
+  @JsonProperty("Contrasenna")
+  private String contrasenna = null;
+
   @JsonProperty("Nombre")
   private String nombre = null;
 
-  @JsonProperty("Apellidos")
-  private String apellidos = null;
+  @JsonProperty("Apellido1")
+  private String apellido1 = null;
+
+  @JsonProperty("Apellido2")
+  private String apellido2 = null;
 
   @JsonProperty("FechaNacimiento")
   private Integer fechaNacimiento = null;
@@ -26,8 +35,8 @@ public class Alumno   {
   @JsonProperty("Email")
   private String email = null;
 
-  @JsonProperty("Carrera")
-  private String carrera = null;
+  @JsonProperty("CuentaCorriente")
+  private Integer cuentaCorriente = null;
 
   public Alumno NIF(String NIF) {
     this.NIF = NIF;
@@ -48,6 +57,27 @@ public class Alumno   {
 
   public void setNIF(String NIF) {
     this.NIF = NIF;
+  }
+
+  public Alumno contrasenna(String contrasenna) {
+    this.contrasenna = contrasenna;
+    return this;
+  }
+
+   /**
+   * Get contrasenna
+   * @return contrasenna
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public String getContrasenna() {
+    return contrasenna;
+  }
+
+  public void setContrasenna(String contrasenna) {
+    this.contrasenna = contrasenna;
   }
 
   public Alumno nombre(String nombre) {
@@ -71,25 +101,46 @@ public class Alumno   {
     this.nombre = nombre;
   }
 
-  public Alumno apellidos(String apellidos) {
-    this.apellidos = apellidos;
+  public Alumno apellido1(String apellido1) {
+    this.apellido1 = apellido1;
     return this;
   }
 
    /**
-   * Get apellidos
-   * @return apellidos
+   * Get apellido1
+   * @return apellido1
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public String getApellidos() {
-    return apellidos;
+  public String getApellido1() {
+    return apellido1;
   }
 
-  public void setApellidos(String apellidos) {
-    this.apellidos = apellidos;
+  public void setApellido1(String apellido1) {
+    this.apellido1 = apellido1;
+  }
+
+  public Alumno apellido2(String apellido2) {
+    this.apellido2 = apellido2;
+    return this;
+  }
+
+   /**
+   * Get apellido2
+   * @return apellido2
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public String getApellido2() {
+    return apellido2;
+  }
+
+  public void setApellido2(String apellido2) {
+    this.apellido2 = apellido2;
   }
 
   public Alumno fechaNacimiento(Integer fechaNacimiento) {
@@ -134,25 +185,25 @@ public class Alumno   {
     this.email = email;
   }
 
-  public Alumno carrera(String carrera) {
-    this.carrera = carrera;
+  public Alumno cuentaCorriente(Integer cuentaCorriente) {
+    this.cuentaCorriente = cuentaCorriente;
     return this;
   }
 
    /**
-   * Get carrera
-   * @return carrera
+   * Get cuentaCorriente
+   * @return cuentaCorriente
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public String getCarrera() {
-    return carrera;
+  public Integer getCuentaCorriente() {
+    return cuentaCorriente;
   }
 
-  public void setCarrera(String carrera) {
-    this.carrera = carrera;
+  public void setCuentaCorriente(Integer cuentaCorriente) {
+    this.cuentaCorriente = cuentaCorriente;
   }
 
 
@@ -166,16 +217,18 @@ public class Alumno   {
     }
     Alumno alumno = (Alumno) o;
     return Objects.equals(this.NIF, alumno.NIF) &&
+        Objects.equals(this.contrasenna, alumno.contrasenna) &&
         Objects.equals(this.nombre, alumno.nombre) &&
-        Objects.equals(this.apellidos, alumno.apellidos) &&
+        Objects.equals(this.apellido1, alumno.apellido1) &&
+        Objects.equals(this.apellido2, alumno.apellido2) &&
         Objects.equals(this.fechaNacimiento, alumno.fechaNacimiento) &&
         Objects.equals(this.email, alumno.email) &&
-        Objects.equals(this.carrera, alumno.carrera);
+        Objects.equals(this.cuentaCorriente, alumno.cuentaCorriente);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(NIF, nombre, apellidos, fechaNacimiento, email, carrera);
+    return Objects.hash(NIF, contrasenna, nombre, apellido1, apellido2, fechaNacimiento, email, cuentaCorriente);
   }
 
   @Override
@@ -184,11 +237,13 @@ public class Alumno   {
     sb.append("class Alumno {\n");
     
     sb.append("    NIF: ").append(toIndentedString(NIF)).append("\n");
+    sb.append("    contrasenna: ").append(toIndentedString(contrasenna)).append("\n");
     sb.append("    nombre: ").append(toIndentedString(nombre)).append("\n");
-    sb.append("    apellidos: ").append(toIndentedString(apellidos)).append("\n");
+    sb.append("    apellido1: ").append(toIndentedString(apellido1)).append("\n");
+    sb.append("    apellido2: ").append(toIndentedString(apellido2)).append("\n");
     sb.append("    fechaNacimiento: ").append(toIndentedString(fechaNacimiento)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    carrera: ").append(toIndentedString(carrera)).append("\n");
+    sb.append("    cuentaCorriente: ").append(toIndentedString(cuentaCorriente)).append("\n");
     sb.append("}");
     return sb.toString();
   }

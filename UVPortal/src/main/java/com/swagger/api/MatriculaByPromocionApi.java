@@ -5,7 +5,7 @@
  */
 package com.swagger.api;
 
-import com.swagger.model.Alumno;
+import com.swagger.model.Matricula;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -23,39 +23,39 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
-@Api(value = "alumnoByNIF", description = "the alumnoByNIF API")
-public interface AlumnoByNIFApi {
+@Api(value = "matriculaByPromocion", description = "the matriculaByPromocion API")
+public interface MatriculaByPromocionApi {
 
-    @ApiOperation(value = "Eliminar alumno por NIF", notes = "Eliminar la cuenta de un almuno por NIF", response = Void.class, tags={ "Alumno", })
+    @ApiOperation(value = "Eliminar matricula por la promocion del alumno", notes = "Eliminar la matricula de la base de datos de una promocion (si la base de datos lo permite)", response = Void.class, tags={ "Matricula", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/alumnoByNIF/{NIF}",
+    @RequestMapping(value = "/matriculaByPromocion/{promocion}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> alumnoByNIFNIFDelete(@ApiParam(value = "NIF del alumno",required=true ) @PathVariable("NIF") String NIF);
+    ResponseEntity<Void> matriculaByPromocionPromocionDelete(@ApiParam(value = "Promocion de la matricula",required=true ) @PathVariable("promocion") Integer promocion);
 
 
-    @ApiOperation(value = "Obtener alumno por NIF", notes = "Busqueda de la informacion de un alumno con su NIF", response = Alumno.class, tags={ "Alumno", })
+    @ApiOperation(value = "Obtener la matricula de un alumno de un anno especifico", notes = "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.", response = Matricula.class, tags={ "Matricula", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Operacion realizada con exito", response = Alumno.class),
+        @ApiResponse(code = 200, message = "Operacion realizada con exito", response = Matricula.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/alumnoByNIF/{NIF}",
+    @RequestMapping(value = "/matriculaByPromocion/{promocion}",
         method = RequestMethod.GET)
-    ResponseEntity<Alumno> alumnoByNIFNIFGet(@ApiParam(value = "NIF del alumno",required=true ) @PathVariable("NIF") String NIF);
+    ResponseEntity<Matricula> matriculaByPromocionPromocionGet(@ApiParam(value = "Promocion de la matricula que se esta buscando",required=true ) @PathVariable("promocion") Integer promocion);
 
 
-    @ApiOperation(value = "Actualizar alumno", notes = "Actualizacion de la informacion de la cuenta de un alumno", response = Void.class, tags={ "Alumno", })
+    @ApiOperation(value = "Actualizar matricula por promocion de un alumno", notes = "Actualizacion de la informacion de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)", response = Void.class, tags={ "Matricula", })
     @ApiResponses(value = { 
         @ApiResponse(code = 202, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/alumnoByNIF/{NIF}",
+    @RequestMapping(value = "/matriculaByPromocion/{promocion}",
         method = RequestMethod.PUT)
-    ResponseEntity<Void> alumnoByNIFNIFPut(@ApiParam(value = "NIF del alumno que se quiere actualizar",required=true ) @PathVariable("NIF") String NIF,@ApiParam(value = "Objeto JSON del contenido del alumno" ,required=true )  @Valid @RequestBody Alumno alumno);
+    ResponseEntity<Void> matriculaByPromocionPromocionPut(@ApiParam(value = "Promocion de la matricula que se quiere actualizar",required=true ) @PathVariable("promocion") Integer promocion,@ApiParam(value = "Objeto JSON del contenido de la matricula" ,required=true )  @Valid @RequestBody Matricula matricula);
 
 }

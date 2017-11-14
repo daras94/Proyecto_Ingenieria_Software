@@ -21,41 +21,41 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T09:20:41.795Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 @Api(value = "asignaturaById", description = "the asignaturaById API")
 public interface AsignaturaByIdApi {
 
-    @ApiOperation(value = "Eliminar asignatura por ID", notes = "Eliminar la asignatura de la base de datos por su ID", response = Void.class, tags={ "Asignatura", })
+    @ApiOperation(value = "Eliminar asignatura por codigo", notes = "Eliminar la asignatura de la base de datos por su codigo", response = Void.class, tags={ "Asignatura", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/asignaturaById/{ID}",
+    @RequestMapping(value = "/asignaturaById/{code}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> asignaturaByIdIDDelete(@ApiParam(value = "ID de la asignatura",required=true ) @PathVariable("ID") Integer ID);
+    ResponseEntity<Void> asignaturaByIdCodeDelete(@ApiParam(value = "Codigo de la asignatura",required=true ) @PathVariable("code") Integer code);
 
 
-    @ApiOperation(value = "Obtener asignatura por ID", notes = "Busqueda de la informacion de una asignatura con su ID", response = Asignatura.class, tags={ "Asignatura", })
+    @ApiOperation(value = "Obtener asignatura por su codigo", notes = "Busqueda de la informacion de una asignatura con su codigo", response = Asignatura.class, tags={ "Asignatura", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Operacion realizada con exito", response = Asignatura.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/asignaturaById/{ID}",
+    @RequestMapping(value = "/asignaturaById/{code}",
         method = RequestMethod.GET)
-    ResponseEntity<Asignatura> asignaturaByIdIDGet(@ApiParam(value = "ID de la asignatura",required=true ) @PathVariable("ID") Integer ID);
+    ResponseEntity<Asignatura> asignaturaByIdCodeGet(@ApiParam(value = "Codigo de la asignatura",required=true ) @PathVariable("code") Integer code);
 
 
-    @ApiOperation(value = "Actualizar asignatura por ID", notes = "Actualizacion de la informacion de una asignatura.", response = Void.class, tags={ "Asignatura", })
+    @ApiOperation(value = "Actualizar asignatura por codigo", notes = "Actualizacion de la informacion de una asignatura.", response = Void.class, tags={ "Asignatura", })
     @ApiResponses(value = { 
         @ApiResponse(code = 202, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/asignaturaById/{ID}",
+    @RequestMapping(value = "/asignaturaById/{code}",
         method = RequestMethod.PUT)
-    ResponseEntity<Void> asignaturaByIdIDPut(@ApiParam(value = "ID de la asignatura que se quiere actualizar",required=true ) @PathVariable("ID") Integer ID,@ApiParam(value = "Objeto JSON del contenido de la asignatura" ,required=true )  @Valid @RequestBody Asignatura asignatura);
+    ResponseEntity<Void> asignaturaByIdCodePut(@ApiParam(value = "Codigo de la asignatura que se quiere actualizar",required=true ) @PathVariable("code") Integer code,@ApiParam(value = "Objeto JSON del contenido de la asignatura" ,required=true )  @Valid @RequestBody Asignatura asignatura);
 
 }

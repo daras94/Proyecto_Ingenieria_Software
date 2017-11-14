@@ -1,6 +1,6 @@
 package com.swagger.api;
 
-import com.swagger.model.Asignatura;
+import com.swagger.model.Matricula;
 
 import io.swagger.annotations.*;
 
@@ -21,22 +21,22 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 @Controller
-public class AsignaturaByIdApiController implements AsignaturaByIdApi {
+public class MatriculaByPromocionApiController implements MatriculaByPromocionApi {
 
 
 
-    public ResponseEntity<Void> asignaturaByIdCodeDelete(@ApiParam(value = "Codigo de la asignatura",required=true ) @PathVariable("code") Integer code) {
+    public ResponseEntity<Void> matriculaByPromocionPromocionDelete(@ApiParam(value = "Promocion de la matricula",required=true ) @PathVariable("promocion") Integer promocion) {
         // do some magic!
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Asignatura> asignaturaByIdCodeGet(@ApiParam(value = "Codigo de la asignatura",required=true ) @PathVariable("code") Integer code) {
+    public ResponseEntity<Matricula> matriculaByPromocionPromocionGet(@ApiParam(value = "Promocion de la matricula que se esta buscando",required=true ) @PathVariable("promocion") Integer promocion) {
         // do some magic!
-        return new ResponseEntity<Asignatura>(HttpStatus.OK);
+        return new ResponseEntity<Matricula>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> asignaturaByIdCodePut(@ApiParam(value = "Codigo de la asignatura que se quiere actualizar",required=true ) @PathVariable("code") Integer code,
-        @ApiParam(value = "Objeto JSON del contenido de la asignatura" ,required=true )  @Valid @RequestBody Asignatura asignatura) {
+    public ResponseEntity<Void> matriculaByPromocionPromocionPut(@ApiParam(value = "Promocion de la matricula que se quiere actualizar",required=true ) @PathVariable("promocion") Integer promocion,
+        @ApiParam(value = "Objeto JSON del contenido de la matricula" ,required=true )  @Valid @RequestBody Matricula matricula) {
         // do some magic!
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

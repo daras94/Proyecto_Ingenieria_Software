@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/UVPortal" allowCasualMultipartParsing="true" >
-    <!--   MySQL conection Cofig    -->
-    <Resource name="jdbc/mysql_UV" auth="Container" type="javax.sql.DataSource" maxActive="100" 
-              maxIdle="30" maxWait="10000" removeAbandoned="true" username="Admin" password="isa2017" 
-              driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/UVisa2017" 
-    />
-
+<Context allowCasualMultipartParsing="true" antiJARLocking="true" path="/UVPortal">
+  <!--   MySQL conection Cofig    -->
+  <Resource auth="Container" 
+            driverClassName="com.mysql.jdbc.Driver" 
+            maxActive="100" 
+            maxIdle="30" 
+            maxWait="10000" 
+            name="jdbc/mysql_UV" 
+            password="isa2017" 
+            removeAbandoned="true" 
+            type="javax.sql.DataSource" 
+            url="jdbc:mysql://localhost/UVisa2017" 
+            username="Admin"/>
 </Context>

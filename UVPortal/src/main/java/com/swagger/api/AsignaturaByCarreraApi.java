@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T09:20:41.795Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 @Api(value = "asignaturaByCarrera", description = "the asignaturaByCarrera API")
 public interface AsignaturaByCarreraApi {
@@ -32,7 +32,8 @@ public interface AsignaturaByCarreraApi {
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/asignaturaByCarrera/{Carrera}", method = RequestMethod.GET)
-    ResponseEntity<List<Asignatura>> asignaturaByCarreraCarreraGet(@ApiParam(value = "Carrera de la asignaturas que se quieren obtener",required=true ) @PathVariable("Carrera") String carrera);
+    @RequestMapping(value = "/asignaturaByCarrera/{code}",
+        method = RequestMethod.GET)
+    ResponseEntity<List<Asignatura>> asignaturaByCarreraCodeGet(@ApiParam(value = "Codigo de la carrera de la asignaturas que se quieren obtener",required=true ) @PathVariable("code") String code);
 
 }

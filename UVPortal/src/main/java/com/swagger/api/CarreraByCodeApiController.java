@@ -21,11 +21,22 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 @Controller
-public class CarreraApiController implements CarreraApi {
+public class CarreraByCodeApiController implements CarreraByCodeApi {
 
 
 
-    public ResponseEntity<Void> carreraPost(@ApiParam(value = "Objeto JSON del contenido de la carrera" ,required=true )  @Valid @RequestBody Carrera carrera) {
+    public ResponseEntity<Void> carreraByCodeCodeDelete(@ApiParam(value = "Codigo de la carrera",required=true ) @PathVariable("code") Integer code) {
+        // do some magic!
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Carrera> carreraByCodeCodeGet(@ApiParam(value = "Codigo de la carrera",required=true ) @PathVariable("code") Integer code) {
+        // do some magic!
+        return new ResponseEntity<Carrera>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> carreraByCodeCodePut(@ApiParam(value = "Codigo de la carrera que se quiere actualizar",required=true ) @PathVariable("code") Integer code,
+        @ApiParam(value = "Objeto JSON del contenido de la carrera" ,required=true )  @Valid @RequestBody Carrera carrera) {
         // do some magic!
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
