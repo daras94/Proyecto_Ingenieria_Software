@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>UVPortal</name>
-	<description>Spring Demo Project</description>
+	<description>Proyecto niversidad villa mayor isa</description>
 	<parent>
 	    <groupId>org.springframework.boot</groupId>
   	    <artifactId>spring-boot-starter-parent</artifactId>
