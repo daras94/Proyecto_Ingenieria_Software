@@ -460,8 +460,8 @@
           "Matricula"
         ],
         "summary": "Obtener la matricula de un alumno de un anno especifico",
-        "description": "Devuelve la matricula con una lista de codigos de las asignaturas matriculadas.",
-        "parametres": [
+        "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters": [
           {
             "name": "Promocion",
             "in": "path",
@@ -664,7 +664,9 @@
         },
         "Codigos_Asignatura": {
           "type": "array",
-          "items": "integer"
+          "items": {
+            "type": "integer"
+          }
         }
       }
     }
