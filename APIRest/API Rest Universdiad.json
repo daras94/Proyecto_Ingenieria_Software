@@ -167,7 +167,7 @@
         }
       }
     },
-    "/asignaturaById/{Code}": {
+    "/asignaturaById/{code}": {
       "get": {
         "tags": [
           "Asignatura"
@@ -176,7 +176,7 @@
         "description": "Busqueda de la informacion de una asignatura con su codigo",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la asignatura",
@@ -206,7 +206,7 @@
         "description": "Eliminar la asignatura de la base de datos por su codigo",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la asignatura",
@@ -233,7 +233,7 @@
         "description": "Actualizacion de la informacion de una asignatura.",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la asignatura que se quiere actualizar",
@@ -262,7 +262,7 @@
         }
       }
     },
-    "/asignaturaByCarrera/{Code}": {
+    "/asignaturaByCarrera/{code}": {
       "get": {
         "tags": [
           "Asignatura"
@@ -271,7 +271,7 @@
         "description": "Busqueda de la asignaturas por carrera",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la carrera de la asignaturas que se quieren obtener",
@@ -328,7 +328,7 @@
         }
       }
     },
-    "/carreraByCode/{Code}": {
+    "/carreraByCode/{code}": {
       "get": {
         "tags": [
           "Carrera"
@@ -337,7 +337,7 @@
         "description": "Busqueda de la informacion de una carrera con su codigo",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la carrera",
@@ -367,7 +367,7 @@
         "description": "Eliminar la carrera de la base de datos por ID de usuario",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la carrera",
@@ -394,7 +394,7 @@
         "description": "Actualizacion de la informacion de una carrera.",
         "parameters": [
           {
-            "name": "Code",
+            "name": "code",
             "in": "path",
             "required": true,
             "description": "Codigo de la carrera que se quiere actualizar",
@@ -454,7 +454,7 @@
         }
       }
     },
-    "/matriculaByPromocion/{Promocion}": {
+    "/matriculaByPromocion/{promocion}": {
       "get": {
         "tags": [
           "Matricula"
@@ -463,7 +463,7 @@
         "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
         "parameters": [
           {
-            "name": "Promocion",
+            "name": "promocion",
             "in": "path",
             "required": true,
             "description": "Promocion de la matricula que se esta buscando",
@@ -493,7 +493,7 @@
         "description": "Actualizacion de la informacion de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
         "parameters": [
           {
-            "name": "Promocion",
+            "name": "promocion",
             "in": "path",
             "required": true,
             "description": "Promocion de la matricula que se quiere actualizar",
@@ -529,7 +529,7 @@
         "description": "Eliminar la matricula de la base de datos de una promocion (si la base de datos lo permite)",
         "parameters": [
           {
-            "name": "Promocion",
+            "name": "promocion",
             "in": "path",
             "required": true,
             "description": "Promocion de la matricula",
