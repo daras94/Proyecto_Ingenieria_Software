@@ -2,23 +2,59 @@ package com.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * Carrera
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T09:20:41.795Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 public class Carrera   {
+  @JsonProperty("Codigo")
+  private Integer codigo = null;
+
   @JsonProperty("Nombre")
   private String nombre = null;
 
   @JsonProperty("Facultad")
   private String facultad = null;
 
-  @JsonProperty("Rama")
-  private String rama = null;
+  @JsonProperty("Numero_Creditos")
+  private Integer numeroCreditos = null;
+
+  @JsonProperty("Numero_Creditos_Optativos")
+  private Integer numeroCreditosOptativos = null;
+
+  @JsonProperty("Numero_Creditos_Obligatorios")
+  private Integer numeroCreditosObligatorios = null;
+
+  @JsonProperty("Numero_Creditos_Transversales")
+  private Integer numeroCreditosTransversales = null;
+
+  public Carrera codigo(Integer codigo) {
+    this.codigo = codigo;
+    return this;
+  }
+
+   /**
+   * Get codigo
+   * @return codigo
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public Integer getCodigo() {
+    return codigo;
+  }
+
+  public void setCodigo(Integer codigo) {
+    this.codigo = codigo;
+  }
 
   public Carrera nombre(String nombre) {
     this.nombre = nombre;
@@ -62,25 +98,88 @@ public class Carrera   {
     this.facultad = facultad;
   }
 
-  public Carrera rama(String rama) {
-    this.rama = rama;
+  public Carrera numeroCreditos(Integer numeroCreditos) {
+    this.numeroCreditos = numeroCreditos;
     return this;
   }
 
    /**
-   * Get rama
-   * @return rama
+   * Get numeroCreditos
+   * @return numeroCreditos
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public String getRama() {
-    return rama;
+  public Integer getNumeroCreditos() {
+    return numeroCreditos;
   }
 
-  public void setRama(String rama) {
-    this.rama = rama;
+  public void setNumeroCreditos(Integer numeroCreditos) {
+    this.numeroCreditos = numeroCreditos;
+  }
+
+  public Carrera numeroCreditosOptativos(Integer numeroCreditosOptativos) {
+    this.numeroCreditosOptativos = numeroCreditosOptativos;
+    return this;
+  }
+
+   /**
+   * Get numeroCreditosOptativos
+   * @return numeroCreditosOptativos
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public Integer getNumeroCreditosOptativos() {
+    return numeroCreditosOptativos;
+  }
+
+  public void setNumeroCreditosOptativos(Integer numeroCreditosOptativos) {
+    this.numeroCreditosOptativos = numeroCreditosOptativos;
+  }
+
+  public Carrera numeroCreditosObligatorios(Integer numeroCreditosObligatorios) {
+    this.numeroCreditosObligatorios = numeroCreditosObligatorios;
+    return this;
+  }
+
+   /**
+   * Get numeroCreditosObligatorios
+   * @return numeroCreditosObligatorios
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public Integer getNumeroCreditosObligatorios() {
+    return numeroCreditosObligatorios;
+  }
+
+  public void setNumeroCreditosObligatorios(Integer numeroCreditosObligatorios) {
+    this.numeroCreditosObligatorios = numeroCreditosObligatorios;
+  }
+
+  public Carrera numeroCreditosTransversales(Integer numeroCreditosTransversales) {
+    this.numeroCreditosTransversales = numeroCreditosTransversales;
+    return this;
+  }
+
+   /**
+   * Get numeroCreditosTransversales
+   * @return numeroCreditosTransversales
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public Integer getNumeroCreditosTransversales() {
+    return numeroCreditosTransversales;
+  }
+
+  public void setNumeroCreditosTransversales(Integer numeroCreditosTransversales) {
+    this.numeroCreditosTransversales = numeroCreditosTransversales;
   }
 
 
@@ -93,14 +192,18 @@ public class Carrera   {
       return false;
     }
     Carrera carrera = (Carrera) o;
-    return Objects.equals(this.nombre, carrera.nombre) &&
+    return Objects.equals(this.codigo, carrera.codigo) &&
+        Objects.equals(this.nombre, carrera.nombre) &&
         Objects.equals(this.facultad, carrera.facultad) &&
-        Objects.equals(this.rama, carrera.rama);
+        Objects.equals(this.numeroCreditos, carrera.numeroCreditos) &&
+        Objects.equals(this.numeroCreditosOptativos, carrera.numeroCreditosOptativos) &&
+        Objects.equals(this.numeroCreditosObligatorios, carrera.numeroCreditosObligatorios) &&
+        Objects.equals(this.numeroCreditosTransversales, carrera.numeroCreditosTransversales);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nombre, facultad, rama);
+    return Objects.hash(codigo, nombre, facultad, numeroCreditos, numeroCreditosOptativos, numeroCreditosObligatorios, numeroCreditosTransversales);
   }
 
   @Override
@@ -108,9 +211,13 @@ public class Carrera   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Carrera {\n");
     
+    sb.append("    codigo: ").append(toIndentedString(codigo)).append("\n");
     sb.append("    nombre: ").append(toIndentedString(nombre)).append("\n");
     sb.append("    facultad: ").append(toIndentedString(facultad)).append("\n");
-    sb.append("    rama: ").append(toIndentedString(rama)).append("\n");
+    sb.append("    numeroCreditos: ").append(toIndentedString(numeroCreditos)).append("\n");
+    sb.append("    numeroCreditosOptativos: ").append(toIndentedString(numeroCreditosOptativos)).append("\n");
+    sb.append("    numeroCreditosObligatorios: ").append(toIndentedString(numeroCreditosObligatorios)).append("\n");
+    sb.append("    numeroCreditosTransversales: ").append(toIndentedString(numeroCreditosTransversales)).append("\n");
     sb.append("}");
     return sb.toString();
   }

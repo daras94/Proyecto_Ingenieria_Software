@@ -5,7 +5,7 @@
  */
 package com.swagger.api;
 
-import com.swagger.model.Alumno;
+import com.swagger.model.Carrera;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -23,39 +23,39 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
-@Api(value = "alumnoByNIF", description = "the alumnoByNIF API")
-public interface AlumnoByNIFApi {
+@Api(value = "carreraByCode", description = "the carreraByCode API")
+public interface CarreraByCodeApi {
 
-    @ApiOperation(value = "Eliminar alumno por NIF", notes = "Eliminar la cuenta de un almuno por NIF", response = Void.class, tags={ "Alumno", })
+    @ApiOperation(value = "Eliminar carrera por el codigo", notes = "Eliminar la carrera de la base de datos por ID de usuario", response = Void.class, tags={ "Carrera", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/alumnoByNIF/{NIF}",
+    @RequestMapping(value = "/carreraByCode/{code}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> alumnoByNIFNIFDelete(@ApiParam(value = "NIF del alumno",required=true ) @PathVariable("NIF") String NIF);
+    ResponseEntity<Void> carreraByCodeCodeDelete(@ApiParam(value = "Codigo de la carrera",required=true ) @PathVariable("code") Integer code);
 
 
-    @ApiOperation(value = "Obtener alumno por NIF", notes = "Busqueda de la informacion de un alumno con su NIF", response = Alumno.class, tags={ "Alumno", })
+    @ApiOperation(value = "Obtener carrera por codigo", notes = "Busqueda de la informacion de una carrera con su codigo", response = Carrera.class, tags={ "Carrera", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Operacion realizada con exito", response = Alumno.class),
+        @ApiResponse(code = 200, message = "Operacion realizada con exito", response = Carrera.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/alumnoByNIF/{NIF}",
+    @RequestMapping(value = "/carreraByCode/{code}",
         method = RequestMethod.GET)
-    ResponseEntity<Alumno> alumnoByNIFNIFGet(@ApiParam(value = "NIF del alumno",required=true ) @PathVariable("NIF") String NIF);
+    ResponseEntity<Carrera> carreraByCodeCodeGet(@ApiParam(value = "Codigo de la carrera",required=true ) @PathVariable("code") Integer code);
 
 
-    @ApiOperation(value = "Actualizar alumno", notes = "Actualizacion de la informacion de la cuenta de un alumno", response = Void.class, tags={ "Alumno", })
+    @ApiOperation(value = "Actualizar carrera por code", notes = "Actualizacion de la informacion de una carrera.", response = Void.class, tags={ "Carrera", })
     @ApiResponses(value = { 
         @ApiResponse(code = 202, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/alumnoByNIF/{NIF}",
+    @RequestMapping(value = "/carreraByCode/{code}",
         method = RequestMethod.PUT)
-    ResponseEntity<Void> alumnoByNIFNIFPut(@ApiParam(value = "NIF del alumno que se quiere actualizar",required=true ) @PathVariable("NIF") String NIF,@ApiParam(value = "Objeto JSON del contenido del alumno" ,required=true )  @Valid @RequestBody Alumno alumno);
+    ResponseEntity<Void> carreraByCodeCodePut(@ApiParam(value = "Codigo de la carrera que se quiere actualizar",required=true ) @PathVariable("code") Integer code,@ApiParam(value = "Objeto JSON del contenido de la carrera" ,required=true )  @Valid @RequestBody Carrera carrera);
 
 }

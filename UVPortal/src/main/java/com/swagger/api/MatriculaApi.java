@@ -5,7 +5,7 @@
  */
 package com.swagger.api;
 
-import com.swagger.model.Asignatura;
+import com.swagger.model.Matricula;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +23,17 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
-@Api(value = "asignatura", description = "the asignatura API")
-public interface AsignaturaApi {
+@Api(value = "matricula", description = "the matricula API")
+public interface MatriculaApi {
 
-    @ApiOperation(value = "Introducir una nueva asignatura", notes = "Añadir una nueva asignatura a la base de datos", response = Void.class, tags={ "Asignatura", })
+    @ApiOperation(value = "Dar de alta una matricula", notes = "El usuario realiza una matricula a partir de la seleccion de varias asignaturas de una carrera", response = Void.class, tags={ "Matricula", })
     @ApiResponses(value = { 
         @ApiResponse(code = 202, message = "Operacion realizada con exito", response = Void.class),
         @ApiResponse(code = 405, message = "Operacion sin realizar", response = Void.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class) })
     
-    @RequestMapping(value = "/asignatura",
+    @RequestMapping(value = "/matricula",
         method = RequestMethod.POST)
-    ResponseEntity<Void> asignaturaPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Asignatura asignatura);
+    ResponseEntity<Void> matriculaPost(@ApiParam(value = "Objeto JSON del contenido de la matricula" ,required=true )  @Valid @RequestBody Matricula matricula);
 
 }

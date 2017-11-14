@@ -1,6 +1,6 @@
 package com.swagger.api;
 
-import com.swagger.model.Carrera;
+import com.swagger.model.Matricula;
 
 import io.swagger.annotations.*;
 
@@ -21,11 +21,11 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-11-14T22:58:49.788Z")
 
 @Controller
-public class CarreraApiController implements CarreraApi {
+public class MatriculaApiController implements MatriculaApi {
 
 
 
-    public ResponseEntity<Void> carreraPost(@ApiParam(value = "Objeto JSON del contenido de la carrera" ,required=true )  @Valid @RequestBody Carrera carrera) {
+    public ResponseEntity<Void> matriculaPost(@ApiParam(value = "Objeto JSON del contenido de la matricula" ,required=true )  @Valid @RequestBody Matricula matricula) {
         // do some magic!
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
