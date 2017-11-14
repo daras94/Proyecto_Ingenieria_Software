@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/UVPortal"/>
+<Context antiJARLocking="true" path="/UVPortal" allowCasualMultipartParsing="true" >
+    <!--   MySQL conection Cofig    -->
+    <Resource name="jdbc/mysql_UV" auth="Container" type="javax.sql.DataSource" maxActive="100" 
+              maxIdle="30" maxWait="10000" removeAbandoned="true" username="Admin" password="isa2017" 
+              driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/UVisa2017" 
+    />
+
+</Context>
