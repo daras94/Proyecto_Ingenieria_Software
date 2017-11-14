@@ -27,7 +27,7 @@
         </header>
         <!-- Banner -->
         <section id="banner">
-            <h1>Welcome to Theory</h1>
+            <h1>Welcome to University Villamayor</h1>
             <p>A free responsive HTML5 website template by TEMPLATED.</p>
         </section>
         <!-- One -->
