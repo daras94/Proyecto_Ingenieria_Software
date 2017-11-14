@@ -5,10 +5,7 @@
     "title": "API Universidad Villamayor",
     "description": "API Rest de la Universidad de Villamayor para acceder a los recursos del sistema."
   },
-  "schemes": [
-    "https"
-  ],
-  "host": "simple.api",
+  "host": "localhost:9000",
   "basePath": "/openapi101",
   "paths": {
     "/alumno": {
