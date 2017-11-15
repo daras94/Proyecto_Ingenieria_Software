@@ -5,10 +5,7 @@
     "title": "API Universidad Villamayor",
     "description": "API Rest de la Universidad de Villamayor para acceder a los recursos del sistema."
   },
-  "schemes": [
-    "https"
-  ],
-  "host": "simple.api",
+  "host": "localhost:9000",
   "basePath": "/openapi101",
   "paths": {
     "/alumno": {
@@ -167,19 +164,19 @@
         }
       }
     },
-    "/asignaturaById/{ID}": {
+    "/asignaturaById/{code}": {
       "get": {
         "tags": [
           "Asignatura"
         ],
-        "summary": "Obtener asignatura por ID",
-        "description": "Busqueda de la informacion de una asignatura con su ID",
+        "summary": "Obtener asignatura por su codigo",
+        "description": "Busqueda de la informacion de una asignatura con su codigo",
         "parameters": [
           {
-            "name": "ID",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "ID de la asignatura",
+            "description": "Codigo de la asignatura",
             "type": "integer"
           }
         ],
@@ -202,14 +199,14 @@
         "tags": [
           "Asignatura"
         ],
-        "summary": "Eliminar asignatura por ID",
-        "description": "Eliminar la asignatura de la base de datos por su ID",
+        "summary": "Eliminar asignatura por codigo",
+        "description": "Eliminar la asignatura de la base de datos por su codigo",
         "parameters": [
           {
-            "name": "ID",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "ID de la asignatura",
+            "description": "Codigo de la asignatura",
             "type": "integer"
           }
         ],
@@ -229,14 +226,14 @@
         "tags": [
           "Asignatura"
         ],
-        "summary": "Actualizar asignatura por ID",
+        "summary": "Actualizar asignatura por codigo",
         "description": "Actualizacion de la informacion de una asignatura.",
         "parameters": [
           {
-            "name": "ID",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "ID de la asignatura que se quiere actualizar",
+            "description": "Codigo de la asignatura que se quiere actualizar",
             "type": "integer"
           },
           {
@@ -262,7 +259,7 @@
         }
       }
     },
-    "/asignaturaByCarrera/{Carrera}": {
+    "/asignaturaByCarrera/{code}": {
       "get": {
         "tags": [
           "Asignatura"
@@ -271,10 +268,10 @@
         "description": "Busqueda de la asignaturas por carrera",
         "parameters": [
           {
-            "name": "Carrera",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "Carrera de la asignaturas que se quieren obtener",
+            "description": "Codigo de la carrera de la asignaturas que se quieren obtener",
             "type": "string"
           }
         ],
@@ -328,19 +325,19 @@
         }
       }
     },
-    "/carreraByID/{ID}": {
+    "/carreraByCode/{code}": {
       "get": {
         "tags": [
           "Carrera"
         ],
-        "summary": "Obtener carrera por ID",
-        "description": "Busqueda de la informacion de una carrera con su ID",
+        "summary": "Obtener carrera por codigo",
+        "description": "Busqueda de la informacion de una carrera con su codigo",
         "parameters": [
           {
-            "name": "ID",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "ID de la carrera",
+            "description": "Codigo de la carrera",
             "type": "integer"
           }
         ],
@@ -363,14 +360,14 @@
         "tags": [
           "Carrera"
         ],
-        "summary": "Eliminar carrera por ID",
+        "summary": "Eliminar carrera por el codigo",
         "description": "Eliminar la carrera de la base de datos por ID de usuario",
         "parameters": [
           {
-            "name": "ID",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "ID de la carrera",
+            "description": "Codigo de la carrera",
             "type": "integer"
           }
         ],
@@ -390,14 +387,14 @@
         "tags": [
           "Carrera"
         ],
-        "summary": "Actualizar carrera por ID",
+        "summary": "Actualizar carrera por code",
         "description": "Actualizacion de la informacion de una carrera.",
         "parameters": [
           {
-            "name": "ID",
+            "name": "code",
             "in": "path",
             "required": true,
-            "description": "ID de la carrera que se quiere actualizar",
+            "description": "Codigo de la carrera que se quiere actualizar",
             "type": "integer"
           },
           {
@@ -422,6 +419,132 @@
           }
         }
       }
+    },
+    "/matricula": {
+      "post": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Dar de alta una matricula",
+        "description": "El usuario realiza una matricula a partir de la seleccion de varias asignaturas de una carrera",
+        "parameters": [
+          {
+            "name": "matricula",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la matricula",
+            "schema": {
+              "$ref": "#/definitions/Matricula"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/matriculaByPromocion/{promocion}": {
+      "get": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Obtener la matricula de un alumno de un anno especifico",
+        "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters": [
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "Promocion de la matricula que se esta buscando",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Matricula"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Actualizar matricula por promocion de un alumno",
+        "description": "Actualizacion de la informacion de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
+        "parameters": [
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "Promocion de la matricula que se quiere actualizar",
+            "type": "integer"
+          },
+          {
+            "name": "matricula",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la matricula",
+            "schema": {
+              "$ref": "#/definitions/Matricula"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Eliminar matricula por la promocion del alumno",
+        "description": "Eliminar la matricula de la base de datos de una promocion (si la base de datos lo permite)",
+        "parameters": [
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "Promocion de la matricula",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -429,20 +552,28 @@
       "type": "object",
       "required": [
         "NIF",
+        "CuentaCorriente",
+        "Contrasenna",
         "Nombre",
-        "Apellidos",
+        "Apellido1",
+        "Apellido2",
         "FechaNacimiento",
-        "Email",
-        "Carrera"
+        "Email"
       ],
       "properties": {
         "NIF": {
           "type": "string"
         },
+        "Contrasenna": {
+          "type": "string"
+        },
         "Nombre": {
           "type": "string"
         },
-        "Apellidos": {
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
           "type": "string"
         },
         "FechaNacimiento": {
@@ -451,39 +582,31 @@
         "Email": {
           "type": "string"
         },
-        "Carrera": {
-          "type": "string"
+        "CuentaCorriente": {
+          "type": "integer"
         }
       }
     },
     "Asignatura": {
       "type": "object",
       "required": [
+        "Codigo",
         "Nombre",
-        "Carrera",
-        "Coordinador",
         "Tipo",
-        "Curso",
-        "Rama",
-        "Creditos"
+        "Creditos",
+        "Carrera"
       ],
       "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
         "Nombre": {
           "type": "string"
         },
         "Carrera": {
-          "type": "string"
-        },
-        "Coordinador": {
-          "type": "string"
+          "type": "integer"
         },
         "Tipo": {
-          "type": "string"
-        },
-        "Curso": {
-          "type": "string"
-        },
-        "Rama": {
           "type": "string"
         },
         "Creditos": {
@@ -494,19 +617,53 @@
     "Carrera": {
       "type": "object",
       "required": [
+        "Codigo",
         "Nombre",
         "Facultad",
-        "Rama"
+        "Numero_Creditos",
+        "Numero_Creditos_Optativos",
+        "Numero_Creditos_Obligatorios",
+        "Numero_Creditos_Transversales"
       ],
       "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
         "Nombre": {
           "type": "string"
         },
         "Facultad": {
           "type": "string"
         },
-        "Rama": {
-          "type": "string"
+        "Numero_Creditos": {
+          "type": "integer"
+        },
+        "Numero_Creditos_Optativos": {
+          "type": "integer"
+        },
+        "Numero_Creditos_Obligatorios": {
+          "type": "integer"
+        },
+        "Numero_Creditos_Transversales": {
+          "type": "integer"
+        }
+      }
+    },
+    "Matricula": {
+      "type": "object",
+      "required": [
+        "ID_Alumno",
+        "Codigos_Asignatura"
+      ],
+      "properties": {
+        "ID_Alumno": {
+          "type": "integer"
+        },
+        "Codigos_Asignatura": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
         }
       }
     }
