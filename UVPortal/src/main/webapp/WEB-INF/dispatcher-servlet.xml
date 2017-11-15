@@ -38,6 +38,8 @@
         <property name="mappings">
             <props>
                 <prop key="index.html">indexController</prop>
+                <prop key="generic.html">genericController</prop>
+                <prop key="elements.html">elementsController</prop>
             </props>
         </property>
     </bean>
@@ -55,6 +57,20 @@
     -->
     <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName" value="index"/>
+    </bean> 
+    
+    <!--    
+        The generic cotroller    
+    -->
+    <bean name="genericController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="generic"/>
+    </bean> 
+    
+    <!--    
+        The generic cotroller    
+    -->
+    <bean name="elementsController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="elements"/>
     </bean> 
     
 </beans>
