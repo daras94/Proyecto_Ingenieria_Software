@@ -9,7 +9,7 @@
         <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
     <context-param>
-        <description>Conexion MySQL a la BD TM-Music</description>
+        <description>Conexion MySQL a la BD UV</description>
         <param-name>conexion</param-name>
         <param-value/>
     </context-param>
