@@ -25,6 +25,7 @@ public class AlumnoApiController implements AlumnoApi {
 
 
 
+    @Override
     public ResponseEntity<Void> alumnoPost(@ApiParam(value = "Objeto JSON del contenido del alumno" ,required=true )  @Valid @RequestBody Alumno alumno) {
         // do some magic!
         return new ResponseEntity<Void>(HttpStatus.OK);
