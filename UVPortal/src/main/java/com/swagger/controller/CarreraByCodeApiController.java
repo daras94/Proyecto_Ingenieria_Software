@@ -1,5 +1,6 @@
-package com.swagger.api;
+package com.swagger.controller;
 
+import com.swagger.api.CarreraByCodeApi;
 import com.swagger.model.Carrera;
 
 import io.swagger.annotations.*;
@@ -25,20 +26,23 @@ public class CarreraByCodeApiController implements CarreraByCodeApi {
 
 
 
+    @Override
     public ResponseEntity<Void> carreraByCodeCodeDelete(@ApiParam(value = "Codigo de la carrera",required=true ) @PathVariable("code") Integer code) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Carrera> carreraByCodeCodeGet(@ApiParam(value = "Codigo de la carrera",required=true ) @PathVariable("code") Integer code) {
         // do some magic!
-        return new ResponseEntity<Carrera>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Void> carreraByCodeCodePut(@ApiParam(value = "Codigo de la carrera que se quiere actualizar",required=true ) @PathVariable("code") Integer code,
         @ApiParam(value = "Objeto JSON del contenido de la carrera" ,required=true )  @Valid @RequestBody Carrera carrera) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

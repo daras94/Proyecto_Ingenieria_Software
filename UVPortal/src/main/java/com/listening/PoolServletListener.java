@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.listener;
+package com.listening;
 
 
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public class PoolServletListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         try{
-            this.pool = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/mysql_UV"); //Mysql.
+            this.pool = (DataSource)new InitialContext().lookup("java:comp/env/jdbc/mysql_UV"); //Mysql.
             if (this.pool == null){
                 throw new ServletException("DataSource desconocida 'mysql_UV'");
             }

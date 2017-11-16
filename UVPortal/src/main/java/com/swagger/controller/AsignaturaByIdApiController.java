@@ -1,5 +1,6 @@
-package com.swagger.api;
+package com.swagger.controller;
 
+import com.swagger.api.AsignaturaByIdApi;
 import com.swagger.model.Asignatura;
 
 import io.swagger.annotations.*;
@@ -25,20 +26,23 @@ public class AsignaturaByIdApiController implements AsignaturaByIdApi {
 
 
 
+    @Override
     public ResponseEntity<Void> asignaturaByIdCodeDelete(@ApiParam(value = "Codigo de la asignatura",required=true ) @PathVariable("code") Integer code) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Asignatura> asignaturaByIdCodeGet(@ApiParam(value = "Codigo de la asignatura",required=true ) @PathVariable("code") Integer code) {
         // do some magic!
-        return new ResponseEntity<Asignatura>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Void> asignaturaByIdCodePut(@ApiParam(value = "Codigo de la asignatura que se quiere actualizar",required=true ) @PathVariable("code") Integer code,
         @ApiParam(value = "Objeto JSON del contenido de la asignatura" ,required=true )  @Valid @RequestBody Asignatura asignatura) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

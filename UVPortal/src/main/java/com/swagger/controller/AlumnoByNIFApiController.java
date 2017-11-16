@@ -1,5 +1,6 @@
-package com.swagger.api;
+package com.swagger.controller;
 
+import com.swagger.api.AlumnoByNIFApi;
 import com.swagger.model.Alumno;
 
 import io.swagger.annotations.*;
@@ -25,20 +26,23 @@ public class AlumnoByNIFApiController implements AlumnoByNIFApi {
 
 
 
+    @Override
     public ResponseEntity<Void> alumnoByNIFNIFDelete(@ApiParam(value = "NIF del alumno",required=true ) @PathVariable("NIF") String NIF) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Alumno> alumnoByNIFNIFGet(@ApiParam(value = "NIF del alumno",required=true ) @PathVariable("NIF") String NIF) {
         // do some magic!
-        return new ResponseEntity<Alumno>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Void> alumnoByNIFNIFPut(@ApiParam(value = "NIF del alumno que se quiere actualizar",required=true ) @PathVariable("NIF") String NIF,
         @ApiParam(value = "Objeto JSON del contenido del alumno" ,required=true )  @Valid @RequestBody Alumno alumno) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
