@@ -1,5 +1,6 @@
-package com.swagger.api;
+package com.swagger.controller;
 
+import com.swagger.api.MatriculaByPromocionApi;
 import com.swagger.model.Matricula;
 
 import io.swagger.annotations.*;
@@ -25,20 +26,23 @@ public class MatriculaByPromocionApiController implements MatriculaByPromocionAp
 
 
 
+    @Override
     public ResponseEntity<Void> matriculaByPromocionPromocionDelete(@ApiParam(value = "Promocion de la matricula",required=true ) @PathVariable("promocion") Integer promocion) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Matricula> matriculaByPromocionPromocionGet(@ApiParam(value = "Promocion de la matricula que se esta buscando",required=true ) @PathVariable("promocion") Integer promocion) {
         // do some magic!
-        return new ResponseEntity<Matricula>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Void> matriculaByPromocionPromocionPut(@ApiParam(value = "Promocion de la matricula que se quiere actualizar",required=true ) @PathVariable("promocion") Integer promocion,
         @ApiParam(value = "Objeto JSON del contenido de la matricula" ,required=true )  @Valid @RequestBody Matricula matricula) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

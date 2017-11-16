@@ -1,5 +1,6 @@
-package com.swagger.api;
+package com.swagger.controller;
 
+import com.swagger.api.CarreraByIDApi;
 import com.swagger.model.Carrera;
 
 import io.swagger.annotations.*;
@@ -25,20 +26,23 @@ public class CarreraByIDApiController implements CarreraByIDApi {
 
 
 
+    @Override
     public ResponseEntity<Void> carreraByIDIDDelete(@ApiParam(value = "ID de la carrera",required=true ) @PathVariable("ID") Integer ID) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Carrera> carreraByIDIDGet(@ApiParam(value = "ID de la carrera",required=true ) @PathVariable("ID") Integer ID) {
         // do some magic!
-        return new ResponseEntity<Carrera>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<Void> carreraByIDIDPut(@ApiParam(value = "ID de la carrera que se quiere actualizar",required=true ) @PathVariable("ID") Integer ID,
         @ApiParam(value = "Objeto JSON del contenido de la carrera" ,required=true )  @Valid @RequestBody Carrera carrera) {
         // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
