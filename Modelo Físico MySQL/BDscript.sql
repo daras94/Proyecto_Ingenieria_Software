@@ -65,7 +65,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `UVisa2017`.`Usuario` ;
 
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`Usuario` (
-  `DNI` VARCHAR(9) NOT NULL,
+  `NIF` VARCHAR(9) NOT NULL,
   `tipo_user` ENUM('ADMIN', 'ALUMNO', 'PROFESOR') NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido1` VARCHAR(45) NOT NULL,
@@ -74,9 +74,9 @@ CREATE TABLE IF NOT EXISTS `UVisa2017`.`Usuario` (
   `email` VARCHAR(200) NOT NULL,
   `password` BINARY(64) NOT NULL,
   `CC` VARCHAR(24) CHARACTER SET 'utf8' NOT NULL,
-  PRIMARY KEY (`DNI`),
+  PRIMARY KEY (`NIF`),
   UNIQUE INDEX `correo_UNIQUE` (`email` ASC),
-  UNIQUE INDEX `DNI_UNIQUE` (`DNI` ASC))
+  UNIQUE INDEX `NIF_UNIQUE` (`NIF` ASC))
 ENGINE = InnoDB
 INSERT_METHOD = NO
 PACK_KEYS = DEFAULT;
@@ -88,21 +88,21 @@ PACK_KEYS = DEFAULT;
 DROP TABLE IF EXISTS `UVisa2017`.`Alumno` ;
 
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`Alumno` (
-  `Usuario_DNI` VARCHAR(9) NOT NULL,
+  `Usuario_NIF` VARCHAR(9) NOT NULL,
   `Cod_carrera` INT NOT NULL,
   `num_expediente` INT NOT NULL,
   UNIQUE INDEX `num_expediente_UNIQUE` (`num_expediente` ASC),
-  PRIMARY KEY (`Usuario_DNI`, `Cod_carrera`, `num_expediente`),
+  PRIMARY KEY (`Usuario_NIF`, `Cod_carrera`, `num_expediente`),
   INDEX `fk_Alumno_Carrera1_idx` (`Cod_carrera` ASC),
-  INDEX `fk_Alumno_Usuario1_idx` (`Usuario_DNI` ASC),
+  INDEX `fk_Alumno_Usuario1_idx` (`Usuario_NIF` ASC),
   CONSTRAINT `fk_Alumno_Carrera1`
     FOREIGN KEY (`Cod_carrera`)
     REFERENCES `UVisa2017`.`Carrera` (`cod_carrera`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Alumno_Usuario1`
-    FOREIGN KEY (`Usuario_DNI`)
-    REFERENCES `UVisa2017`.`Usuario` (`DNI`)
+    FOREIGN KEY (`Usuario_NIF`)
+    REFERENCES `UVisa2017`.`Usuario` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -139,17 +139,17 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `UVisa2017`.`Profesor` ;
 
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`Profesor` (
-  `DNI` VARCHAR(9) NOT NULL,
+  `NIF` VARCHAR(9) NOT NULL,
   `categoria` VARCHAR(45) NOT NULL,
   `antiguedad` INT NULL,
   `num_tramos_investigacion` INT NULL,
   `num_tramos_docentes` INT NULL,
   `departamento` INT NOT NULL,
-  PRIMARY KEY (`DNI`),
+  PRIMARY KEY (`NIF`),
   INDEX `fk_Profesor_Departamento1_idx` (`departamento` ASC),
   INDEX `fk_Profesor_Categoria1_idx` (`categoria` ASC),
-  INDEX `fk_Profesor_Usuario1_idx` (`DNI` ASC),
-  UNIQUE INDEX `DNI_UNIQUE` (`DNI` ASC),
+  INDEX `fk_Profesor_Usuario1_idx` (`NIF` ASC),
+  UNIQUE INDEX `NIF_UNIQUE` (`NIF` ASC),
   CONSTRAINT `fk_Profesor_Departamento1`
     FOREIGN KEY (`departamento`)
     REFERENCES `UVisa2017`.`Departamento` (`codigo`)
@@ -161,8 +161,8 @@ CREATE TABLE IF NOT EXISTS `UVisa2017`.`Profesor` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Profesor_Usuario1`
-    FOREIGN KEY (`DNI`)
-    REFERENCES `UVisa2017`.`Usuario` (`DNI`)
+    FOREIGN KEY (`NIF`)
+    REFERENCES `UVisa2017`.`Usuario` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -174,16 +174,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `UVisa2017`.`Nomina` ;
 
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`Nomina` (
-  `Profesor_DNI` VARCHAR(9) NOT NULL,
+  `Profesor_NIF` VARCHAR(9) NOT NULL,
   `numero` INT NOT NULL,
   `fecha` DATE NOT NULL,
   `Salario` DOUBLE NOT NULL,
-  PRIMARY KEY (`Profesor_DNI`, `numero`),
-  INDEX `fk_Nomina_Profesor1_idx` (`Profesor_DNI` ASC),
-  UNIQUE INDEX `Profesor_DNI_UNIQUE` (`Profesor_DNI` ASC),
+  PRIMARY KEY (`Profesor_NIF`, `numero`),
+  INDEX `fk_Nomina_Profesor1_idx` (`Profesor_NIF` ASC),
+  UNIQUE INDEX `Profesor_NIF_UNIQUE` (`Profesor_NIF` ASC),
   CONSTRAINT `fk_Nomina_Profesor1`
-    FOREIGN KEY (`Profesor_DNI`)
-    REFERENCES `UVisa2017`.`Profesor` (`DNI`)
+    FOREIGN KEY (`Profesor_NIF`)
+    REFERENCES `UVisa2017`.`Profesor` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -262,22 +262,22 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `UVisa2017`.`ReservaProfesor` ;
 
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`ReservaProfesor` (
-  `Profesor_DNI` VARCHAR(9) NOT NULL,
+  `Profesor_NIF` VARCHAR(9) NOT NULL,
   `ID_Espacio` INT NOT NULL,
   `fecha_hora` DATE NOT NULL,
   `importe` INT NOT NULL,
   `hora_salida` INT NOT NULL,
-  PRIMARY KEY (`Profesor_DNI`, `ID_Espacio`, `fecha_hora`),
+  PRIMARY KEY (`Profesor_NIF`, `ID_Espacio`, `fecha_hora`),
   INDEX `fk_ReservaProfesores_Espacio1_idx` (`ID_Espacio` ASC),
-  INDEX `fk_ReservaProfesor_Profesor1_idx` (`Profesor_DNI` ASC),
+  INDEX `fk_ReservaProfesor_Profesor1_idx` (`Profesor_NIF` ASC),
   CONSTRAINT `fk_ReservaProfesores_Espacio1`
     FOREIGN KEY (`ID_Espacio`)
     REFERENCES `UVisa2017`.`Espacio` (`codigo`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ReservaProfesor_Profesor1`
-    FOREIGN KEY (`Profesor_DNI`)
-    REFERENCES `UVisa2017`.`Profesor` (`DNI`)
+    FOREIGN KEY (`Profesor_NIF`)
+    REFERENCES `UVisa2017`.`Profesor` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -317,18 +317,18 @@ DROP TABLE IF EXISTS `UVisa2017`.`Profesor_Grupo` ;
 
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`Profesor_Grupo` (
   `grupo_id` INT NOT NULL,
-  `Profesor_DNI` VARCHAR(9) NOT NULL,
-  PRIMARY KEY (`grupo_id`, `Profesor_DNI`),
+  `Profesor_NIF` VARCHAR(9) NOT NULL,
+  PRIMARY KEY (`grupo_id`, `Profesor_NIF`),
   INDEX `fk_Profesor_has_Grupo_Grupo1_idx` (`grupo_id` ASC),
-  INDEX `fk_Profesor_Grupo_Profesor1_idx` (`Profesor_DNI` ASC),
+  INDEX `fk_Profesor_Grupo_Profesor1_idx` (`Profesor_NIF` ASC),
   CONSTRAINT `fk_Profesor_has_Grupo_Grupo1`
     FOREIGN KEY (`grupo_id`)
     REFERENCES `UVisa2017`.`Grupo` (`id_grupo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Profesor_Grupo_Profesor1`
-    FOREIGN KEY (`Profesor_DNI`)
-    REFERENCES `UVisa2017`.`Profesor` (`DNI`)
+    FOREIGN KEY (`Profesor_NIF`)
+    REFERENCES `UVisa2017`.`Profesor` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
