@@ -5,7 +5,6 @@
  */
 package Alumnos;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import javax.json.*;
 
@@ -49,7 +48,6 @@ public class Obtener_Alumnos_By_NIF {
             String sql = "SELECT * FROM Alumno NATURAL JOIN Usuario WHERE Usuario.DNI = '"+NIF+"';";
             sentencia = getConexion().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             resultado = sentencia.executeQuery(sql);
-            
        
         }
         catch(Exception e){
@@ -66,6 +64,7 @@ public class Obtener_Alumnos_By_NIF {
             conectar();
             ResultSet resultado = consulta_BDD(DNI);
             JsonObject obj = null;
+            
             if(resultado.next()){
                 String dni = resultado.getString("DNI");
                 String nombre = resultado.getString("nombre");
@@ -90,6 +89,9 @@ public class Obtener_Alumnos_By_NIF {
                             .add("Carrera", carrera)
                             .add("NumeroExpediente", num_expediente)
                             .build();
+            }
+            else{
+                System.out.println("No exite Alumno con ese DNI");
             }
             sentencia.close();
             conexion.close();

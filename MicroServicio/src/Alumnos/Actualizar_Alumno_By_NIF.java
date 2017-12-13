@@ -16,11 +16,11 @@ import javax.json.JsonObject;
  *
  * @author febis
  */
-public class Alta_Alumno {
+public class Actualizar_Alumno_By_NIF {
     
     //Constructor
    
-    public Alta_Alumno(){};
+    public Actualizar_Alumno_By_NIF(){};
     
     //Atributos
     private Connection conexion;
@@ -46,7 +46,7 @@ public class Alta_Alumno {
     
     }
     
-    private boolean consulta_BDD (String sql1, String sql2){
+    private boolean consulta_BDD (String sql){
         boolean resultado = false;
         
        
@@ -54,9 +54,9 @@ public class Alta_Alumno {
             
             
             Statement sentencia = getConexion().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            sentencia.execute(sql1);
-            sentencia.execute(sql2);
+            sentencia.execute(sql);
             resultado=true;
+       
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -66,13 +66,11 @@ public class Alta_Alumno {
         return resultado;
     }
     
-    public void ejecutar(JsonObject alumno){
-        
+    public void ejecutar(String NIF, JsonObject alumno){
         try{
             conectar();
             ArrayList<String> datos = new ArrayList();
             datos.add("'"+alumno.getString("NIF")+"'");
-            datos.add("'ALUMNO'");
             datos.add("'"+alumno.getString("Nombre")+"'");
             datos.add("'"+alumno.getString("Apellido1")+"'");
             datos.add("'"+alumno.getString("Apellido2")+"'");
@@ -81,20 +79,21 @@ public class Alta_Alumno {
             datos.add("'"+alumno.getString("Contrasenna")+"'");
             datos.add(String.valueOf(alumno.getInt("CuentaCorriente")));
             datos.add(String.valueOf(alumno.getInt("Carrera")));
-            datos.add("987654321");
+            datos.add(String.valueOf((int) (Math.random() * 100000) + 1));
             
             String sql1 = "";
-            sql1 += "INSERT INTO Usuario values("+datos.get(0);
-            for(int i=1;i<(datos.size()-2);i++){
-                sql1 += ","+datos.get(i);
+            sql1 += "UPDATE Usuario SET DNI="+datos.get(0)+", ";  
+            sql1 += "nombre="+datos.get(1)+", "; 
+            sql1+= "apellido1="+datos.get(2)+", ";
+            sql1+= "apellido2="+datos.get(3)+", ";
+            sql1+= "fecha_nacimiento="+datos.get(4)+", ";
+            sql1+= "email="+datos.get(5)+", ";
+            sql1+= "password="+datos.get(6)+", ";
+            sql1+= "CC="+datos.get(7)+" ";  
+            sql1+= "WHERE DNI='"+NIF+"'";
             
             
-            }
-            sql1 +=");";
-            String sql2 = "INSERT INTO Alumno values("+datos.get(0)+","+datos.get(9)+","+datos.get(10)+");";
-            
-        
-            boolean exito = consulta_BDD(sql1,sql2);
+            boolean exito = consulta_BDD(sql1);
             if(exito){
                 System.out.println("Consulta realizada con exito.");
             }
@@ -109,6 +108,7 @@ public class Alta_Alumno {
         
         
         
+        
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -118,14 +118,9 @@ public class Alta_Alumno {
     
     
     
+    
+    
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     //Metodos GET y SET
@@ -137,4 +132,5 @@ public class Alta_Alumno {
     public void setConexion(Connection conexion){
         this.conexion=conexion;
     }
+    
 }
