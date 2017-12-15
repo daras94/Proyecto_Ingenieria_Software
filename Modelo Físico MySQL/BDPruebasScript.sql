@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema PruebasUVisa2017
+-- Schema UVisa2017
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `PruebasUVisa2017` ;
+DROP SCHEMA IF EXISTS `UVisa2017` ;
 
 -- -----------------------------------------------------
--- Schema PruebasUVisa2017
+-- Schema UVisa2017
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `PruebasUVisa2017` DEFAULT CHARACTER SET utf8 ;
-USE `PruebasUVisa2017` ;
+CREATE SCHEMA IF NOT EXISTS `UVisa2017` DEFAULT CHARACTER SET utf8 ;
+USE `UVisa2017` ;
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Carrera`
+-- Table `UVisa2017`.`Carrera`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Carrera` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Carrera` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Carrera` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Carrera` (
   `nombre` VARCHAR(45) NOT NULL,
   `cod_carrera` INT NOT NULL,
   `facultad` VARCHAR(45) NOT NULL,
@@ -37,11 +37,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Asignatura`
+-- Table `UVisa2017`.`Asignatura`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Asignatura` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Asignatura` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Asignatura` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Asignatura` (
   `nombre` VARCHAR(45) NOT NULL,
   `Cod_asignatura` INT NOT NULL,
   `Cod_carrera` INT NULL,
@@ -53,18 +53,18 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Asignatura` (
   UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC),
   CONSTRAINT `fk_Asignatura_Carrera1`
     FOREIGN KEY (`Cod_carrera`)
-    REFERENCES `PruebasUVisa2017`.`Carrera` (`cod_carrera`)
+    REFERENCES `UVisa2017`.`Carrera` (`cod_carrera`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Usuario`
+-- Table `UVisa2017`.`Usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Usuario` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Usuario` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Usuario` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Usuario` (
   `NIF` VARCHAR(9) NOT NULL,
   `tipo_user` ENUM('ADMIN', 'ALUMNO', 'PROFESOR') NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
@@ -83,11 +83,11 @@ PACK_KEYS = DEFAULT;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Alumno`
+-- Table `UVisa2017`.`Alumno`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Alumno` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Alumno` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Alumno` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Alumno` (
   `Usuario_NIF` VARCHAR(9) NOT NULL,
   `Cod_carrera` INT NOT NULL,
   `num_expediente` INT NOT NULL,
@@ -97,23 +97,23 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Alumno` (
   INDEX `fk_Alumno_Usuario1_idx` (`Usuario_NIF` ASC),
   CONSTRAINT `fk_Alumno_Carrera1`
     FOREIGN KEY (`Cod_carrera`)
-    REFERENCES `PruebasUVisa2017`.`Carrera` (`cod_carrera`)
+    REFERENCES `UVisa2017`.`Carrera` (`cod_carrera`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Alumno_Usuario1`
     FOREIGN KEY (`Usuario_NIF`)
-    REFERENCES `PruebasUVisa2017`.`Usuario` (`NIF`)
+    REFERENCES `UVisa2017`.`Usuario` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Departamento`
+-- Table `UVisa2017`.`Departamento`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Departamento` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Departamento` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Departamento` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Departamento` (
   `codigo` INT NOT NULL,
   `nombre` MEDIUMTEXT NOT NULL,
   `carga` INT NULL,
@@ -122,11 +122,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Categoria`
+-- Table `UVisa2017`.`Categoria`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Categoria` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Categoria` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Categoria` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Categoria` (
   `nombre` VARCHAR(45) NOT NULL,
   `horas_semanales` INT NOT NULL,
   PRIMARY KEY (`nombre`))
@@ -134,11 +134,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Profesor`
+-- Table `UVisa2017`.`Profesor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Profesor` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Profesor` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Profesor` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Profesor` (
   `NIF` VARCHAR(9) NOT NULL,
   `categoria` VARCHAR(45) NOT NULL,
   `antiguedad` INT NULL,
@@ -152,28 +152,28 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Profesor` (
   UNIQUE INDEX `NIF_UNIQUE` (`NIF` ASC),
   CONSTRAINT `fk_Profesor_Departamento1`
     FOREIGN KEY (`departamento`)
-    REFERENCES `PruebasUVisa2017`.`Departamento` (`codigo`)
+    REFERENCES `UVisa2017`.`Departamento` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Profesor_Categoria1`
     FOREIGN KEY (`categoria`)
-    REFERENCES `PruebasUVisa2017`.`Categoria` (`nombre`)
+    REFERENCES `UVisa2017`.`Categoria` (`nombre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Profesor_Usuario1`
     FOREIGN KEY (`NIF`)
-    REFERENCES `PruebasUVisa2017`.`Usuario` (`NIF`)
+    REFERENCES `UVisa2017`.`Usuario` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Nomina`
+-- Table `UVisa2017`.`Nomina`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Nomina` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Nomina` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Nomina` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Nomina` (
   `Profesor_NIF` VARCHAR(9) NOT NULL,
   `numero` INT NOT NULL,
   `fecha` DATE NOT NULL,
@@ -183,36 +183,36 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Nomina` (
   UNIQUE INDEX `Profesor_NIF_UNIQUE` (`Profesor_NIF` ASC),
   CONSTRAINT `fk_Nomina_Profesor1`
     FOREIGN KEY (`Profesor_NIF`)
-    REFERENCES `PruebasUVisa2017`.`Profesor` (`NIF`)
+    REFERENCES `UVisa2017`.`Profesor` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Matricula`
+-- Table `UVisa2017`.`Matricula`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Matricula` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Matricula` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Matricula` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Matricula` (
   `num_expediente` INT NOT NULL,
   `Curso` YEAR NOT NULL,
   `reserva` TINYINT(1) NOT NULL,
   PRIMARY KEY (`num_expediente`, `Curso`),
   CONSTRAINT `fk_Matricula_Alumno1`
     FOREIGN KEY (`num_expediente`)
-    REFERENCES `PruebasUVisa2017`.`Alumno` (`num_expediente`)
+    REFERENCES `UVisa2017`.`Alumno` (`num_expediente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Pago`
+-- Table `UVisa2017`.`Pago`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Pago` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Pago` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Pago` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Pago` (
   `num_expediente` INT NOT NULL,
   `numero_pago` INT NOT NULL,
   `Tipo_pago` ENUM('FRACIONARIO', 'UNITARIO') NOT NULL,
@@ -224,18 +224,18 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Pago` (
   UNIQUE INDEX `num_expediente_UNIQUE` (`num_expediente` ASC),
   CONSTRAINT `fk_Pago_Matricula1`
     FOREIGN KEY (`num_expediente`)
-    REFERENCES `PruebasUVisa2017`.`Matricula` (`num_expediente`)
+    REFERENCES `UVisa2017`.`Matricula` (`num_expediente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Grupo`
+-- Table `UVisa2017`.`Grupo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Grupo` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Grupo` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Grupo` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Grupo` (
   `id_grupo` INT NOT NULL,
   `actas` TINYINT(1) NULL,
   PRIMARY KEY (`id_grupo`))
@@ -243,11 +243,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Espacio`
+-- Table `UVisa2017`.`Espacio`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Espacio` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Espacio` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Espacio` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Espacio` (
   `codigo` INT NOT NULL,
   `nombre` VARCHAR(45) NULL,
   `aforo_max` INT NULL,
@@ -257,11 +257,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`ReservaProfesor`
+-- Table `UVisa2017`.`ReservaProfesor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`ReservaProfesor` ;
+DROP TABLE IF EXISTS `UVisa2017`.`ReservaProfesor` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`ReservaProfesor` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`ReservaProfesor` (
   `Profesor_NIF` VARCHAR(9) NOT NULL,
   `ID_Espacio` INT NOT NULL,
   `fecha_hora` DATE NOT NULL,
@@ -272,23 +272,23 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`ReservaProfesor` (
   INDEX `fk_ReservaProfesor_Profesor1_idx` (`Profesor_NIF` ASC),
   CONSTRAINT `fk_ReservaProfesores_Espacio1`
     FOREIGN KEY (`ID_Espacio`)
-    REFERENCES `PruebasUVisa2017`.`Espacio` (`codigo`)
+    REFERENCES `UVisa2017`.`Espacio` (`codigo`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ReservaProfesor_Profesor1`
     FOREIGN KEY (`Profesor_NIF`)
-    REFERENCES `PruebasUVisa2017`.`Profesor` (`NIF`)
+    REFERENCES `UVisa2017`.`Profesor` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`ReservaGrupo`
+-- Table `UVisa2017`.`ReservaGrupo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`ReservaGrupo` ;
+DROP TABLE IF EXISTS `UVisa2017`.`ReservaGrupo` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`ReservaGrupo` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`ReservaGrupo` (
   `hora_entrada` TIME NOT NULL,
   `hora_salida` TIME NOT NULL,
   `dia_semana` ENUM('L', 'M', 'MX', 'J', 'V') NOT NULL,
@@ -299,23 +299,23 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`ReservaGrupo` (
   INDEX `fk_ReservaGrupo_Grupo1_idx` (`grupo` ASC),
   CONSTRAINT `fk_ReservaGrupo_Espacio1`
     FOREIGN KEY (`ID_Espacio`)
-    REFERENCES `PruebasUVisa2017`.`Espacio` (`codigo`)
+    REFERENCES `UVisa2017`.`Espacio` (`codigo`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ReservaGrupo_Grupo1`
     FOREIGN KEY (`grupo`)
-    REFERENCES `PruebasUVisa2017`.`Grupo` (`id_grupo`)
+    REFERENCES `UVisa2017`.`Grupo` (`id_grupo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Profesor_Grupo`
+-- Table `UVisa2017`.`Profesor_Grupo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Profesor_Grupo` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Profesor_Grupo` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Profesor_Grupo` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Profesor_Grupo` (
   `grupo_id` INT NOT NULL,
   `Profesor_NIF` VARCHAR(9) NOT NULL,
   PRIMARY KEY (`grupo_id`, `Profesor_NIF`),
@@ -323,23 +323,23 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Profesor_Grupo` (
   INDEX `fk_Profesor_Grupo_Profesor1_idx` (`Profesor_NIF` ASC),
   CONSTRAINT `fk_Profesor_has_Grupo_Grupo1`
     FOREIGN KEY (`grupo_id`)
-    REFERENCES `PruebasUVisa2017`.`Grupo` (`id_grupo`)
+    REFERENCES `UVisa2017`.`Grupo` (`id_grupo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Profesor_Grupo_Profesor1`
     FOREIGN KEY (`Profesor_NIF`)
-    REFERENCES `PruebasUVisa2017`.`Profesor` (`NIF`)
+    REFERENCES `UVisa2017`.`Profesor` (`NIF`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `PruebasUVisa2017`.`Asignatura_Matriculada`
+-- Table `UVisa2017`.`Asignatura_Matriculada`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `PruebasUVisa2017`.`Asignatura_Matriculada` ;
+DROP TABLE IF EXISTS `UVisa2017`.`Asignatura_Matriculada` ;
 
-CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Asignatura_Matriculada` (
+CREATE TABLE IF NOT EXISTS `UVisa2017`.`Asignatura_Matriculada` (
   `Cod_asignatura` INT NOT NULL,
   `num_expediente` INT NOT NULL,
   `Curso` YEAR NOT NULL,
@@ -352,17 +352,17 @@ CREATE TABLE IF NOT EXISTS `PruebasUVisa2017`.`Asignatura_Matriculada` (
   INDEX `fk_Asignatura_Matriculada_Grupo1_idx` (`Grupo_id_grupo` ASC),
   CONSTRAINT `fk_Matricula_has_Asignatura_Matricula1`
     FOREIGN KEY (`num_expediente` , `Curso`)
-    REFERENCES `PruebasUVisa2017`.`Matricula` (`num_expediente` , `Curso`)
+    REFERENCES `UVisa2017`.`Matricula` (`num_expediente` , `Curso`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Matricula_has_Asignatura_Asignatura1`
     FOREIGN KEY (`Cod_asignatura`)
-    REFERENCES `PruebasUVisa2017`.`Asignatura` (`Cod_asignatura`)
+    REFERENCES `UVisa2017`.`Asignatura` (`Cod_asignatura`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Asignatura_Matriculada_Grupo1`
     FOREIGN KEY (`Grupo_id_grupo`)
-    REFERENCES `PruebasUVisa2017`.`Grupo` (`id_grupo`)
+    REFERENCES `UVisa2017`.`Grupo` (`id_grupo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -373,9 +373,9 @@ GRANT USAGE ON *.* TO Admin;
 SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE USER 'Admin' IDENTIFIED BY 'isa2017';
 
-GRANT SELECT ON TABLE `PruebasUVisa2017`.* TO 'Admin';
-GRANT SELECT, INSERT, TRIGGER ON TABLE `PruebasUVisa2017`.* TO 'Admin';
-GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `PruebasUVisa2017`.* TO 'Admin';
+GRANT SELECT ON TABLE `UVisa2017`.* TO 'Admin';
+GRANT SELECT, INSERT, TRIGGER ON TABLE `UVisa2017`.* TO 'Admin';
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `UVisa2017`.* TO 'Admin';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
