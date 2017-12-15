@@ -8,6 +8,38 @@
   "host": "localhost:9000",
   "basePath": "/openapi101",
   "paths": {
+    "/usuarioByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Obtener usuario por NIF",
+        "description": "Busqueda de la informacion de un alumno con su NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del usuario",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/alumno": {
       "post": {
         "tags": [
@@ -124,6 +156,237 @@
         "responses": {
           "202": {
             "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/alumnosByGrupo/{code}": {
+      "get": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Obtener alumnos por grupo",
+        "description": "Busqueda de la informacion de un alumnos de un grupo",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Codigo del grupo",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Alumno"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profesor": {
+      "post": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Dar de alta un profesor",
+        "description": "Integrar en la base de datos la informacion de un nuevo profesor.",
+        "parameters": [
+          {
+            "name": "profesor",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del profesor",
+            "schema": {
+              "$ref": "#/definitions/Profesor"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profesorByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Obtener profesor por NIF",
+        "description": "Busqueda de la informacion de un profesor con su NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Profesor"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Eliminar profesor por NIF",
+        "description": "Eliminar la cuenta de un profesor por NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Actualizar profesor",
+        "description": "Actualizacion de la informacion de la cuenta de un profesor",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor que se quiere actualizar",
+            "type": "string"
+          },
+          {
+            "name": "alumno",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del profesor",
+            "schema": {
+              "$ref": "#/definitions/Profesor"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profesoresByGrupo/{code}": {
+      "get": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Obtener profesores por grupo",
+        "description": "Busqueda de la informacion de profesores por grupo",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Codigo del grupo",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Profesor"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profesoresByDepartamento/{code}": {
+      "get": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Obtener profesores por departamento",
+        "description": "Busqueda de la informacion profesores por departamento",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Codigo del grupo",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Profesor"
+              }
+            }
           },
           "405": {
             "description": "Operacion sin realizar"
@@ -259,7 +522,7 @@
         }
       }
     },
-    "/asignaturaByCarrera/{code}": {
+    "/asignaturasByCarrera/{code}": {
       "get": {
         "tags": [
           "Asignatura"
@@ -272,6 +535,83 @@
             "in": "path",
             "required": true,
             "description": "Codigo de la carrera de la asignaturas que se quieren obtener",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Asignatura"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/asignaturasMatriculableByAlumno/{NIF}": {
+      "get": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Obtener las asignaturas de cada carrera",
+        "description": "Busqueda de la asignaturas por carrera",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Asignatura"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/asignaturasByMatricula/{NIF}/{promocion}": {
+      "get": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Obtener las asignaturas de cada carrera",
+        "description": "Busqueda de la asignaturas por carrera",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          },
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
             "type": "string"
           }
         ],
@@ -315,6 +655,32 @@
         "responses": {
           "202": {
             "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/carreras": {
+      "get": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "Obtener todas las carreras",
+        "description": "Busqueda de la informacion de todas las carreras",
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Carrera"
+              }
+            }
           },
           "405": {
             "description": "Operacion sin realizar"
@@ -451,7 +817,42 @@
         }
       }
     },
-    "/matriculaByPromocion/{promocion}": {
+    "/matriculasByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Obtener la matriculas de un alumno",
+        "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Matricula"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/matriculaByNIFyPromocion/{NIF}/{promocion}": {
       "get": {
         "tags": [
           "Matricula"
@@ -459,6 +860,13 @@
         "summary": "Obtener la matricula de un alumno de un anno especifico",
         "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
         "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          },
           {
             "name": "promocion",
             "in": "path",
@@ -548,6 +956,25 @@
     }
   },
   "definitions": {
+    "Usuario": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "Contrasenna",
+        "TipoUser"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "TipoUser": {
+          "type": "string"
+        }
+      }
+    },
     "Alumno": {
       "type": "object",
       "required": [
@@ -558,7 +985,9 @@
         "Apellido1",
         "Apellido2",
         "FechaNacimiento",
-        "Email"
+        "Email",
+        "Carrera",
+        "Expediente"
       ],
       "properties": {
         "NIF": {
@@ -583,6 +1012,71 @@
           "type": "string"
         },
         "CuentaCorriente": {
+          "type": "integer"
+        },
+        "Carrera": {
+          "type": "integer"
+        },
+        "Expediente": {
+          "type": "integer"
+        }
+      }
+    },
+    "Profesor": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "CuentaCorriente",
+        "Contrasenna",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "FechaNacimiento",
+        "Email",
+        "Categoria",
+        "Antiguedad",
+        "TramosInvestigacion",
+        "TramosDocentes",
+        "Departamento"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "integer"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "CuentaCorriente": {
+          "type": "integer"
+        },
+        "Categoria": {
+          "type": "string"
+        },
+        "Antiguedad": {
+          "type": "integer"
+        },
+        "TramosInvestigacion": {
+          "type": "integer"
+        },
+        "TramosDocentes": {
+          "type": "string"
+        },
+        "Departamento": {
           "type": "integer"
         }
       }
@@ -653,10 +1147,14 @@
       "type": "object",
       "required": [
         "ID_Alumno",
+        "Promocion",
         "Codigos_Asignatura"
       ],
       "properties": {
         "ID_Alumno": {
+          "type": "integer"
+        },
+        "Promocion": {
           "type": "integer"
         },
         "Codigos_Asignatura": {
