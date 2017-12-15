@@ -33,7 +33,7 @@ public class Alta_Alumno {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             String BaseDeDatos = "jdbc:mysql://localhost:3306/UVisa2017";
-            this.conexion=DriverManager.getConnection(BaseDeDatos,"root","0000");
+            this.conexion=DriverManager.getConnection(BaseDeDatos,"root","551994");
             if (conexion != null) {
                 System.out.println("Conexion exitosa!");
             } else {
