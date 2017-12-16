@@ -1,0 +1,64 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor Usuarios",
+    "description": "API Rest de la Universidad de Villamayor para acceder a los usuarios."
+  },
+  "host": "localhost:9000",
+  "paths": {
+    "/usuarioByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Obtener usuario por NIF",
+        "description": "Busqueda de la informacion de un alumno con su NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del usuario",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Usuario": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "Contrasenna",
+        "TipoUser"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "TipoUser": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

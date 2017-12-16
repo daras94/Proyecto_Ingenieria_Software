@@ -1,0 +1,530 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor Reservas",
+    "description": "API Rest de la Universidad de Villamayor para acceder a las reservas."
+  },
+  "host": "localhost:9400",
+  "paths": {
+    "/reservaProfesor": {
+      "post": {
+        "tags": [
+          "ReservaProfesor"
+        ],
+        "summary": "Dar de alta una reserva de profesor",
+        "description": "",
+        "parameters": [
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la reserva",
+            "schema": {
+              "$ref": "#/definitions/ReservaProfesor"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservasByProfesor/{NIF}": {
+      "get": {
+        "tags": [
+          "ReservaProfesor"
+        ],
+        "summary": "Obtener las reservas de profesor por NIF",
+        "description": "",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ReservaProfesor"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservaProfesorByNIF/{NIF}/{date}/{hour}": {
+      "put": {
+        "tags": [
+          "ReservaProfesor"
+        ],
+        "summary": "Actualizar reserva profesor",
+        "description": "",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "description": "fecha de la reserva",
+            "type": "string"
+          },
+          {
+            "name": "hour",
+            "in": "path",
+            "required": true,
+            "description": "hora de la reserva",
+            "type": "integer"
+          },
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la reserva",
+            "schema": {
+              "$ref": "#/definitions/ReservaProfesor"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ReservaProfesor"
+        ],
+        "summary": "Eliminar nomina por NIF y numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          },
+          {
+            "name": "hour",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservaGrupo": {
+      "post": {
+        "tags": [
+          "ReservaGrupo"
+        ],
+        "summary": "Dar de alta una reserva de grupo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la reserva",
+            "schema": {
+              "$ref": "#/definitions/ReservaGrupo"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservasByGrupo/{code}": {
+      "get": {
+        "tags": [
+          "ReservaGrupo"
+        ],
+        "summary": "Obtener la nomina de un grupo por numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "codigo del grupo",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ReservaGrupo"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservaGrupoByCode/{code}/{date}/{hour}": {
+      "put": {
+        "tags": [
+          "ReservaGrupo"
+        ],
+        "summary": "Actualizar reserva grupo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "codigo del grupo",
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "description": "fecha de la reserva",
+            "type": "string"
+          },
+          {
+            "name": "hour",
+            "in": "path",
+            "required": true,
+            "description": "hora de la reserva",
+            "type": "integer"
+          },
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la reserva",
+            "schema": {
+              "$ref": "#/definitions/ReservaGrupo"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ReservaGrupo"
+        ],
+        "summary": "Eliminar reserva grupo por codigo, fecha, hora",
+        "description": "",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "codigo del grupo",
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "description": "fecha de la reserva",
+            "type": "string"
+          },
+          {
+            "name": "hour",
+            "in": "path",
+            "required": true,
+            "description": "hora de la reserva",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/espacio": {
+      "post": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "Dar de alta un espacio",
+        "description": "",
+        "parameters": [
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del espacio",
+            "schema": {
+              "$ref": "#/definitions/Espacio"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/espacios": {
+      "get": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "Obtener todos los espacios",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Espacio"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/espacioByCode/{code}": {
+      "put": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "Actualizar espacio por codigo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "codigo del grupo",
+            "type": "string"
+          },
+          {
+            "name": "espacio",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del espacio",
+            "schema": {
+              "$ref": "#/definitions/Espacio"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "Eliminar espacio por codigo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "codigo del grupo",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ReservaGrupo": {
+      "type": "object",
+      "required": [
+        "Hora",
+        "Dia",
+        "Duracion",
+        "Espacio",
+        "Grupo"
+      ],
+      "properties": {
+        "Hora": {
+          "type": "integer"
+        },
+        "Dia": {
+          "type": "string"
+        },
+        "Duracion": {
+          "type": "integer"
+        },
+        "Espacio": {
+          "type": "integer"
+        },
+        "Grupo": {
+          "type": "integer"
+        }
+      }
+    },
+    "ReservaProfesor": {
+      "type": "object",
+      "required": [
+        "Hora",
+        "Fecha",
+        "Duracion",
+        "Espacio",
+        "NIF"
+      ],
+      "properties": {
+        "Hora": {
+          "type": "integer"
+        },
+        "Fecha": {
+          "type": "string"
+        },
+        "Duracion": {
+          "type": "integer"
+        },
+        "Espacio": {
+          "type": "integer"
+        },
+        "NIF": {
+          "type": "string"
+        }
+      }
+    },
+    "Espacio": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre",
+        "Aforo",
+        "Precio"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Aforo": {
+          "type": "integer"
+        },
+        "Precio": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,605 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor Alumnos",
+    "description": "API Rest de la Universidad de Villamayor para acceder a los alumnos."
+  },
+  "host": "localhost:9100",
+  "paths": {
+    "/alumno": {
+      "post": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Dar de alta un alumno",
+        "description": "Integrar en la base de datos la informacion de un nuevo alumno.",
+        "parameters": [
+          {
+            "name": "alumno",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del alumno",
+            "schema": {
+              "$ref": "#/definitions/Alumno"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/alumnoByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Obtener alumno por NIF",
+        "description": "Busqueda de la informacion de un alumno con su NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Alumno"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Eliminar alumno por NIF",
+        "description": "Eliminar la cuenta de un almuno por NIF",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Actualizar alumno",
+        "description": "Actualizacion de la informacion de la cuenta de un alumno",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno que se quiere actualizar",
+            "type": "string"
+          },
+          {
+            "name": "alumno",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del alumno",
+            "schema": {
+              "$ref": "#/definitions/Alumno"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/alumnosByGrupo/{code}": {
+      "get": {
+        "tags": [
+          "Alumno"
+        ],
+        "summary": "Obtener alumnos por grupo",
+        "description": "Busqueda de la informacion de un alumnos de un grupo",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Codigo del grupo",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Alumno"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/matricula": {
+      "post": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Dar de alta una matricula",
+        "description": "El usuario realiza una matricula a partir de la seleccion de varias asignaturas de una carrera",
+        "parameters": [
+          {
+            "name": "matricula",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la matricula",
+            "schema": {
+              "$ref": "#/definitions/Matricula"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/matriculasByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Obtener la matriculas de un alumno",
+        "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Matricula"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/matriculaByNIFyPromocion/{NIF}/{promocion}": {
+      "get": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Obtener la matricula de un alumno de un anno especifico",
+        "description": "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          },
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "Promocion de la matricula que se esta buscando",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/Matricula"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Actualizar matricula por promocion de un alumno",
+        "description": "Actualizacion de la informacion de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
+        "parameters": [
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "Promocion de la matricula que se quiere actualizar",
+            "type": "integer"
+          },
+          {
+            "name": "matricula",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido de la matricula",
+            "schema": {
+              "$ref": "#/definitions/Matricula"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Eliminar matricula por la promocion del alumno",
+        "description": "Eliminar la matricula de la base de datos de una promocion (si la base de datos lo permite)",
+        "parameters": [
+          {
+            "name": "promocion",
+            "in": "path",
+            "required": true,
+            "description": "Promocion de la matricula",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pagos": {
+      "post": {
+        "tags": [
+          "Pago"
+        ],
+        "summary": "Dar de alta pagos",
+        "description": "",
+        "parameters": [
+          {
+            "name": "pago",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del pago",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pago"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pagosByNIF/{NIF}": {
+      "get": {
+        "tags": [
+          "Pago"
+        ],
+        "summary": "Obtener todos los pagos por NIF",
+        "description": "",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pago"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pagosByNIFyNumero/{NIF}/{number}": {
+      "put": {
+        "tags": [
+          "Pago"
+        ],
+        "summary": "Actualizar pago por NIF y numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          },
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "description": "numero de pago",
+            "type": "string"
+          },
+          {
+            "name": "pago",
+            "in": "body",
+            "required": true,
+            "description": "Objeto JSON del contenido del pago",
+            "schema": {
+              "$ref": "#/definitions/Pago"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pago"
+        ],
+        "summary": "Eliminar pago por NIF y numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del alumno",
+            "type": "string"
+          },
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "description": "numero de pago",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Alumno": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "CuentaCorriente",
+        "Contrasenna",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "FechaNacimiento",
+        "Email",
+        "Carrera",
+        "Expediente"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "CuentaCorriente": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "integer"
+        },
+        "Expediente": {
+          "type": "integer"
+        }
+      }
+    },
+    "Matricula": {
+      "type": "object",
+      "required": [
+        "ID_Alumno",
+        "Promocion",
+        "Asignaturas_Matriculadas"
+      ],
+      "properties": {
+        "ID_Alumno": {
+          "type": "integer"
+        },
+        "Promocion": {
+          "type": "integer"
+        },
+        "Asignaturas_Matriculadas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Asignatura_Matriculada"
+          }
+        }
+      }
+    },
+    "Asignatura_Matriculada": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "GrupoTeo",
+        "GrupoLab"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "GrupoTeo": {
+          "type": "integer"
+        },
+        "GrupoLab": {
+          "type": "integer"
+        }
+      }
+    },
+    "Pago": {
+      "type": "object",
+      "required": [
+        "Expediente",
+        "Numero",
+        "Tipo",
+        "Importe",
+        "Pagado"
+      ],
+      "properties": {
+        "Expediente": {
+          "type": "integer"
+        },
+        "Numero": {
+          "type": "integer"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Importe": {
+          "type": "number"
+        },
+        "Pagado": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
