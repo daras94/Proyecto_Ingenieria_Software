@@ -133,41 +133,6 @@
         }
       }
     },
-    "/profesoresByGrupo/{code}": {
-      "get": {
-        "tags": [
-          "Profesor"
-        ],
-        "summary": "Obtener profesores por grupo",
-        "description": "Busqueda de la informacion de profesores por grupo",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "description": "Codigo del grupo",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Profesor"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/profesoresByDepartamento/{code}": {
       "get": {
         "tags": [
