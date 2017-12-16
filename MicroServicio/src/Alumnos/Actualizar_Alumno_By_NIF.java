@@ -33,7 +33,7 @@ public class Actualizar_Alumno_By_NIF {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             String BaseDeDatos = "jdbc:mysql://localhost:3306/UVisa2017";
-            this.conexion=DriverManager.getConnection(BaseDeDatos,"Admin","isa2017");
+            this.conexion=DriverManager.getConnection(BaseDeDatos,"root","0000");
             if (conexion != null) {
                 System.out.println("Conexion exitosa!");
             } else {
