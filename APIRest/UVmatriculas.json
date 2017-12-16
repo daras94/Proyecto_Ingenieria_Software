@@ -626,7 +626,10 @@
       "required": [
         "Codigo",
         "Actas",
-        "Miembros"
+        "Miembros",
+        "Tipo",
+        "Asignatura",
+        "Profesores"
       ],
       "properties": {
         "Codigo": {
@@ -637,6 +640,18 @@
         },
         "Miembros": {
           "type": "integer"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Asignatura": {
+          "type": "integer"
+        },
+        "Profesores": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }
