@@ -31,12 +31,12 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
         Alumno alumno = new Alumno();
         try{
             conectar();
-            String sql = "SELECT * FROM Alumno NATURAL JOIN Usuario WHERE Usuario.DNI = '"+NIF+"';";
+            String sql = "SELECT * FROM Alumno NATURAL JOIN Usuario WHERE Usuario.NIF = '"+NIF+"';";
             ResultSet resultado = consulta_BDD(sql);
             
             
             if(resultado.next()){
-                String dni = resultado.getString("DNI");
+                String dni = resultado.getString("NIF");
                 String nombre = resultado.getString("nombre");
                 String apellido1 = resultado.getString("apellido1");
                 String apellido2 = resultado.getString("apellido2");
