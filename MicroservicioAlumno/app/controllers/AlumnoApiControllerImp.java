@@ -86,7 +86,36 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
 
     @Override
     public void alumnoPost(Alumno alumno) throws Exception {
-        //Do your magic!!!
+        String dni = alumno.getNIF();
+        String contrasenna = alumno.getContrasenna();
+        String nombre = alumno.getNombre();
+        String apellido1 = alumno.getApellido1();
+        String apellido2 = alumno.getApellido2();
+        String fecha_nacimiento = alumno.getFechaNacimiento();
+        String email = alumno.getEmail();
+        String CC = alumno.getCuentaCorriente();
+        int carrera = alumno.getCarrera();
+        
+        try{
+            conectar();
+            String query1 = "SELECT MAX(num_expediente) AS max_exp FROM Alumnos;";
+            ResultSet resultado = consulta_BDD(query1);
+            Integer ultimoExpediente;
+            if(resultado.next()){
+                ultimoExpediente = resultado.getInt(1);
+            }
+            else{
+                ultimoExpediente = 0;
+            }
+            String query2 = "INSERT INTO Usuario VALUES ('"+dni+"',"+"'ALUMNO', '"+nombre+"', '"+apellido1+"', '"+apellido2+"', "+fecha_nacimiento+", '"+email+"', "+contrasenna+", '"+CC+"');";
+            String query3 = "INSERT INTO Alumno VALUES ('"+dni+"', "+carrera+", "+(ultimoExpediente+1)+");";
+            consulta_BDD(query2);
+            consulta_BDD(query3);
+            conexion.close();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
         
     }
 
