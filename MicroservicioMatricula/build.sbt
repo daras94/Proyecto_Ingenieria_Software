@@ -14,4 +14,4 @@ javaWs,
 "javax.validation" % "validation-api" % "1.1.0.Final"
 )
 
-PlayKeys.devSettings := Seq("play.server.http.port" -> "9100")
+PlayKeys.devSettings := Seq("play.server.http.port" -> "9200")
