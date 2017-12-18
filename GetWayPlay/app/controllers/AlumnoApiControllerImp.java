@@ -50,7 +50,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
 
     @Override
     public void alumnoPost(Alumno alumno) throws Exception {
-        //Do your magic!!!
+        
         
     }
 
