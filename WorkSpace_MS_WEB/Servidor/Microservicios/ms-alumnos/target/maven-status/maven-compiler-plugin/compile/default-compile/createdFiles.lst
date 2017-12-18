@@ -17,7 +17,6 @@ ms/alumno/services/PagosByNIFApi.class
 ms/alumno/controller/NotFoundException.class
 ms/alumno/controller/PagosByNIFApiController.class
 ms/alumno/controller/AlumnoByNIFApiController.class
-.netbeans_automatic_build
 ms/alumno/services/AlumnoByNIFApi.class
 ms/alumno/controller/PagosByNIFyNumeroApiController.class
 ms/alumno/MSAlumnoConfig$ExitException.class
