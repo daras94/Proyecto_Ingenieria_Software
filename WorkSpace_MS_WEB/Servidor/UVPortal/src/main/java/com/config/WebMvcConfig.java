@@ -63,6 +63,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/res/**").addResourceLocations("/WEB-INF/res/").setCachePeriod(CACHE_PERIOD);
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(CACHE_PERIOD);
+        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+ 
         // Los demas recursos web que se defina deveran ser añadido a continuacion de la misma manera que se a hecho anteriormente.
     }
 
