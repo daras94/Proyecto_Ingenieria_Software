@@ -44,14 +44,14 @@ public class CarreraApiControllerImp implements CarreraApiControllerImpInterface
     public List<Carrera> carrerasGet() throws Exception {
         //Do your magic!!!
         Carrera carrera= new Carrera();
-        ArrayList <Carrera> ArrayCarreras= new ArrayList <>();
+        ArrayList <Carrera> arrayCarreras= new ArrayList <>();
         try{
         conectar();
         
         String sql= "SELECT * From Carreras";
         ResultSet resultado = consulta_BDD(sql);
         
-        if (resultado.next()){
+        while (resultado.next()){
             String nombre = resultado.getString("nombre");
             int cod_carrera = resultado.getInt("cod_carrera");
             String facultad = resultado.getString("facultad");
@@ -66,10 +66,12 @@ public class CarreraApiControllerImp implements CarreraApiControllerImpInterface
             carrera.setNumeroCreditosOptativos(num_cred_opt);
             carrera.setNumeroCreditosTransversales(num_cred_obl);
             
+            arrayCarreras.add(carrera);
+            
             System.out.println(resultado.toString());
         }
         conexion.close();
-        return ArrayCarreras;
+        return arrayCarreras;
             }
         catch(Exception e){
                 System.out.println(e.toString());
