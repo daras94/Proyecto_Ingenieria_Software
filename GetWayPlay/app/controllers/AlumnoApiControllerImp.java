@@ -27,13 +27,13 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
     public Alumno alumnoNIFGet(String NIF) throws Exception {
         try{
-        String URL = "http://localhost:9100/alumno/"+NIF;
-        URL enlace = new URL(URL); //Creacion dirección URL
-        InputStream is = enlace.openStream(); //Abrir conexion con la API
-        JsonReader rdr = Json.createReader(is); //Leer el objeto JSON
-        JsonObject obj = rdr.readObject(); //Sacar el objeto JSON leido
-        Alumno alumno = mapper.readValue(obj.toString(), Alumno.class);
-        return alumno;
+            String URL = "http://localhost:9100/alumno/"+NIF;
+            URL enlace = new URL(URL); //Creacion dirección URL
+            InputStream is = enlace.openStream(); //Abrir conexion con la API
+            JsonReader rdr = Json.createReader(is); //Leer el objeto JSON
+            JsonObject obj = rdr.readObject(); //Sacar el objeto JSON leido
+            Alumno alumno = mapper.readValue(obj.toString(), Alumno.class);
+            return alumno;
         }
         catch(Exception e){
             System.out.println(e.toString());

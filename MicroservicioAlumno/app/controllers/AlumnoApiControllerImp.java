@@ -1,6 +1,8 @@
 package controllers;
 
 import apimodels.Alumno;
+import conexiondb.BBDD;
+import static conexiondb.BBDD.*;
 
 import play.mvc.Http;
 import java.util.List;
@@ -15,43 +17,8 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2017-12-18T12:09:27.067Z")
 
 public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
-    //Atributos
-    private Connection conexion;
-    private Statement sentencia;
     
-    //Conexion Base de datos
-    private void conectar(){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String BaseDeDatos = "jdbc:mysql://localhost:3306/UVisa2017";
-            this.conexion=DriverManager.getConnection(BaseDeDatos,"root","0000");
-            if (conexion != null) {
-                System.out.println("Conexion exitosa!");
-            } else {
-                System.out.println("Conexion fallida!");
-            }
-        }
-        catch(Exception e){
-            System.out.println(e.toString());
-        }
     
-    }
-    
-    private ResultSet consulta_BDD (String SQL){
-        ResultSet resultado = null;
-       
-        try{
-            sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            resultado = sentencia.executeQuery(SQL);
-       
-        }
-        catch(Exception e){
-            System.out.println(e.toString());
-            return null;
-        }
-        
-        return resultado;
-    }
     @Override
     public void alumnoNIFDelete(String NIF) throws Exception {
         //Do your magic!!!
