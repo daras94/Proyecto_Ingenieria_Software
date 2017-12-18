@@ -43,6 +43,7 @@ public class BBDD {
         ResultSet resultado = null;
        
         try{
+            
             sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             resultado = sentencia.executeQuery(SQL);
        

@@ -27,7 +27,7 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
         Asignatura asignatura = new Asignatura();
         try{
             conectar();
-            String sql = "SELECT * FROM Asignatura WHERE code = "+code+";";
+            String sql = "SELECT * FROM Asignatura WHERE Cod_asignatura = "+code+";";
             ResultSet resultado = consulta_BDD(sql);
             
             
@@ -45,7 +45,6 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
                 asignatura.setNombre(nombre);
                 asignatura.setCreditos(creditos);
                 asignatura.setTipo(tipo);
-                
                 System.out.println(resultado.toString());
             }
             else{
