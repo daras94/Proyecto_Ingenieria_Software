@@ -469,6 +469,188 @@
         "x-contentType" : "application/json",
         "x-accepts" : "application/json"
       }
+    },
+    "/asignatura" : {
+      "post" : {
+        "tags" : [ "Asignatura" ],
+        "summary" : "Introducir una nueva asignatura",
+        "description" : "Añadir una nueva asignatura a la base de datos",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "asignatura",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Asignatura"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/asignatura/{code}" : {
+      "get" : {
+        "tags" : [ "Asignatura" ],
+        "summary" : "Obtener asignatura por su codigo",
+        "description" : "Busqueda de la informacion de una asignatura con su codigo",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la asignatura",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "$ref" : "#/definitions/Asignatura"
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "put" : {
+        "tags" : [ "Asignatura" ],
+        "summary" : "Actualizar asignatura por codigo",
+        "description" : "Actualizacion de la informacion de una asignatura.",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la asignatura que se quiere actualizar",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "asignatura",
+          "description" : "Objeto JSON del contenido de la asignatura",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Asignatura"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "delete" : {
+        "tags" : [ "Asignatura" ],
+        "summary" : "Eliminar asignatura por codigo",
+        "description" : "Eliminar la asignatura de la base de datos por su codigo",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la asignatura",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/asignaturas/carrera/{code}" : {
+      "get" : {
+        "tags" : [ "Asignatura" ],
+        "summary" : "Obtener las asignaturas de cada carrera",
+        "description" : "Busqueda de la asignaturas por carrera",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la carrera de la asignaturas que se quieren obtener",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Asignatura"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/asignaturasMatriculables/{NIF}" : {
+      "get" : {
+        "tags" : [ "Asignatura" ],
+        "summary" : "Obtener las asignaturas de cada carrera",
+        "description" : "Busqueda de la asignaturas por carrera",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del alumno",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Asignatura"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
     }
   },
   "definitions" : {
@@ -577,6 +759,27 @@
           "items" : {
             "type" : "integer"
           }
+        }
+      }
+    },
+    "Asignatura" : {
+      "type" : "object",
+      "required" : [ "Carrera", "Codigo", "Creditos", "Nombre", "Tipo" ],
+      "properties" : {
+        "Codigo" : {
+          "type" : "integer"
+        },
+        "Nombre" : {
+          "type" : "string"
+        },
+        "Carrera" : {
+          "type" : "integer"
+        },
+        "Tipo" : {
+          "type" : "string"
+        },
+        "Creditos" : {
+          "type" : "integer"
         }
       }
     }
