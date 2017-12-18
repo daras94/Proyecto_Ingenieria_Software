@@ -1,0 +1,197 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest de la Universidad de Villamayor para acceder a los recursos del sistema.",
+    "version" : "1.0.0",
+    "title" : "API Universidad Villamayor"
+  },
+  "host" : "localhost:9200",
+  "paths" : {
+    "/matricula" : {
+      "get" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Obtener la matricula de un alumno de un anno especifico",
+        "description" : "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "query",
+          "description" : "NIF del alumno",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "curso",
+          "in" : "query",
+          "description" : "Promocion de la matricula que se esta buscando",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "$ref" : "#/definitions/Matricula"
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "post" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Dar de alta una matricula",
+        "description" : "El usuario realiza una matricula a partir de la seleccion de varias asignaturas de una carrera",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "matricula",
+          "description" : "Objeto JSON del contenido de la matricula",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Matricula"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "put" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Actualizar matricula por promocion de un alumno",
+        "description" : "Actualizacion de la informacion de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "query",
+          "description" : "Promocion de la matricula que se quiere actualizar",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "curso",
+          "in" : "query",
+          "description" : "Promocion de la matricula que se quiere actualizar",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "matricula",
+          "description" : "Objeto JSON del contenido de la matricula",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Matricula"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "delete" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Eliminar matricula por la promocion del alumno",
+        "description" : "Eliminar la matricula de la base de datos de una promocion (si la base de datos lo permite)",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "query",
+          "description" : "Promocion de la matricula que se quiere actualizar",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "curso",
+          "in" : "query",
+          "description" : "Promocion de la matricula",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/matriculas/{NIF}" : {
+      "get" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Obtener la matriculas de un alumno",
+        "description" : "Devuelve la matricula con una lista de codigos de las asignaturas  matriculadas.",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del alumno",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Matricula"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Matricula" : {
+      "type" : "object",
+      "required" : [ "Codigos_Asignatura", "Curso", "ID_Alumno" ],
+      "properties" : {
+        "ID_Alumno" : {
+          "type" : "integer"
+        },
+        "Curso" : {
+          "type" : "integer"
+        },
+        "Codigos_Asignatura" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        }
+      }
+    }
+  }
+}
