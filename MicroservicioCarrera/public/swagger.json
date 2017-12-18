@@ -1,0 +1,184 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest de la Universidad de Villamayor para acceder a los recursos del sistema.",
+    "version" : "1.0.0",
+    "title" : "API Universidad Villamayor"
+  },
+  "host" : "localhost:9300",
+  "paths" : {
+    "/carrera" : {
+      "post" : {
+        "tags" : [ "Carrera" ],
+        "summary" : "Ingresar en la base de datos una nueva carrera",
+        "description" : "Integrar en la base de datos la informacion de un nueva carrera.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "carrera",
+          "description" : "Objeto JSON del contenido de la carrera",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Carrera"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/carreras" : {
+      "get" : {
+        "tags" : [ "Carrera" ],
+        "summary" : "Obtener todas las carreras",
+        "description" : "Busqueda de la informacion de todas las carreras",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Carrera"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/carrera/{code}" : {
+      "get" : {
+        "tags" : [ "Carrera" ],
+        "summary" : "Obtener carrera por codigo",
+        "description" : "Busqueda de la informacion de una carrera con su codigo",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la carrera",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "$ref" : "#/definitions/Carrera"
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "put" : {
+        "tags" : [ "Carrera" ],
+        "summary" : "Actualizar carrera por code",
+        "description" : "Actualizacion de la informacion de una carrera.",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la carrera que se quiere actualizar",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "carrera",
+          "description" : "Objeto JSON del contenido de la carrera",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Carrera"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "delete" : {
+        "tags" : [ "Carrera" ],
+        "summary" : "Eliminar carrera por el codigo",
+        "description" : "Eliminar la carrera de la base de datos por ID de usuario",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "description" : "Codigo de la carrera",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Carrera" : {
+      "type" : "object",
+      "required" : [ "Codigo", "Facultad", "Nombre", "Numero_Creditos", "Numero_Creditos_Obligatorios", "Numero_Creditos_Optativos", "Numero_Creditos_Transversales" ],
+      "properties" : {
+        "Codigo" : {
+          "type" : "integer"
+        },
+        "Nombre" : {
+          "type" : "string"
+        },
+        "Facultad" : {
+          "type" : "string"
+        },
+        "Numero_Creditos" : {
+          "type" : "integer"
+        },
+        "Numero_Creditos_Optativos" : {
+          "type" : "integer"
+        },
+        "Numero_Creditos_Obligatorios" : {
+          "type" : "integer"
+        },
+        "Numero_Creditos_Transversales" : {
+          "type" : "integer"
+        }
+      }
+    }
+  }
+}
