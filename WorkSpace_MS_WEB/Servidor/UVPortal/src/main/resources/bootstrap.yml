@@ -1,0 +1,32 @@
+documentation: 
+  generated: /asciidoc/generated
+  reports: /asciidoc/reports
+  docType: pdf
+  asciiExt: adoc
+  allDocs: api-documents.zip
+  schedule: 
+      interval: 600000
+      initial: 1000
+  baseurl: http://localhost
+  swagger: 
+    services:   
+      -
+        name: ms-usuarios
+        url: ${documentation.baseurl}:9500/v2/api-docs?group=ms-usuarios
+        version: 2.0
+      - 
+        name: ms-alumnos
+        url: ${documentation.baseurl}:9600/v2/api-docs?group=ms-alumnos
+        version: 2.0
+      -
+        name: ms-profesores
+        url: ${documentation.baseurl}:9200/v2/api-docs?group=ms-profesores
+        version: 2.0
+      -
+        name: ms-reservas
+        url: ${documentation.baseurl}:9400/v2/api-docs?group=ms-reservas
+        version: 2.0
+      -
+        name: ms-matriculas
+        url: ${documentation.baseurl}:9300/v2/api-docs?group=ms-matriculas
+        version: 2.0
