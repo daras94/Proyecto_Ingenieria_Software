@@ -42,49 +42,43 @@ public class CarreraApiControllerImp implements CarreraApiControllerImpInterface
 
     @Override
     public List<Carrera> carrerasGet() throws Exception {
-        //Do your magic!!!
-        Carrera carrera= new Carrera();
+        
         ArrayList <Carrera> arrayCarreras= new ArrayList <>();
+        
         try{
-        conectar();
-        
-        String sql= "SELECT * From Carreras";
-        ResultSet resultado = consulta_BDD(sql);
-        
-        while (resultado.next()){
-            String nombre = resultado.getString("nombre");
-            int cod_carrera = resultado.getInt("cod_carrera");
-            String facultad = resultado.getString("facultad");
-            int num_cred_opt = resultado.getInt("num_cred_opt");
-            int num_cred_tran = resultado.getInt("num_cred_tran");
-            int num_cred_obl = resultado.getInt("num_cred_obl");
+            conectar();
 
-            carrera.setNombre(nombre);
-            carrera.setCodigo(cod_carrera);
-            carrera.setFacultad(facultad);
-            carrera.setNumeroCreditosObligatorios(num_cred_obl);
-            carrera.setNumeroCreditosOptativos(num_cred_opt);
-            carrera.setNumeroCreditosTransversales(num_cred_obl);
-            
-            arrayCarreras.add(carrera);
-            
-            System.out.println(resultado.toString());
-        }
-        conexion.close();
-        return arrayCarreras;
+            String sql= "SELECT * From Carrera";
+            ResultSet resultado = consulta_BDD(sql);
+
+            while (resultado.next()){
+                String nombre = resultado.getString("nombre");
+                int cod_carrera = resultado.getInt("cod_carrera");
+                String facultad = resultado.getString("facultad");
+                int num_cred_opt = resultado.getInt("num_cred_opt");
+                int num_cred_tran = resultado.getInt("num_cred_tran");
+                int num_cred_obl = resultado.getInt("num_cred_obl");
+
+                Carrera carrera= new Carrera();
+                carrera.setNombre(nombre);
+                carrera.setCodigo(cod_carrera);
+                carrera.setFacultad(facultad);
+                carrera.setNumeroCreditosObligatorios(num_cred_obl);
+                carrera.setNumeroCreditosOptativos(num_cred_opt);
+                carrera.setNumeroCreditosTransversales(num_cred_obl);
+
+                arrayCarreras.add(carrera);
+
+                System.out.println(resultado.toString());
             }
+            conexion.close();
+            return arrayCarreras;
+        }
         catch(Exception e){
                 System.out.println(e.toString());
                 return null;
-            
-            
-            
-            
-            
         }
         
-        
-    
     }                
 }
 
