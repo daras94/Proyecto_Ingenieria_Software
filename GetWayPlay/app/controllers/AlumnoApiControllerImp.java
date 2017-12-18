@@ -61,7 +61,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
     public void alumnoPost(Alumno alumno) throws Exception {
         HttpPost request = new HttpPost("http://localhost:9100/alummo");
-        StringEntity params = new StringEntity(mapper.valueToTree(alumno));
+        StringEntity params = new StringEntity(mapper.valueToTree(alumno).toString());
         request.setEntity(params);
         HttpResponse response = httpClient.execute(request);
     }
