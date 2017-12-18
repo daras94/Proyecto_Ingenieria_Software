@@ -11,6 +11,14 @@ GET     /alumno/:NIF                     controllers.AlumnoApiController.alumnoN
 PUT     /alumno/:NIF                     controllers.AlumnoApiController.alumnoNIFPut(NIF: String)
 POST     /alumno                     controllers.AlumnoApiController.alumnoPost()
 
+#Functions for Asignatura API
+DELETE     /asignatura/:code                     controllers.AsignaturaApiController.asignaturaCodeDelete(code: Integer)
+GET     /asignatura/:code                     controllers.AsignaturaApiController.asignaturaCodeGet(code: Integer)
+PUT     /asignatura/:code                     controllers.AsignaturaApiController.asignaturaCodePut(code: Integer)
+POST     /asignatura                     controllers.AsignaturaApiController.asignaturaPost()
+GET     /asignaturas/carrera/:code                     controllers.AsignaturaApiController.asignaturasCarreraCodeGet(code: String)
+GET     /asignaturasMatriculables/:NIF                     controllers.AsignaturaApiController.asignaturasMatriculablesNIFGet(NIF: String)
+
 #Functions for Carrera API
 DELETE     /carrera/:code                     controllers.CarreraApiController.carreraCodeDelete(code: Integer)
 GET     /carrera/:code                     controllers.CarreraApiController.carreraCodeGet(code: Integer)

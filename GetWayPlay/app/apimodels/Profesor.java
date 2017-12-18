@@ -4,11 +4,11 @@ import java.util.Objects;
 import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.*;
 /**
- * Alumno
+ * Profesor
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2017-12-18T20:15:03.839Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2017-12-18T19:53:01.612Z")
 
-public class Alumno   {
+public class Profesor   {
   @JsonProperty("NIF")
   private String NIF = null;
 
@@ -33,13 +33,22 @@ public class Alumno   {
   @JsonProperty("CuentaCorriente")
   private String cuentaCorriente = null;
 
-  @JsonProperty("Carrera")
-  private Integer carrera = null;
+  @JsonProperty("Categoria")
+  private String categoria = null;
 
-  @JsonProperty("Expediente")
-  private Integer expediente = null;
+  @JsonProperty("Antiguedad")
+  private Integer antiguedad = null;
 
-  public Alumno NIF(String NIF) {
+  @JsonProperty("TramosInvestigacion")
+  private Integer tramosInvestigacion = null;
+
+  @JsonProperty("TramosDocentes")
+  private String tramosDocentes = null;
+
+  @JsonProperty("Departamento")
+  private Integer departamento = null;
+
+  public Profesor NIF(String NIF) {
     this.NIF = NIF;
     return this;
   }
@@ -57,7 +66,7 @@ public class Alumno   {
     this.NIF = NIF;
   }
 
-  public Alumno contrasenna(String contrasenna) {
+  public Profesor contrasenna(String contrasenna) {
     this.contrasenna = contrasenna;
     return this;
   }
@@ -75,7 +84,7 @@ public class Alumno   {
     this.contrasenna = contrasenna;
   }
 
-  public Alumno nombre(String nombre) {
+  public Profesor nombre(String nombre) {
     this.nombre = nombre;
     return this;
   }
@@ -93,7 +102,7 @@ public class Alumno   {
     this.nombre = nombre;
   }
 
-  public Alumno apellido1(String apellido1) {
+  public Profesor apellido1(String apellido1) {
     this.apellido1 = apellido1;
     return this;
   }
@@ -111,7 +120,7 @@ public class Alumno   {
     this.apellido1 = apellido1;
   }
 
-  public Alumno apellido2(String apellido2) {
+  public Profesor apellido2(String apellido2) {
     this.apellido2 = apellido2;
     return this;
   }
@@ -129,7 +138,7 @@ public class Alumno   {
     this.apellido2 = apellido2;
   }
 
-  public Alumno fechaNacimiento(String fechaNacimiento) {
+  public Profesor fechaNacimiento(String fechaNacimiento) {
     this.fechaNacimiento = fechaNacimiento;
     return this;
   }
@@ -147,7 +156,7 @@ public class Alumno   {
     this.fechaNacimiento = fechaNacimiento;
   }
 
-  public Alumno email(String email) {
+  public Profesor email(String email) {
     this.email = email;
     return this;
   }
@@ -165,7 +174,7 @@ public class Alumno   {
     this.email = email;
   }
 
-  public Alumno cuentaCorriente(String cuentaCorriente) {
+  public Profesor cuentaCorriente(String cuentaCorriente) {
     this.cuentaCorriente = cuentaCorriente;
     return this;
   }
@@ -183,40 +192,94 @@ public class Alumno   {
     this.cuentaCorriente = cuentaCorriente;
   }
 
-  public Alumno carrera(Integer carrera) {
-    this.carrera = carrera;
+  public Profesor categoria(String categoria) {
+    this.categoria = categoria;
     return this;
   }
 
    /**
-   * Get carrera
-   * @return carrera
+   * Get categoria
+   * @return categoria
   **/
     @NotNull
-  public Integer getCarrera() {
-    return carrera;
+  public String getCategoria() {
+    return categoria;
   }
 
-  public void setCarrera(Integer carrera) {
-    this.carrera = carrera;
+  public void setCategoria(String categoria) {
+    this.categoria = categoria;
   }
 
-  public Alumno expediente(Integer expediente) {
-    this.expediente = expediente;
+  public Profesor antiguedad(Integer antiguedad) {
+    this.antiguedad = antiguedad;
     return this;
   }
 
    /**
-   * Get expediente
-   * @return expediente
+   * Get antiguedad
+   * @return antiguedad
   **/
     @NotNull
-  public Integer getExpediente() {
-    return expediente;
+  public Integer getAntiguedad() {
+    return antiguedad;
   }
 
-  public void setExpediente(Integer expediente) {
-    this.expediente = expediente;
+  public void setAntiguedad(Integer antiguedad) {
+    this.antiguedad = antiguedad;
+  }
+
+  public Profesor tramosInvestigacion(Integer tramosInvestigacion) {
+    this.tramosInvestigacion = tramosInvestigacion;
+    return this;
+  }
+
+   /**
+   * Get tramosInvestigacion
+   * @return tramosInvestigacion
+  **/
+    @NotNull
+  public Integer getTramosInvestigacion() {
+    return tramosInvestigacion;
+  }
+
+  public void setTramosInvestigacion(Integer tramosInvestigacion) {
+    this.tramosInvestigacion = tramosInvestigacion;
+  }
+
+  public Profesor tramosDocentes(String tramosDocentes) {
+    this.tramosDocentes = tramosDocentes;
+    return this;
+  }
+
+   /**
+   * Get tramosDocentes
+   * @return tramosDocentes
+  **/
+    @NotNull
+  public String getTramosDocentes() {
+    return tramosDocentes;
+  }
+
+  public void setTramosDocentes(String tramosDocentes) {
+    this.tramosDocentes = tramosDocentes;
+  }
+
+  public Profesor departamento(Integer departamento) {
+    this.departamento = departamento;
+    return this;
+  }
+
+   /**
+   * Get departamento
+   * @return departamento
+  **/
+    @NotNull
+  public Integer getDepartamento() {
+    return departamento;
+  }
+
+  public void setDepartamento(Integer departamento) {
+    this.departamento = departamento;
   }
 
 
@@ -228,28 +291,31 @@ public class Alumno   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Alumno alumno = (Alumno) o;
-    return Objects.equals(this.NIF, alumno.NIF) &&
-        Objects.equals(this.contrasenna, alumno.contrasenna) &&
-        Objects.equals(this.nombre, alumno.nombre) &&
-        Objects.equals(this.apellido1, alumno.apellido1) &&
-        Objects.equals(this.apellido2, alumno.apellido2) &&
-        Objects.equals(this.fechaNacimiento, alumno.fechaNacimiento) &&
-        Objects.equals(this.email, alumno.email) &&
-        Objects.equals(this.cuentaCorriente, alumno.cuentaCorriente) &&
-        Objects.equals(this.carrera, alumno.carrera) &&
-        Objects.equals(this.expediente, alumno.expediente);
+    Profesor profesor = (Profesor) o;
+    return Objects.equals(this.NIF, profesor.NIF) &&
+        Objects.equals(this.contrasenna, profesor.contrasenna) &&
+        Objects.equals(this.nombre, profesor.nombre) &&
+        Objects.equals(this.apellido1, profesor.apellido1) &&
+        Objects.equals(this.apellido2, profesor.apellido2) &&
+        Objects.equals(this.fechaNacimiento, profesor.fechaNacimiento) &&
+        Objects.equals(this.email, profesor.email) &&
+        Objects.equals(this.cuentaCorriente, profesor.cuentaCorriente) &&
+        Objects.equals(this.categoria, profesor.categoria) &&
+        Objects.equals(this.antiguedad, profesor.antiguedad) &&
+        Objects.equals(this.tramosInvestigacion, profesor.tramosInvestigacion) &&
+        Objects.equals(this.tramosDocentes, profesor.tramosDocentes) &&
+        Objects.equals(this.departamento, profesor.departamento);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(NIF, contrasenna, nombre, apellido1, apellido2, fechaNacimiento, email, cuentaCorriente, carrera, expediente);
+    return Objects.hash(NIF, contrasenna, nombre, apellido1, apellido2, fechaNacimiento, email, cuentaCorriente, categoria, antiguedad, tramosInvestigacion, tramosDocentes, departamento);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Alumno {\n");
+    sb.append("class Profesor {\n");
     
     sb.append("    NIF: ").append(toIndentedString(NIF)).append("\n");
     sb.append("    contrasenna: ").append(toIndentedString(contrasenna)).append("\n");
@@ -259,8 +325,11 @@ public class Alumno   {
     sb.append("    fechaNacimiento: ").append(toIndentedString(fechaNacimiento)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    cuentaCorriente: ").append(toIndentedString(cuentaCorriente)).append("\n");
-    sb.append("    carrera: ").append(toIndentedString(carrera)).append("\n");
-    sb.append("    expediente: ").append(toIndentedString(expediente)).append("\n");
+    sb.append("    categoria: ").append(toIndentedString(categoria)).append("\n");
+    sb.append("    antiguedad: ").append(toIndentedString(antiguedad)).append("\n");
+    sb.append("    tramosInvestigacion: ").append(toIndentedString(tramosInvestigacion)).append("\n");
+    sb.append("    tramosDocentes: ").append(toIndentedString(tramosDocentes)).append("\n");
+    sb.append("    departamento: ").append(toIndentedString(departamento)).append("\n");
     sb.append("}");
     return sb.toString();
   }
