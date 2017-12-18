@@ -1,0 +1,12 @@
+ms/usuario/controller/NotFoundException.class
+ms/usuario/config/SwaggerDocumentationConfig.class
+ms/usuario/model/Usuario.class
+ms/usuario/controller/ApiOriginFilter.class
+ms/usuario/controller/ApiResponseMessage.class
+ms/usuario/services/UsuarioByNIFApi.class
+ms/usuario/controller/ApiException.class
+ms/usuario/MsUsuarioConfig$ExitException.class
+ms/usuario/controller/UsuarioByNIFApiController.class
+ms/usuario/MsUsuarioConfig.class
+ms/usuario/RFC3339DateFormat.class
+ms/usuario/config/HomeController.class
