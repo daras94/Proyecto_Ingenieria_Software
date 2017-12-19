@@ -54,4 +54,19 @@ public class BBDD {
         
         return resultado;
     }
+    
+    public static boolean modif_BDD (String SQL){
+        boolean completado = false;
+        try{
+            sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            completado = sentencia.execute(SQL);
+       
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+        
+        return completado;
+    }
 }

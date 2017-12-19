@@ -18,13 +18,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2017-12-18T11:43:47.926Z")
 
 public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     
     private final ObjectMapper mapper = new ObjectMapper();
     
-    HttpClient httpClient = HttpClientBuilder.create().build();
+    HttpClient httpClient = HttpClients.createDefault();
             
     
     @Override
@@ -37,6 +38,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
     public Alumno alumnoNIFGet(String NIF) throws Exception {
         try{
+            System.out.println("alumno");
             String URL = "http://localhost:9100/alumno/"+NIF;
             URL enlace = new URL(URL); //Creacion dirección URL
             InputStream is = enlace.openStream(); //Abrir conexion con la API
@@ -60,10 +62,13 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
 
     @Override
     public void alumnoPost(Alumno alumno) throws Exception {
-        HttpPost request = new HttpPost("http://localhost:9100/alummo");
-        StringEntity params = new StringEntity(mapper.valueToTree(alumno).toString());
-        request.setEntity(params);
-        HttpResponse response = httpClient.execute(request);
+        HttpPost post = new HttpPost("http://localhost:9100/alumno");
+        String json = mapper.valueToTree(alumno).toString();
+        StringEntity params = new StringEntity(json);
+        post.setEntity(params);
+        post.setHeader("Accept", "application/json");
+        post.setHeader("Content-type", "application/json");
+        HttpResponse response = httpClient.execute(post);
     }
 
 }

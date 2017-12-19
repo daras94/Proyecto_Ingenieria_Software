@@ -98,7 +98,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
         
         try{
             conectar();
-            String query1 = "SELECT MAX(num_expediente) AS max_exp FROM Alumnos;";
+            String query1 = "SELECT MAX(num_expediente) AS max_exp FROM Alumno;";
             ResultSet resultado = consulta_BDD(query1);
             Integer ultimoExpediente;
             if(resultado.next()){
@@ -107,10 +107,11 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             else{
                 ultimoExpediente = 0;
             }
-            String query2 = "INSERT INTO Usuario VALUES ('"+dni+"','ALUMNO', '"+nombre+"', '"+apellido1+"', '"+apellido2+"', "+fecha_nacimiento+", '"+email+"', "+contrasenna+", '"+CC+"');";
+            String query2 = "INSERT INTO Usuario VALUES ('"+dni+"','ALUMNO', '"+nombre+"', '"+apellido1+"', '"+apellido2+"', '"+fecha_nacimiento+"', '"+email+"', '"+contrasenna+"', '"+CC+"');";
+            System.out.println(query2);
             String query3 = "INSERT INTO Alumno VALUES ('"+dni+"', "+carrera+", "+(ultimoExpediente+1)+");";
-            consulta_BDD(query2);
-            consulta_BDD(query3);
+            modif_BDD(query2);
+            modif_BDD(query3);
             conexion.close();
         }
         catch(Exception e){

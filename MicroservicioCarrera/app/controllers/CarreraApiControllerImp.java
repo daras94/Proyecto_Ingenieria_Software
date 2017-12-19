@@ -69,14 +69,13 @@ public class CarreraApiControllerImp implements CarreraApiControllerImpInterface
 
                 arrayCarreras.add(carrera);
 
-                System.out.println(resultado.toString());
             }
             conexion.close();
             return arrayCarreras;
         }
         catch(Exception e){
                 System.out.println(e.toString());
-                return null;
+                return arrayCarreras;
         }
         
     }                
