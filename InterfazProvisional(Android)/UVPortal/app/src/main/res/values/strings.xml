@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">UVPortal</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_nif">NIF</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="prompt_nombre">Nombre</string>
+    <string name="prompt_apellido1">Primer apellido</string>
+    <string name="prompt_apellido2">Segundo apellido</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_cc">Cuenta bancaria</string>
+    <string name="prompt_fecha_nacimiento">Fecha de nacimiento</string>
+    <string name="prompt_ip">IP de gateway</string>
+
+    <string name="action_sign_in">Aceptar</string>
+    <string name="action_register">Nuevo alumno</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="title_activity_elegir_carrera">Escoja una carrera</string>
+    <string name="title_activity_elegir_asignaturas">Escoja asignatura</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="siguiente">Sig.</string>
+    <string name="title_activity_introducir_usuario">Introduzca sus datos</string>
+    <string name="title_activity_cuenta_alumno">Alumno</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+</resources>
