@@ -4,7 +4,9 @@
 
 -- ----------- DROPS --------------
 
-DROP TRIGGER IF EXISTS valida_NIF_alumno;
+DROP TRIGGER IF EXISTS valida_NIF_usuario;
+DROP TRIGGER IF EXISTS aforo_permitido;
+DROP TRIGGER IF EXISTS check_horas;
 DROP FUNCTION IF EXISTS validador_NIF;
 
 
@@ -53,9 +55,56 @@ DELIMITER ;
 
 -- --------- TRIGGERS -------------
 
--- Trigger validacion de NIF
-CREATE TRIGGER valida_NIF_alumno BEFORE INSERT ON alumno
-	FOR EACH ROW
-	INSERT INTO alumno(Usuario_NIF, Cod_carrera, num_expediente)
-	VALUES (validador_NIF(NEW.Usuario_NIF), NEW.Cod_carrera, NEW.num_expediente);
+-- Triggers validacion de NIF
 
+	DELIMITER //
+	
+CREATE TRIGGER valida_NIF_usuario BEFORE INSERT ON usuario
+	FOR EACH ROW
+	SET NEW.NIF = (validador_NIF(NEW.NIF);
+	
+	DELIMITER ;
+
+-- Triggers Reservas de los Grupos
+-- Comprobacion aforo permitido para el grupo en un espacio
+
+	DELIMITER //
+	
+CREATE TRIGGER aforo_permitido BEFORE INSERT ON reservagrupo
+	FOR EACH ROW
+	
+	BEGIN
+		
+		IF (SELECT COUNT(*) AS total FROM asignatura_matriculada AS am WHERE am.Grupo_id_grupo = NEW.grupo) <=
+        (SELECT aforo_max FROM espacio WHERE codigo = NEW.ID_Espacio) THEN -- No estoy seguro de esta comparación -- comprobar
+			SET NEW.ID_Espacio = NULL;
+			SET NEW.grupo = NULL;
+		END IF;
+	
+	END;//
+	
+	DELIMITER ;
+
+-- Comprobacion horas
+
+	DELIMITER //
+	
+CREATE TRIGGER check_horas BEFORE INSERT ON reservagrupo
+	FOR EACH ROW
+	
+	BEGIN
+	
+		IF ((SELECT COUNT(*) FROM reservagrupo WHERE ID_Espacio = NEW.ID_Espacio AND dia_semana = NEW.dia_semana AND
+		((hora_entrada < NEW.hora_entrada AND NEW.hora_entrada < hora_salida) OR (hora_entrada < NEW.hora_salida AND NEW.hora_salida < hora_salida))) > 0) THEN
+        
+			SET NEW.hora_entrada = NULL;
+            SET NEW.hora_salida = NULL;
+            SET NEW.dia_semana = NULL;
+            SET NEW.ID_Espacio = NULL;
+            SET NEW.grupo = NULL;
+		
+		END IF;
+	
+	END;//
+	
+	DELIMITER ;
