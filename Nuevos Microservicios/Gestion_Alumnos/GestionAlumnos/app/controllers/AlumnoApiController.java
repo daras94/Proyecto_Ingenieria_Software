@@ -45,7 +45,7 @@ public class AlumnoApiController extends Controller {
         return ok();
         }
         catch(Exception e){
-            return notFound();
+            return badRequest();
         
         }
     }

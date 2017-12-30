@@ -45,7 +45,6 @@ public class BBDD {
         try{
             sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             resultado = sentencia.executeQuery(SQL);
-       
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -53,5 +52,21 @@ public class BBDD {
         }
         
         return resultado;
+    }
+    
+    public static int actualizar_BDD (String SQL){
+        int resultado = -1;
+        try{
+            sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            resultado = sentencia.executeUpdate(SQL);
+            return resultado;
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return resultado;
+        
+        }
+    
     }
 }

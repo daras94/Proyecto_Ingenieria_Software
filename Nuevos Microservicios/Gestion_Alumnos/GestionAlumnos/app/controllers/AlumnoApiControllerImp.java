@@ -13,8 +13,51 @@ import javax.validation.constraints.*;
 
 public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
-    public void altaAlumnoPost(Alumno alumno) throws Exception {
+    public boolean altaAlumnoPost(Alumno alumno) throws Exception {
         //Do your magic!!!
+        try{
+            conectar();
+            ArrayList<String> datos = new ArrayList();
+            datos.add("'"+alumno.getNIF()+"'");
+            datos.add("'ALUMNO'");
+            datos.add("'"+alumno.getNombre()+"'");
+            datos.add("'"+alumno.getApellido1()+"'");
+            datos.add("'"+alumno.getApellido2()+"'");
+            datos.add("'"+alumno.getFechaNacimiento()+"'");
+            datos.add("'"+alumno.getEmail()+"'");
+            datos.add("'"+alumno.getContrasenna()+"'");
+            datos.add(alumno.getCuentaCorriente());
+            datos.add(String.valueOf(alumno.getCarrera()));
+            Integer exp = (int) (Math.random() * 20000) + 1;
+            datos.add(String.valueOf(exp));
+            
+            //String sql = "BEGIN;";
+            String sql="";
+            sql += "INSERT INTO Usuario values("+datos.get(0);
+            for(int i=1;i<(datos.size()-2);i++){
+                sql += ","+datos.get(i);
+            
+            
+            }
+            sql +=");";
+            //sql += "INSERT INTO Alumno values("+datos.get(0)+","+datos.get(9)+","+datos.get(10)+");";
+            //sql += "COMMIT;";
+            
+            System.out.println(sql);
+            
+            actualizar_BDD(sql);
+            
+            conexion.close();
+            
+            return true;
+        
+        
+        
+        }
+        catch(Exception e){
+            return false;
+        
+        }
         
     }
 

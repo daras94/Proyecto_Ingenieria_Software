@@ -10,7 +10,7 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface AlumnoApiControllerImpInterface {
-    void altaAlumnoPost(Alumno alumno) throws Exception;
+    boolean altaAlumnoPost(Alumno alumno) throws Exception;
 
     void alumnoByNIFNIFDelete(String NIF) throws Exception;
 
