@@ -1,0 +1,163 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest de la Universidad de Villamayor para acceder a las acciones relacionadas con la gestión de los alumnos.",
+    "version" : "1.0.0",
+    "title" : "API Universidad Villamayor Gestion Alumnos"
+  },
+  "host" : "localhost:9100",
+  "paths" : {
+    "/alta_alumno" : {
+      "post" : {
+        "tags" : [ "Alumno" ],
+        "summary" : "Dar de alta un alumno",
+        "description" : "Introducir en la base de datos la informacion de un nuevo alumno.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "alumno",
+          "description" : "Objeto JSON del contenido del alumno",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Alumno"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/alumnoByNIF/{NIF}" : {
+      "get" : {
+        "tags" : [ "Alumno" ],
+        "summary" : "Obtener alumno por NIF",
+        "description" : "Busqueda de la informacion de un alumno con su NIF",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del alumno",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "$ref" : "#/definitions/Alumno"
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "put" : {
+        "tags" : [ "Alumno" ],
+        "summary" : "Actualizar alumno",
+        "description" : "Actualizacion de la informacion de la cuenta de un alumno",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del alumno que se quiere actualizar",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "alumno",
+          "description" : "Objeto JSON del contenido del alumno",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Alumno"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "delete" : {
+        "tags" : [ "Alumno" ],
+        "summary" : "Eliminar alumno por NIF",
+        "description" : "Eliminar la cuenta de un almuno por NIF",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del alumno",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Alumno" : {
+      "type" : "object",
+      "required" : [ "Apellido1", "Apellido2", "Carrera", "Contrasenna", "CuentaCorriente", "Email", "FechaNacimiento", "NIF", "Nombre" ],
+      "properties" : {
+        "NIF" : {
+          "type" : "string"
+        },
+        "Contrasenna" : {
+          "type" : "string"
+        },
+        "Nombre" : {
+          "type" : "string"
+        },
+        "Apellido1" : {
+          "type" : "string"
+        },
+        "Apellido2" : {
+          "type" : "string"
+        },
+        "FechaNacimiento" : {
+          "type" : "string"
+        },
+        "Email" : {
+          "type" : "string"
+        },
+        "CuentaCorriente" : {
+          "type" : "string"
+        },
+        "Carrera" : {
+          "type" : "integer"
+        }
+      }
+    }
+  }
+}
