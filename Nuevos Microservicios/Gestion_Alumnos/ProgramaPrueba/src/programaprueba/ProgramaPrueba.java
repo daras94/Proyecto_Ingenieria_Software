@@ -11,13 +11,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import javax.json.*;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
 
 /**
@@ -71,7 +74,7 @@ public class ProgramaPrueba {
         String DNI = entrada.readLine();
         
         String URL = "http://localhost:9100/alumnoByNIF/"+DNI;
-        URL enlace = new URL(URL); //Creacion dirección URL
+        /*URL enlace = new URL(URL); //Creacion dirección URL
         InputStream is = enlace.openStream(); //Abrir conexion con la API
         JsonReader rdr = Json.createReader(is); //Leer el objeto JSON
         JsonObject obj = rdr.readObject(); //Sacar el objeto JSON leido
@@ -79,7 +82,24 @@ public class ProgramaPrueba {
         System.out.println(obj.toString());
         
         rdr.close();
-        is.close();
+        is.close();*/
+        
+       
+        HttpGet request = new HttpGet(URL);
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpResponse response;
+        HttpEntity entity;
+        response = client.execute(request);
+        System.out.println("Response: " + response.getStatusLine());
+        if(response.getStatusLine().getStatusCode()==200){
+            InputStream is = response.getEntity().getContent();
+            JsonReader rdr = Json.createReader(is); //Leer el objeto JSON
+            JsonObject obj = rdr.readObject(); //Sacar el objeto JSON leido
+            System.out.println(obj.toString());
+            rdr.close();
+            is.close();
+        
+        }
         }
         catch(Exception e){
             System.out.println(e.toString());

@@ -35,6 +35,9 @@ public class Alumno   {
 
   @JsonProperty("Carrera")
   private Integer carrera = null;
+  
+  @JsonProperty("Expediente")
+  private Integer expediente = null;
 
   public Alumno NIF(String NIF) {
     this.NIF = NIF;
@@ -197,6 +200,23 @@ public class Alumno   {
   public void setCarrera(Integer carrera) {
     this.carrera = carrera;
   }
+  public Alumno expediente(Integer expediente) {
+    this.expediente = expediente;
+    return this;
+  }
+
+   /**
+   * Get cuentaCorriente
+   * @return cuentaCorriente
+  **/
+    @NotNull
+  public Integer getExpediente() {
+    return expediente;
+  }
+
+  public void setExpediente(Integer expediente) {
+    this.expediente = expediente;
+  }
 
 
   @Override
@@ -216,12 +236,13 @@ public class Alumno   {
         Objects.equals(this.fechaNacimiento, alumno.fechaNacimiento) &&
         Objects.equals(this.email, alumno.email) &&
         Objects.equals(this.cuentaCorriente, alumno.cuentaCorriente) &&
-        Objects.equals(this.carrera, alumno.carrera);
+        Objects.equals(this.carrera, alumno.carrera) &&
+        Objects.equals(this.expediente, alumno.expediente);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(NIF, contrasenna, nombre, apellido1, apellido2, fechaNacimiento, email, cuentaCorriente, carrera);
+    return Objects.hash(NIF, contrasenna, nombre, apellido1, apellido2, fechaNacimiento, email, cuentaCorriente, carrera, expediente);
   }
 
   @Override
@@ -238,6 +259,7 @@ public class Alumno   {
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    cuentaCorriente: ").append(toIndentedString(cuentaCorriente)).append("\n");
     sb.append("    carrera: ").append(toIndentedString(carrera)).append("\n");
+    sb.append("    expediente: ").append(toIndentedString(expediente)).append("\n");
     sb.append("}");
     return sb.toString();
   }

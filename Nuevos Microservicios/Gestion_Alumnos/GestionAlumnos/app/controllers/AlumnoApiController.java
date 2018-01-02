@@ -40,12 +40,17 @@ public class AlumnoApiController extends Controller {
 
         alumno = mapper.readValue(nodealumno.toString(), Alumno.class);
 
-        imp.altaAlumnoPost(alumno);
+        boolean exito = imp.altaAlumnoPost(alumno);
+        if(exito){
+            return ok();
+        }
         
-        return ok();
+        else{
+            return badRequest();
+        }
         }
         catch(Exception e){
-            return badRequest();
+            return internalServerError();
         
         }
     }

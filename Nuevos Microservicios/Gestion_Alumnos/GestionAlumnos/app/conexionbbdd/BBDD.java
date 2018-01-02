@@ -8,7 +8,9 @@ package conexionbbdd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -19,7 +21,6 @@ public class BBDD {
     
     //Atributos
     public static Connection conexion;
-    public static Statement sentencia;
     
     //Conexion Base de datos
     public static void conectar(){
@@ -39,34 +40,59 @@ public class BBDD {
     
     }
     
-    public static ResultSet consulta_BDD (String SQL){
+    public static ResultSet consulta_BDD (String SQL) throws SQLException{
         ResultSet resultado = null;
-       
+        Statement sentencia = null;
+        
         try{
             sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             resultado = sentencia.executeQuery(SQL);
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return null;
+            
         }
+        
+        
         
         return resultado;
     }
     
-    public static int actualizar_BDD (String SQL){
-        int resultado = -1;
+    public static int actualizar_BDD (String SQL, String SQL2   ) throws SQLException{
+        int resultado =-1;
+        PreparedStatement sentencia1 = null;
+        PreparedStatement sentencia2 = null;
         try{
-            sentencia = conexion.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            resultado = sentencia.executeUpdate(SQL);
-            return resultado;
+            conexion.setAutoCommit(false);
+            sentencia1 = conexion.prepareStatement(SQL);
+            sentencia2 = conexion.prepareStatement(SQL2);
+            sentencia1.execute();
+            sentencia2.execute();
+            conexion.commit();
+            resultado=0;
             
         }
         catch(Exception e){
             System.out.println(e.toString());
+            if(conexion!=null){
+                conexion.rollback();
+            
+            }
+        
+        }
+        
+        finally{
+            if(sentencia1!=null){
+                sentencia1.close();
+            }
+            if(sentencia2!=null){
+                sentencia2.close();
+            }
+            conexion.setAutoCommit(true);
             return resultado;
         
         }
+        
     
     }
 }

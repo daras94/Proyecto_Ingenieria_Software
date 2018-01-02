@@ -15,8 +15,10 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
     public boolean altaAlumnoPost(Alumno alumno) throws Exception {
         //Do your magic!!!
+        boolean exito = false;
         try{
             conectar();
+            conexion.setAutoCommit(false);
             ArrayList<String> datos = new ArrayList();
             datos.add("'"+alumno.getNIF()+"'");
             datos.add("'ALUMNO'");
@@ -31,7 +33,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             Integer exp = (int) (Math.random() * 20000) + 1;
             datos.add(String.valueOf(exp));
             
-            //String sql = "BEGIN;";
+           
             String sql="";
             sql += "INSERT INTO Usuario values("+datos.get(0);
             for(int i=1;i<(datos.size()-2);i++){
@@ -40,23 +42,29 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             
             }
             sql +=");";
-            //sql += "INSERT INTO Alumno values("+datos.get(0)+","+datos.get(9)+","+datos.get(10)+");";
-            //sql += "COMMIT;";
             
-            System.out.println(sql);
             
-            actualizar_BDD(sql);
+            String sql2 = "INSERT INTO Alumno values("+datos.get(0)+","+datos.get(9)+","+datos.get(10)+");";
             
-            conexion.close();
             
-            return true;
-        
-        
-        
+            
+            int resultado = actualizar_BDD(sql, sql2);
+            if(resultado == 0){
+                exito = true;
+            }
+            
         }
         catch(Exception e){
-            return false;
+            System.out.println(e.toString());
         
+        }
+        
+        finally{
+            if (conexion != null){
+                conexion.close();
+                
+            }
+            return exito;
         }
         
     }
@@ -79,6 +87,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             
             if(resultado.next()){
                 String dni = resultado.getString("NIF");
+                String contrasenna = resultado.getString("password");
                 String nombre = resultado.getString("nombre");
                 String apellido1 = resultado.getString("apellido1");
                 String apellido2 = resultado.getString("apellido2");
@@ -91,6 +100,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
                
                 
                 alumno.setNIF(dni);
+                alumno.setContrasenna(contrasenna);
                 alumno.setNombre(nombre);
                 alumno.setApellido1(apellido1);
                 alumno.setApellido2(apellido2);
@@ -98,6 +108,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
                 alumno.setEmail(email);
                 alumno.setCuentaCorriente(CC);
                 alumno.setCarrera(carrera);
+                alumno.setExpediente(num_expediente);
                 
                 
             }
@@ -108,14 +119,20 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             }
             
             
-            conexion.close();
          
-            return alumno;   
+             
         }
         catch(Exception e){
                 System.out.println(e.toString());
-                return null;
+                
+        }
+        
+        finally{
+            if(conexion!=null){
+                conexion.close();
             }
+              return alumno; 
+        }
     }
 
     @Override
