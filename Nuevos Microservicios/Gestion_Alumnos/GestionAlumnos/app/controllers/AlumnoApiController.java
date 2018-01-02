@@ -57,9 +57,24 @@ public class AlumnoApiController extends Controller {
 
     @ApiAction
     public Result alumnoByNIFNIFDelete(String NIF) throws Exception {
-        imp.alumnoByNIFNIFDelete(NIF);
+        try{
+            boolean exito = imp.alumnoByNIFNIFDelete(NIF);
+            if(exito){
+                return ok();
+            }
+            else{
+                return badRequest();
+            }
+            
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
         
-        return ok();
+        
+        
     }
 
     @ApiAction

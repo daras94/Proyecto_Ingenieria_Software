@@ -14,6 +14,7 @@ import javax.json.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -43,7 +44,7 @@ public class ProgramaPrueba {
             switch(operacion){
                 case 1: microservicio1(); break;
                 case 2: microservicio2(); break;
-                //case 3: microservicio3(); break;
+                case 3: microservicio3(); break;
                 //case 4: microservicio4(); break;
                 default: System.out.println("Introduzca un numero correcto."); break;
         
@@ -74,21 +75,9 @@ public class ProgramaPrueba {
         String DNI = entrada.readLine();
         
         String URL = "http://localhost:9100/alumnoByNIF/"+DNI;
-        /*URL enlace = new URL(URL); //Creacion dirección URL
-        InputStream is = enlace.openStream(); //Abrir conexion con la API
-        JsonReader rdr = Json.createReader(is); //Leer el objeto JSON
-        JsonObject obj = rdr.readObject(); //Sacar el objeto JSON leido
-        
-        System.out.println(obj.toString());
-        
-        rdr.close();
-        is.close();*/
-        
-       
         HttpGet request = new HttpGet(URL);
         DefaultHttpClient client = new DefaultHttpClient();
         HttpResponse response;
-        HttpEntity entity;
         response = client.execute(request);
         System.out.println("Response: " + response.getStatusLine());
         if(response.getStatusLine().getStatusCode()==200){
@@ -164,6 +153,24 @@ public class ProgramaPrueba {
         catch(Exception e){
             System.out.println(e.toString());
             
+        }
+    }
+    
+    private static void microservicio3() throws IOException{
+        try{
+            BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("\nIntroduzca DNI del alumno a eliminar: ");
+            String DNI = entrada.readLine();
+        
+            String URL = "http://localhost:9100/alumnoByNIF/"+DNI;
+            HttpDelete request = new HttpDelete(URL);
+            DefaultHttpClient client = new DefaultHttpClient();
+            HttpResponse response;
+            response = client.execute(request);
+            System.out.println("Response: " + response.getStatusLine());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
         }
     }
 }

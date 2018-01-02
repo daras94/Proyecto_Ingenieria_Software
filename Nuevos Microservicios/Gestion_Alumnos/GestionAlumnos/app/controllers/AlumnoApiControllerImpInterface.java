@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 public interface AlumnoApiControllerImpInterface {
     boolean altaAlumnoPost(Alumno alumno) throws Exception;
 
-    void alumnoByNIFNIFDelete(String NIF) throws Exception;
+    boolean alumnoByNIFNIFDelete(String NIF) throws Exception;
 
     Alumno alumnoByNIFNIFGet(String NIF) throws Exception;
 

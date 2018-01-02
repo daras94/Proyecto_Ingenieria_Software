@@ -70,8 +70,29 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     }
 
     @Override
-    public void alumnoByNIFNIFDelete(String NIF) throws Exception {
+    public boolean alumnoByNIFNIFDelete(String NIF) throws Exception {
         //Do your magic!!!
+        boolean exito = false;
+        try{
+            conectar();
+            String sql1 = "DELETE FROM Alumno WHERE Usuario_NIF = '"+NIF+"';";
+            String sql2 = "DELETE FROM Usuario WHERE NIF = '"+NIF+"';";
+            int n = actualizar_BDD(sql1,sql2);
+            if(n==0){
+                exito=true;
+            }
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return exito;
+        }
         
     }
 
