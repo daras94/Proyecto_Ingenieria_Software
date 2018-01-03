@@ -95,13 +95,23 @@ public class AlumnoApiController extends Controller {
 
     @ApiAction
     public Result alumnoByNIFNIFPut(String NIF) throws Exception {
-        JsonNode nodealumno = request().body().asJson();
-        Alumno alumno;
+        try{
+            JsonNode nodealumno = request().body().asJson();
+            Alumno alumno;
 
-        alumno = mapper.readValue(nodealumno.toString(), Alumno.class);
+            alumno = mapper.readValue(nodealumno.toString(), Alumno.class);
 
-        imp.alumnoByNIFNIFPut(NIF, alumno);
-        
-        return ok();
+            boolean exito = imp.alumnoByNIFNIFPut(NIF, alumno);
+            if(exito){
+                return ok();
+            }
+            else{
+                return badRequest();
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
     }
 }

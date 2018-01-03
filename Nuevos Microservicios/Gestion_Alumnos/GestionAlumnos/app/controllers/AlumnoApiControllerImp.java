@@ -157,8 +157,49 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     }
 
     @Override
-    public void alumnoByNIFNIFPut(String NIF, Alumno alumno) throws Exception {
+    public boolean alumnoByNIFNIFPut(String NIF, Alumno alumno) throws Exception {
         //Do your magic!!!
+        
+        boolean exito = false;
+        try{
+            conectar();
+            
+            ArrayList<String> datos = new ArrayList();
+            datos.add("'"+alumno.getNIF()+"'");
+            datos.add("'"+alumno.getNombre()+"'");
+            datos.add("'"+alumno.getApellido1()+"'");
+            datos.add("'"+alumno.getApellido2()+"'");
+            datos.add("'"+alumno.getFechaNacimiento()+"'");
+            datos.add("'"+alumno.getEmail()+"'");
+            datos.add("'"+alumno.getContrasenna()+"'");
+            datos.add(alumno.getCuentaCorriente());
+            
+            String sql1 = "";
+            sql1 += "UPDATE Usuario SET NIF="+datos.get(0)+", ";  
+            sql1 += "nombre="+datos.get(1)+", "; 
+            sql1+= "apellido1="+datos.get(2)+", ";
+            sql1+= "apellido2="+datos.get(3)+", ";
+            sql1+= "fecha_nacimiento="+datos.get(4)+", ";
+            sql1+= "email="+datos.get(5)+", ";
+            sql1+= "password="+datos.get(6)+", ";
+            sql1+= "CC="+datos.get(7)+" ";  
+            sql1+= "WHERE NIF='"+NIF+"'";
+            
+            int n = actualizar_BDD(sql1);
+            if(n==0){
+                exito=true;
+            }
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return exito;
+        }
         
     }
 

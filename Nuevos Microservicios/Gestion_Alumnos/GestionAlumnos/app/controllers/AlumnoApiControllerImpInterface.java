@@ -16,6 +16,6 @@ public interface AlumnoApiControllerImpInterface {
 
     Alumno alumnoByNIFNIFGet(String NIF) throws Exception;
 
-    void alumnoByNIFNIFPut(String NIF, Alumno alumno) throws Exception;
+    boolean alumnoByNIFNIFPut(String NIF, Alumno alumno) throws Exception;
 
 }

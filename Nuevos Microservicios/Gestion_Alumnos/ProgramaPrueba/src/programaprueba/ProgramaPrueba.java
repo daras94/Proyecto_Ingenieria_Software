@@ -17,6 +17,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -45,7 +46,7 @@ public class ProgramaPrueba {
                 case 1: microservicio1(); break;
                 case 2: microservicio2(); break;
                 case 3: microservicio3(); break;
-                //case 4: microservicio4(); break;
+                case 4: microservicio4(); break;
                 default: System.out.println("Introduzca un numero correcto."); break;
         
         
@@ -172,5 +173,59 @@ public class ProgramaPrueba {
         catch(Exception e){
             System.out.println(e.toString());
         }
+    }
+    
+    private static void microservicio4() throws IOException{
+        try{
+        BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+        JsonObject obj;
+        System.out.print("\nIntroduzca el DNI del alumno que se quiere actualizar: ");
+        String NIF = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo DNI del nuevo alumno: ");
+        String dni = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo contrasenna del nuevo alumno: ");
+        String contrasenna = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo nombre del nuevo alumno: ");
+        String nombre = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo apellido 1 del nuevo alumno: ");
+        String apellido1 = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo apellido 2 del nuevo alumno: ");
+        String apellido2 = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo fecha del nuevo alumno: ");
+        String fecha = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo email del nuevo alumno: ");
+        String email = entrada.readLine();
+        System.out.print("\nIntroduzca nuevo cuenta corriente del nuevo alumno: ");
+        int cc = Integer.parseInt(entrada.readLine());
+        System.out.print("\nIntroduzca nuevo carrera del nuevo alumno: ");
+        long carrera = Integer.parseInt(entrada.readLine());
+        
+        obj = Json.createObjectBuilder()
+                            .add("NIF", dni)
+                            .add("Nombre", nombre)
+                            .add("Apellido1", apellido1)
+                            .add("Apellido2", apellido2)
+                            .add("FechaNacimiento", fecha)
+                            .add("Email", email)
+                            .add("CuentaCorriente", cc)
+                            .add("Carrera", carrera)
+                            .add("Contrasenna", contrasenna)
+                            .build();
+        
+        String URL = "http://localhost:9100/alumnoByNIF/"+NIF;
+        HttpPut request = new HttpPut(URL);
+        request.setHeader("Accept", "application/json");
+        request.setHeader("headerValue", "HeaderInformation");
+        //setting json object to post request.
+        StringEntity entity = new StringEntity(obj.toString(), "UTF8");
+        entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        request.setEntity(entity);
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpResponse response;
+        response = client.execute(request);
+        System.out.println("Response: " + response.getStatusLine());
+    }
+    catch(Exception e){System.out.println(e.toString());}
+        
     }
 }
