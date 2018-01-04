@@ -13,6 +13,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import javax.json.*;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 
 /**
  *
@@ -78,7 +82,34 @@ public class ProgramaPruebaMatriculacion {
                 System.out.println(aux.toString());
                 aux=null;
             }
+            JsonArray asignaturas_matriculadas = (JsonArray) Json.createArrayBuilder().add(asignaturas.getJsonObject(0))
+                                                                                       .add(asignaturas.getJsonObject(1))
+                                                                                        .build();
+            
+            URL = "http://localhost:9200/gruposDisponibles/"+expediente;
+            HttpPost post = new HttpPost(URL);
+            DefaultHttpClient client2 = new DefaultHttpClient();
+
+            post.setHeader("Accept", "application/json");
+            post.setHeader("headerValue", "HeaderInformation");
+            //setting json object to post request.
+            StringEntity entity = new StringEntity(asignaturas_matriculadas.toString(), "UTF8");
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            post.setEntity(entity);
+            response = client2.execute(post);
+            System.out.println("Response: " + response.getStatusLine());
+            if(response.getStatusLine().getStatusCode()==200){
+                is = response.getEntity().getContent();
+                rdr = Json.createReader(is);
+                JsonArray grupos = rdr.readArray();
+                for(int i=0;i<grupos.size();i++){
+                    JsonObject aux = grupos.getJsonObject(i);
+                    System.out.println(aux.toString());
+                    aux=null;
+                 }
         
+            }
+     
         }
         }
         catch(Exception e){

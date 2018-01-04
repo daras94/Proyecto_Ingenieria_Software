@@ -76,6 +76,9 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
                 }
                 tipos_asi+="'T'";
             }
+            if((cred_obl_res==0)&&(cred_opt_res==0)&&(cred_tran_res==0)){
+                tipos_asi+="'TFG";
+            }
             
             sql += "SELECT * FROM Asignatura WHERE (Cod_carrera ="+codigo_carrera+" or Cod_carrera is null";
             sql += ") AND Cod_asignatura not in (SELECT Cod_asignatura FROM Asignatura_Matriculada WHERE nota>=5 AND ";

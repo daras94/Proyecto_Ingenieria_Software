@@ -15,6 +15,9 @@ import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
+import static play.mvc.Results.badRequest;
+import static play.mvc.Results.internalServerError;
+import static play.mvc.Results.ok;
 
 import swagger.SwaggerUtils.ApiAction;
 
@@ -34,9 +37,17 @@ public class AsignaturaApiController extends Controller {
 
     @ApiAction
     public Result asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
-        List<Asignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
-        JsonNode result = mapper.valueToTree(obj);
-        return ok(result);
-        
+        try{
+            List<Asignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
+            if(obj.size()==0){
+                return badRequest();
+            }
+            JsonNode result = mapper.valueToTree(obj);
+            return ok(result);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
     }
 }
