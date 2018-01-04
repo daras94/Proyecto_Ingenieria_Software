@@ -1,0 +1,291 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor Matriculas",
+    "description": "API Rest del microservicio encargado de la gestion de las matriculas de la Universidad de Villamayor."
+  },
+  "host": "localhost:9200",
+  "paths": {
+    "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
+      "get": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "Obtener las asignaturas matriculables del alumno.",
+        "description": "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
+        "parameters": [
+          {
+            "name": "numeroExpediente",
+            "in": "path",
+            "required": true,
+            "description": "Numero de expediente del alumno.",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Asignatura"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/gruposDisponibles": {
+      "get": {
+        "tags": [
+          "Grupo"
+        ],
+        "summary": "Obtener los grupos de las asignaturas que se quiere matricular.",
+        "description": "Obtener los grupos para poder matricularse en las asignaturas",
+        "parameters": [
+          {
+            "name": "asignaturas",
+            "in": "body",
+            "required": true,
+            "description": "NIF del alumno que se quiere actualizar",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Asignatura"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Grupo"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/crearMatricula/{numeroExpediente}": {
+      "post": {
+        "tags": [
+          "Matriculas"
+        ],
+        "summary": "Creacion de una nueva matricula",
+        "description": "Creacion de una nueva matricula en el expediente del alumno indicado a partir de los grupos seleccionados.",
+        "parameters": [
+          {
+            "name": "numeroExpediente",
+            "in": "path",
+            "required": true,
+            "description": "Numero de expediente del alumno",
+            "type": "integer"
+          },
+          {
+            "name": "grupos",
+            "in": "body",
+            "required": true,
+            "description": "Grupos que el alumno ha decidido matricularse",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Grupo"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/verExpediente/{numeroExpediente}": {
+      "get": {
+        "tags": [
+          "Matriculas"
+        ],
+        "summary": "Ver las matriculas",
+        "description": "Ver todo el expediente del alumno",
+        "parameters": [
+          {
+            "name": "numeroExpediente",
+            "in": "path",
+            "required": true,
+            "description": "Numero de expediente del alumno",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Matricula"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/realizarReserva/{numeroExpediente}": {
+      "put": {
+        "tags": [
+          "Matriculas"
+        ],
+        "summary": "Realizar la reserva",
+        "description": "Realiza la reserva de la ultima matricula dada de alta en el expediente",
+        "parameters": [
+          {
+            "name": "numeroExpediente",
+            "in": "path",
+            "required": true,
+            "description": "Numero de expediente del alumno",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Asignatura": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre",
+        "Tipo",
+        "Creditos",
+        "Carrera"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "integer"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Creditos": {
+          "type": "integer"
+        }
+      }
+    },
+    "Grupo": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Actas",
+        "Miembros",
+        "Tipo",
+        "Asignatura",
+        "Profesores",
+        "Anno"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Actas": {
+          "type": "boolean"
+        },
+        "Miembros": {
+          "type": "integer"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Asignatura": {
+          "type": "integer"
+        },
+        "Profesores": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Anno": {
+          "type": "integer"
+        }
+      }
+    },
+    "Asignatura_Matriculada": {
+      "type": "object",
+      "required": [
+        "Asignatura",
+        "Nota"
+      ],
+      "properties": {
+        "Asignatura": {
+          "$ref": "#/definitions/Asignatura"
+        },
+        "Nota": {
+          "type": "integer"
+        }
+      }
+    },
+    "Matricula": {
+      "type": "object",
+      "required": [
+        "Asignaturas",
+        "Anno"
+      ],
+      "properties": {
+        "Asignaturas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Asignatura_Matriculada"
+          }
+        },
+        "Anno": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
