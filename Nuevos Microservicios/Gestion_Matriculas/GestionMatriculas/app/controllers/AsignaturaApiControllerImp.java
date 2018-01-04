@@ -2,6 +2,7 @@ package controllers;
 
 import apimodels.Asignatura;
 import static conexionbbdd.BBDD.conectar;
+import static conexionbbdd.BBDD.conexion;
 import static conexionbbdd.BBDD.consulta_BDD;
 
 import play.mvc.Http;
@@ -50,6 +51,7 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
             
             //Calculo creditos restantes para terminar la carrera
             sql+="SELECT num_cred_opt,num_cred_tran,num_cred_obl FROM Carrera WHERE cod_carrera = "+codigo_carrera+";";
+            result = consulta_BDD(sql);
             result.next();
             int cred_opt_res=result.getInt("num_cred_opt")-cred_opt;
             int cred_obl_res=result.getInt("num_cred_obl")-cred_obl;
@@ -63,21 +65,22 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
                 tipos_asi+="'OB'";
             }
             if(cred_opt_res>0){
-                if(tipos_asi.equals("")){
+                if(!tipos_asi.equals("")){
                     tipos_asi+=",";
                 }
                 tipos_asi+="'OP'";
             }
             if(cred_tran_res>0){
-                if(tipos_asi.equals("")){
+                if(!tipos_asi.equals("")){
                     tipos_asi+=",";
                 }
                 tipos_asi+="'T'";
             }
             
             sql += "SELECT * FROM Asignatura WHERE (Cod_carrera ="+codigo_carrera+" or Cod_carrera is null";
-            sql += numeroExpediente + ") AND Cod_asignatura not in (SELECT Cod_asignatura FROM Asignatura_Matriculada WHERE nota>=5 AND ";
+            sql += ") AND Cod_asignatura not in (SELECT Cod_asignatura FROM Asignatura_Matriculada WHERE nota>=5 AND ";
             sql += "num_expediente="+numeroExpediente+") AND tipo in ("+tipos_asi+");";
+            result = consulta_BDD(sql);
             
             Asignatura aux;
             while(result.next()){
@@ -93,6 +96,8 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
                 aux = null;
             }
             
+            result=null;
+            
             
         }
         catch(Exception e){
@@ -102,6 +107,9 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
         
         }
         finally{
+            if(conexion!=null){
+                conexion.close();
+            }
             return asignaturas_disponibles;
         }
         
