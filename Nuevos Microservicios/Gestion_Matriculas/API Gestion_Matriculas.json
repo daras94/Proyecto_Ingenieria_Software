@@ -7,7 +7,7 @@
   },
   "host": "localhost:9200",
   "paths": {
-    "/asignaturasMatriculablesByAlumno/{numero_expediente}": {
+    "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
       "get": {
         "tags": [
           "Asignatura"
@@ -16,11 +16,11 @@
         "description": "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
         "parameters": [
           {
-            "name": "numero_expediente",
+            "name": "numeroExpediente",
             "in": "path",
             "required": true,
             "description": "Numero de expediente del alumno.",
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
@@ -42,7 +42,7 @@
         }
       }
     },
-    "/grupos_Disponibles": {
+    "/gruposDisponibles": {
       "get": {
         "tags": [
           "Grupo"
@@ -82,7 +82,7 @@
         }
       }
     },
-    "/crear_matricula/{numero_expediente}": {
+    "/crearMatricula/{numeroExpediente}": {
       "post": {
         "tags": [
           "Matriculas"
@@ -91,7 +91,7 @@
         "description": "Creacion de una nueva matricula en el expediente del alumno indicado a partir de los grupos seleccionados.",
         "parameters": [
           {
-            "name": "numero_expediente",
+            "name": "numeroExpediente",
             "in": "path",
             "required": true,
             "description": "Numero de expediente del alumno",
@@ -123,7 +123,7 @@
         }
       }
     },
-    "/ver_expediente/{numero_expediente}": {
+    "/verExpediente/{numeroExpediente}": {
       "get": {
         "tags": [
           "Matriculas"
@@ -132,7 +132,7 @@
         "description": "Ver todo el expediente del alumno",
         "parameters": [
           {
-            "name": "numero_expediente",
+            "name": "numeroExpediente",
             "in": "path",
             "required": true,
             "description": "Numero de expediente del alumno",
@@ -158,7 +158,7 @@
         }
       }
     },
-    "/realizar_reserva/{numero_expediente}": {
+    "/realizarReserva/{numeroExpediente}": {
       "put": {
         "tags": [
           "Matriculas"
@@ -167,7 +167,7 @@
         "description": "Realiza la reserva de la ultima matricula dada de alta en el expediente",
         "parameters": [
           {
-            "name": "numero_expediente",
+            "name": "numeroExpediente",
             "in": "path",
             "required": true,
             "description": "Numero de expediente del alumno",

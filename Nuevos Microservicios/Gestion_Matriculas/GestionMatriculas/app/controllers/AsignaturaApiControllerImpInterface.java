@@ -10,6 +10,6 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface AsignaturaApiControllerImpInterface {
-    List<Asignatura> asignaturasMatriculablesByAlumnoNumeroExpedienteGet(String numeroExpediente) throws Exception;
+    List<Asignatura> asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception;
 
 }
