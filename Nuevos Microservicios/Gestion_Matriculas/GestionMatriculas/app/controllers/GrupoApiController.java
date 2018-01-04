@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T12:56:13.896Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T16:21:46.745Z")
 
 public class GrupoApiController extends Controller {
 
@@ -35,15 +35,24 @@ public class GrupoApiController extends Controller {
 
 
     @ApiAction
-    public Result gruposDisponiblesGet() throws Exception {
-        JsonNode nodeasignaturas = request().body().asJson();
-        List<Asignatura> asignaturas;
+    public Result gruposDisponiblesnumeroExpedienteGet(Integer numeroExpediente) throws Exception {
+        try{
+            JsonNode nodeasignaturas = request().body().asJson();
+            List<Asignatura> asignaturas;
 
-        asignaturas = mapper.readValue(nodeasignaturas.toString(), new TypeReference<List<List<Asignatura>>>(){});
-
-        List<Grupo> obj = imp.gruposDisponiblesGet(asignaturas);
-        JsonNode result = mapper.valueToTree(obj);
-        return ok(result);
-        
+            asignaturas = mapper.readValue(nodeasignaturas.toString(), new TypeReference<List<List<Asignatura>>>(){});
+            System.out.println(asignaturas.size());
+            List<Grupo> obj = imp.gruposDisponiblesnumeroExpedienteGet(numeroExpediente, asignaturas);
+            
+            if(obj == null){
+                return badRequest();
+            }
+            JsonNode result = mapper.valueToTree(obj);
+            return ok(result);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
     }
 }

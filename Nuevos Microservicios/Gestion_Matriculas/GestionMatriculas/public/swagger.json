@@ -40,12 +40,18 @@
         "x-accepts" : "application/json"
       }
     },
-    "/gruposDisponibles" : {
+    "/gruposDisponibles{numeroExpediente}" : {
       "get" : {
         "tags" : [ "Grupo" ],
         "summary" : "Obtener los grupos de las asignaturas que se quiere matricular.",
         "description" : "Obtener los grupos para poder matricularse en las asignaturas",
         "parameters" : [ {
+          "name" : "numeroExpediente",
+          "in" : "path",
+          "description" : "Numero de expediente del alumno.",
+          "required" : true,
+          "type" : "integer"
+        }, {
           "in" : "body",
           "name" : "asignaturas",
           "description" : "NIF del alumno que se quiere actualizar",

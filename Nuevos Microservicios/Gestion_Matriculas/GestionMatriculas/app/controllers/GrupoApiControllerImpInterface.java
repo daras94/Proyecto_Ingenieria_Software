@@ -12,6 +12,6 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface GrupoApiControllerImpInterface {
-    List<Grupo> gruposDisponiblesGet(List<Asignatura> asignaturas) throws Exception;
+    List<Grupo> gruposDisponiblesnumeroExpedienteGet(Integer numeroExpediente, List<Asignatura> asignaturas) throws Exception;
 
 }
