@@ -1,0 +1,205 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest de la Universidad de Villamayor para acceder a los profesores.",
+    "version" : "1.0.0",
+    "title" : "API Universidad Villamayor Profesores"
+  },
+  "host" : "localhost:9200",
+  "paths" : {
+    "/nomina" : {
+      "post" : {
+        "tags" : [ "Nomina" ],
+        "summary" : "Dar de alta una nomina",
+        "description" : "Integrar en la base de datos una nueva nomina.",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "query",
+          "description" : "NIF del profesor",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "fecha",
+          "in" : "query",
+          "description" : "fecha de la nomina",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/nominas/{NIF}" : {
+      "get" : {
+        "tags" : [ "Nomina" ],
+        "summary" : "Obtener todas las nominas de un profesor",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del profesor",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Nomina"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/facturas" : {
+      "get" : {
+        "tags" : [ "Factura" ],
+        "summary" : "Obtener la factura",
+        "description" : "Obtener la factura de una profesor en un año y mes determinado",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del profesor",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Mes",
+          "in" : "path",
+          "description" : "Mes correspondiente a la factura",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "Año",
+          "in" : "path",
+          "description" : "Año correspondiente a la factura",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Factura"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Profesor" : {
+      "type" : "object",
+      "required" : [ "Antiguedad", "Apellido1", "Apellido2", "Categoria", "Contrasenna", "CuentaCorriente", "Departamento", "Email", "FechaNacimiento", "NIF", "Nombre", "TramosDocentes", "TramosInvestigacion" ],
+      "properties" : {
+        "NIF" : {
+          "type" : "string"
+        },
+        "Contrasenna" : {
+          "type" : "string"
+        },
+        "Nombre" : {
+          "type" : "string"
+        },
+        "Apellido1" : {
+          "type" : "string"
+        },
+        "Apellido2" : {
+          "type" : "string"
+        },
+        "FechaNacimiento" : {
+          "type" : "string"
+        },
+        "Email" : {
+          "type" : "string"
+        },
+        "CuentaCorriente" : {
+          "type" : "string"
+        },
+        "Categoria" : {
+          "type" : "string"
+        },
+        "Antiguedad" : {
+          "type" : "integer"
+        },
+        "TramosInvestigacion" : {
+          "type" : "integer"
+        },
+        "TramosDocentes" : {
+          "type" : "string"
+        },
+        "Departamento" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "Nomina" : {
+      "type" : "object",
+      "required" : [ "NIF", "Salario" ],
+      "properties" : {
+        "NIF" : {
+          "type" : "string"
+        },
+        "Numero" : {
+          "type" : "integer"
+        },
+        "Fecha" : {
+          "type" : "string"
+        },
+        "Salario" : {
+          "type" : "number"
+        }
+      }
+    },
+    "Factura" : {
+      "type" : "object",
+      "required" : [ "Coste", "Espacio", "Fecha", "Hora" ],
+      "properties" : {
+        "Espacio" : {
+          "type" : "string"
+        },
+        "Fecha" : {
+          "type" : "string"
+        },
+        "Hora" : {
+          "type" : "string"
+        },
+        "Coste" : {
+          "type" : "number"
+        }
+      }
+    }
+  }
+}
