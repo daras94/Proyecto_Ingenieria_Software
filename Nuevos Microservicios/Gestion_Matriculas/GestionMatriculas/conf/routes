@@ -6,15 +6,15 @@ GET     /api                        controllers.ApiDocController.api
 
 
 #Functions for Asignatura API
-GET     /asignaturasMatriculablesByAlumno/:numero_expediente                     controllers.AsignaturaApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: String)
+GET     /asignaturasMatriculablesByAlumno/:numeroExpediente                     controllers.AsignaturaApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: Integer)
 
 #Functions for Grupo API
-GET     /grupos_Disponibles                     controllers.GrupoApiController.gruposDisponiblesGet()
+GET     /gruposDisponibles                     controllers.GrupoApiController.gruposDisponiblesGet()
 
 #Functions for Matriculas API
-POST     /crear_matricula/:numero_expediente                     controllers.MatriculasApiController.crearMatriculaNumeroExpedientePost(numeroExpediente: Integer)
-PUT     /realizar_reserva/:numero_expediente                     controllers.MatriculasApiController.realizarReservaNumeroExpedientePut(numeroExpediente: Integer)
-GET     /ver_expediente/:numero_expediente                     controllers.MatriculasApiController.verExpedienteNumeroExpedienteGet(numeroExpediente: Integer)
+POST     /crearMatricula/:numeroExpediente                     controllers.MatriculasApiController.crearMatriculaNumeroExpedientePost(numeroExpediente: Integer)
+PUT     /realizarReserva/:numeroExpediente                     controllers.MatriculasApiController.realizarReservaNumeroExpedientePut(numeroExpediente: Integer)
+GET     /verExpediente/:numeroExpediente                     controllers.MatriculasApiController.verExpedienteNumeroExpedienteGet(numeroExpediente: Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

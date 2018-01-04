@@ -18,7 +18,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-03T17:06:28.985Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T12:56:13.896Z")
 
 public class AsignaturaApiController extends Controller {
 
@@ -33,7 +33,7 @@ public class AsignaturaApiController extends Controller {
 
 
     @ApiAction
-    public Result asignaturasMatriculablesByAlumnoNumeroExpedienteGet(String numeroExpediente) throws Exception {
+    public Result asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
         List<Asignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
         JsonNode result = mapper.valueToTree(obj);
         return ok(result);
