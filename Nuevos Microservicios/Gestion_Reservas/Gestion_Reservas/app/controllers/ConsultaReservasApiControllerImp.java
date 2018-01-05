@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:04:56.558Z")
 
@@ -49,8 +50,8 @@ public class ConsultaReservasApiControllerImp implements ConsultaReservasApiCont
                 }
             }
             
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
+            throw(e);
         }
         
         
@@ -80,9 +81,7 @@ public class ConsultaReservasApiControllerImp implements ConsultaReservasApiCont
             
             
         }catch(Exception e){
-            e.printStackTrace();
-            //Excepcion
-            return null;
+            throw(e);
         }
         
         return horas;
