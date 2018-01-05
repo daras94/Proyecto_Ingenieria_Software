@@ -279,6 +279,11 @@ CREATE TABLE IF NOT EXISTS `UVisa2017`.`Pago` (
     FOREIGN KEY (`num_expediente`)
     REFERENCES `UVisa2017`.`Matricula` (`num_expediente`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pago_Matricula2`
+    FOREIGN KEY (`Curso`)
+    REFERENCES `UVisa2017`.`Matricula` (`Curso`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
