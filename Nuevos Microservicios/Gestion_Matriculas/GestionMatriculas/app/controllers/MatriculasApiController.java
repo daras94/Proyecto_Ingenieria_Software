@@ -63,9 +63,19 @@ public class MatriculasApiController extends Controller {
 
     @ApiAction
     public Result verExpedienteNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
+        try{
         List<Matricula> obj = imp.verExpedienteNumeroExpedienteGet(numeroExpediente);
         JsonNode result = mapper.valueToTree(obj);
+        if(obj==null){
+            return badRequest();
+        }
         return ok(result);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
+            
         
     }
 }
