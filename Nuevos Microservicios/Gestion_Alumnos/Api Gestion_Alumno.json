@@ -146,7 +146,8 @@
         "Apellido2",
         "FechaNacimiento",
         "Email",
-        "Carrera"
+        "Carrera",
+        "Expediente"
       ],
       "properties": {
         "NIF": {
@@ -174,6 +175,9 @@
           "type": "string"
         },
         "Carrera": {
+          "type": "integer"
+        },
+        "Expediente": {
           "type": "integer"
         }
       }
