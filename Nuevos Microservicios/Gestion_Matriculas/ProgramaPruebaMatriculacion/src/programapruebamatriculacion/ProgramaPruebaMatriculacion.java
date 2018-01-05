@@ -86,7 +86,7 @@ public class ProgramaPruebaMatriculacion {
                                                                                        .add(asignaturas.getJsonObject(1))
                                                                                         .build();
             
-            URL = "http://localhost:9200/gruposDisponibles/"+expediente;
+            URL = "http://localhost:9200/crearMatricula/"+expediente;
             HttpPost post = new HttpPost(URL);
             DefaultHttpClient client2 = new DefaultHttpClient();
 
@@ -96,19 +96,9 @@ public class ProgramaPruebaMatriculacion {
             StringEntity entity = new StringEntity(asignaturas_matriculadas.toString(), "UTF8");
             entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             post.setEntity(entity);
-            response = client2.execute(post);
+            response=client2.execute(post);
             System.out.println("Response: " + response.getStatusLine());
-            if(response.getStatusLine().getStatusCode()==200){
-                is = response.getEntity().getContent();
-                rdr = Json.createReader(is);
-                JsonArray grupos = rdr.readArray();
-                for(int i=0;i<grupos.size();i++){
-                    JsonObject aux = grupos.getJsonObject(i);
-                    System.out.println(aux.toString());
-                    aux=null;
-                 }
-        
-            }
+            
      
         }
         }

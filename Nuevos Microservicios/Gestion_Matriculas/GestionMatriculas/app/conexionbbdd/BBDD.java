@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -96,13 +98,22 @@ public class BBDD {
     
     }
     
-    public static int actualizar_BDD(String SQL) throws SQLException{
+    public static int actualizar_BDD(String SQL, List<String> asignaturas) throws SQLException{
         int resultado = -1;
         PreparedStatement sentencia1 = null;
-        try{
+        List<PreparedStatement> sentencias = new ArrayList<>();
+        try{ 
             conexion.setAutoCommit(false);
+            
             sentencia1 = conexion.prepareStatement(SQL);
             sentencia1.execute();
+            PreparedStatement aux = null;
+            for(int i=0;i<asignaturas.size();i++){
+                aux = conexion.prepareStatement(asignaturas.get(i));
+                aux.execute();
+                sentencias.add(aux);
+                aux=null;
+            }
             conexion.commit();
             resultado=0;
         }
@@ -117,6 +128,11 @@ public class BBDD {
         finally{
             if(sentencia1!=null){
                 sentencia1.close();
+            }
+            for(int i=0;i<sentencias.size();i++){
+                if(sentencias.get(i)!=null){
+                    sentencias.get(i).close();
+                }
             }
             conexion.setAutoCommit(true);
             return resultado;

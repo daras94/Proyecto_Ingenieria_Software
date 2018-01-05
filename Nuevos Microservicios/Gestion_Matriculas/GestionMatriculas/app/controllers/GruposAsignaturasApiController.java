@@ -1,6 +1,7 @@
 package controllers;
 
 import apimodels.Asignatura;
+import apimodels.GrupoAsignatura;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -15,21 +16,18 @@ import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
-import static play.mvc.Results.badRequest;
-import static play.mvc.Results.internalServerError;
-import static play.mvc.Results.ok;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T12:56:13.896Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
 
-public class AsignaturaApiController extends Controller {
+public class GruposAsignaturasApiController extends Controller {
 
-    private final AsignaturaApiControllerImp imp;
+    private final GruposAsignaturasApiControllerImp imp;
     private final ObjectMapper mapper;
 
     @Inject
-    private AsignaturaApiController(AsignaturaApiControllerImp imp) {
+    private GruposAsignaturasApiController(GruposAsignaturasApiControllerImp imp) {
         this.imp = imp;
         mapper = new ObjectMapper();
     }
@@ -38,16 +36,16 @@ public class AsignaturaApiController extends Controller {
     @ApiAction
     public Result asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
         try{
-            List<Asignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
-            if(obj.size()==0){
-                return badRequest();
-            }
-            JsonNode result = mapper.valueToTree(obj);
-            return ok(result);
+        List<GrupoAsignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
+        if(obj==null){
+            return badRequest();
         }
-        catch(Exception e){
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
+        }catch(Exception e){
             System.out.println(e.toString());
             return internalServerError();
         }
+        
     }
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import apimodels.Asignatura;
+import apimodels.GrupoAsignatura;
 import static conexionbbdd.BBDD.conectar;
 import static conexionbbdd.BBDD.conexion;
 import static conexionbbdd.BBDD.consulta_BDD;
@@ -12,17 +13,19 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-03T17:06:28.985Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
 
-public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInterface {
+public class GruposAsignaturasApiControllerImp implements GruposAsignaturasApiControllerImpInterface {
+    String anno = "2017";
     @Override
-    public List<Asignatura> asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
+    public List<GrupoAsignatura> asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
         //Do your magic!!!
-        List<Asignatura> asignaturas_disponibles = new ArrayList<Asignatura>();
+        List<GrupoAsignatura> asignaturas_disponibles = new ArrayList<>();
         ResultSet result = null;
         String sql = "";
         try{
             conectar();
+            
             //Obtener codigo de la carrera del alumno
             sql+="SELECT cod_carrera FROM Alumno WHERE num_expediente="+numeroExpediente+";";
             result = consulta_BDD(sql);
@@ -31,9 +34,10 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
             sql="";
             result = null;
             
-            //Calculo creditos ya obtenidos
-            sql += "SELECT tipo,sum(creditos) as numero_cred FROM Asignatura_Matriculada NATURAL JOIN Asignatura WHERE num_expediente=";
-            sql+=numeroExpediente+" and nota>=5 GROUP BY tipo;";
+            //Calculo creditos ya obtenidos y codigos asignaturas
+            List<Integer> codigos_asignaturas_aprobadas = new ArrayList<>();
+            sql += "SELECT Cod_asignatura, creditos, tipo FROM Asignatura_Matriculada NATURAL JOIN Asignatura WHERE num_expediente=";
+            sql+=numeroExpediente+" and nota>=5";
             
             result = consulta_BDD(sql);
             int cred_opt = 0;
@@ -42,9 +46,10 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
             
             while(result.next()){
                 String tipo = result.getString("tipo");
-                if (tipo.equals("T")){cred_tran=result.getInt("numero_cred");}
-                else if (tipo.equals("OP")){cred_opt=result.getInt("numero_cred");}
-                else if (tipo.equals("OB")){cred_obl=result.getInt("numero_cred");}
+                if (tipo.equals("T")){cred_tran+=result.getInt("creditos");}
+                else if (tipo.equals("OP")){cred_opt+=result.getInt("creditos");}
+                else if (tipo.equals("OB")){cred_obl+=result.getInt("creditos");}
+                codigos_asignaturas_aprobadas.add(result.getInt("Cod_asignatura"));
             }
             sql="";
             result=null;
@@ -59,7 +64,7 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
             result=null;
             sql="";
             
-            //Annadir asignaturas matriculables
+            //Obtener asignaturas matriculables
             String tipos_asi ="";
             if(cred_obl_res>0){
                 tipos_asi+="'OB'";
@@ -80,34 +85,45 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
                 tipos_asi+="'TFG";
             }
             
-            sql += "SELECT * FROM Asignatura WHERE (Cod_carrera ="+codigo_carrera+" or Cod_carrera is null";
-            sql += ") AND Cod_asignatura not in (SELECT Cod_asignatura FROM Asignatura_Matriculada WHERE nota>=5 AND ";
-            sql += "num_expediente="+numeroExpediente+") AND tipo in ("+tipos_asi+");";
+            String codigos_aprobados = String.valueOf(codigos_asignaturas_aprobadas.get(0));
+            for(int i=1;i<codigos_asignaturas_aprobadas.size();i++){
+                codigos_aprobados+=", ";
+                codigos_aprobados+=String.valueOf(codigos_asignaturas_aprobadas.get(i));
+            }
+            
+            sql += "SELECT * FROM Asignatura INNER JOIN Grupo ON Grupo.Cod_asignatura=Asignatura.Cod_asignatura WHERE (Cod_carrera ="+codigo_carrera+" or Cod_carrera is null";
+            sql += ") AND Asignatura.Cod_asignatura not in ("+codigos_aprobados+") AND Asignatura.tipo in ("+tipos_asi+") AND anno = "+anno+";";
             result = consulta_BDD(sql);
             
-            Asignatura aux;
             while(result.next()){
-                aux = new Asignatura();
-                aux.setCarrera(Integer.valueOf(result.getString("Cod_carrera")));
-                aux.setCodigo(Integer.valueOf(result.getString("Cod_asignatura")));
-                aux.setCreditos(Integer.valueOf(result.getString("creditos")));
-                aux.setNombre(result.getString("nombre"));
-                aux.setTipo(result.getString("tipo"));
+                Asignatura asig_aux = new Asignatura();
+                GrupoAsignatura aux = new GrupoAsignatura();
+                asig_aux.setCarrera(result.getInt("Cod_carrera"));
+                asig_aux.setCodigo(result.getInt("Cod_asignatura"));
+                asig_aux.setCreditos(result.getInt("creditos"));
+                asig_aux.setNombre(result.getString("nombre"));
+                asig_aux.setTipo(result.getString("Asignatura.tipo"));
+                
+                aux.setAsignatura(asig_aux);
+                aux.setIdGrupo(result.getInt("id_grupo"));
+                aux.setMiembros(result.getInt("miembros"));
+                aux.setTipo(result.getString("Grupo.tipo"));
                 
                 asignaturas_disponibles.add(aux);
+                asig_aux=null;
+                aux=null;
                 
-                aux = null;
             }
             
             result=null;
+            
+            
             
             
         }
         catch(Exception e){
             System.out.println(e.toString());
             return null;
-            
-        
         }
         finally{
             if(conexion!=null){
@@ -115,7 +131,6 @@ public class AsignaturaApiControllerImp implements AsignaturaApiControllerImpInt
             }
             return asignaturas_disponibles;
         }
-        
     }
 
 }
