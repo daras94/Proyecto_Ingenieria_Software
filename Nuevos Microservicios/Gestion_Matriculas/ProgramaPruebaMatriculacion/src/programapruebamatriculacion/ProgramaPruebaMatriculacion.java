@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import javax.json.*;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
@@ -38,7 +39,7 @@ public class ProgramaPruebaMatriculacion {
             switch(operacion){
                 case 1: microservicio1(); break;
                 case 2: microservicio2(); break;
-                //case 3: microservicio3(); break;
+                case 3: microservicio3(); break;
                 //case 4: microservicio4(); break;
                 default: System.out.println("Introduzca un numero correcto."); break;
         
@@ -56,7 +57,7 @@ public class ProgramaPruebaMatriculacion {
         System.out.println("\nIntroduzca el numero del microservicio que quiere probar (-1 para salir): ");
         System.out.println("1. Obtener Asignaturas matriculables para el alumno");
         System.out.println("2. Ver expediente alumno");
-        //System.out.println("3. Eliminar alumno");
+        System.out.println("3. Reservar matricula");
         //System.out.println("4. Actualizar informacion nuevo alumno");
         System.out.print("\nOpcion: ");
     }
@@ -132,6 +133,25 @@ public class ProgramaPruebaMatriculacion {
             
             
         }}
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+    }
+    
+    private static void microservicio3(){
+        try{
+            BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("\nIntroduzca expediente del Alumno que quiere reservar la matricula: ");
+            String expediente = entrada.readLine();
+            String URL = "http://localhost:9200/realizarReserva/"+expediente;
+            HttpPut request = new HttpPut(URL);
+            DefaultHttpClient client = new DefaultHttpClient();
+            HttpResponse response;
+            response = client.execute(request);
+            System.out.println("Response: " + response.getStatusLine());
+            
+            
+        }
         catch(Exception e){
             System.out.println(e.toString());
         }
