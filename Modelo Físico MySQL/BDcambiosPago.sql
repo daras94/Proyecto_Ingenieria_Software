@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `UVisa2017`.`Usuario` (
   `apellido2` VARCHAR(45) NOT NULL,
   `fecha_nacimiento` DATE NOT NULL,
   `email` VARCHAR(200) NOT NULL,
-  `password` BINARY(64) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `CC` VARCHAR(24) NOT NULL,
   PRIMARY KEY (`NIF`),
   UNIQUE INDEX `correo_UNIQUE` (`email` ASC),
