@@ -37,7 +37,7 @@ public class ProgramaPruebaMatriculacion {
         while(operacion!=-1){
             switch(operacion){
                 case 1: microservicio1(); break;
-                //case 2: microservicio2(); break;
+                case 2: microservicio2(); break;
                 //case 3: microservicio3(); break;
                 //case 4: microservicio4(); break;
                 default: System.out.println("Introduzca un numero correcto."); break;
@@ -55,7 +55,7 @@ public class ProgramaPruebaMatriculacion {
     private static void imprimir_menu(){
         System.out.println("\nIntroduzca el numero del microservicio que quiere probar (-1 para salir): ");
         System.out.println("1. Obtener Asignaturas matriculables para el alumno");
-        //System.out.println("2. Insertar nuevo alumno");
+        System.out.println("2. Ver expediente alumno");
         //System.out.println("3. Eliminar alumno");
         //System.out.println("4. Actualizar informacion nuevo alumno");
         System.out.print("\nOpcion: ");
@@ -106,6 +106,35 @@ public class ProgramaPruebaMatriculacion {
             System.out.println(e.toString());
         }
     
+    }
+    
+    private static void microservicio2() throws IOException{
+        try{
+            BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("\nIntroduzca expediente del Alumno que se quiere consultar: ");
+            String expediente = entrada.readLine();
+            
+            String URL = "http://localhost:9200/verExpediente/"+expediente;
+            HttpGet request = new HttpGet(URL);
+            DefaultHttpClient client = new DefaultHttpClient();
+            HttpResponse response;
+            response = client.execute(request);
+            System.out.println("Response: " + response.getStatusLine());
+            if(response.getStatusLine().getStatusCode()==200){
+            InputStream is = response.getEntity().getContent();
+            JsonReader rdr = Json.createReader(is);
+            JsonArray asignaturas = rdr.readArray();
+            for(int i=0;i<asignaturas.size();i++){
+                JsonObject aux = asignaturas.getJsonObject(i);
+                System.out.println(aux.toString());
+                aux=null;
+            }
+            
+            
+        }}
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
     }
 }
     

@@ -1,5 +1,7 @@
 package controllers;
 
+import apimodels.Asignatura;
+import apimodels.AsignaturaMatriculada;
 import apimodels.GrupoAsignatura;
 import java.util.List;
 import apimodels.Matricula;
@@ -70,7 +72,64 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
     @Override
     public List<Matricula> verExpedienteNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
         //Do your magic!!!
-        return new ArrayList<Matricula>();
+        List<Matricula> matriculas = new ArrayList<Matricula>();
+        ResultSet result=null;
+        ResultSet aux = null;
+        try{
+            conectar();
+            String sql="SELECT * FROM Matricula WHERE num_expediente="+String.valueOf(numeroExpediente)+";";
+            result=consulta_BDD(sql);
+            String sql_aux="";
+            Matricula matricula_aux = null;
+            while(result.next()){
+                matricula_aux= new Matricula();
+                sql_aux="SELECT * FROM Asignatura_Matriculada NATURAL JOIN Asignatura WHERE num_expediente=";
+                sql_aux+=String.valueOf(numeroExpediente)+" AND Curso="+String.valueOf(result.getInt("Curso"))+";";
+                aux=consulta_BDD(sql_aux);
+                matricula_aux.setAnno(result.getInt("Curso"));
+                List<AsignaturaMatriculada> asignaturas_matriculadas = new ArrayList<>();
+                Asignatura asig_aux = null;
+                AsignaturaMatriculada aux_asig_matri = null;
+                while(aux.next()){
+                    aux_asig_matri = new AsignaturaMatriculada();
+                    asig_aux = new Asignatura();
+                    asig_aux.setCarrera(aux.getInt("Cod_carrera"));
+                    asig_aux.setCodigo(aux.getInt("Cod_asignatura"));
+                    asig_aux.setCreditos(aux.getInt("creditos"));
+                    asig_aux.setTipo(aux.getString("tipo"));
+                    asig_aux.setNombre(aux.getString("nombre"));
+                    
+                    aux_asig_matri.setAsignatura(asig_aux);
+                    aux_asig_matri.setNota(aux.getInt("nota"));
+                    
+                    asignaturas_matriculadas.add(aux_asig_matri);
+                    asig_aux=null;
+                    aux_asig_matri=null;
+                    
+                    
+                }
+                matricula_aux.setAsignaturas(asignaturas_matriculadas);
+                matriculas.add(matricula_aux);
+                matricula_aux=null;
+                aux=null;
+                sql_aux="";
+                asignaturas_matriculadas=null;
+            }
+            
+            result=null;
+           
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return matriculas;
+        }
     }
     
     
