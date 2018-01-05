@@ -1,6 +1,6 @@
 package controllers;
 
-import apimodels.Grupo;
+import apimodels.GrupoAsignatura;
 import java.util.List;
 import apimodels.Matricula;
 
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface MatriculasApiControllerImpInterface {
-    void crearMatriculaNumeroExpedientePost(Integer numeroExpediente, List<Grupo> grupos) throws Exception;
+    boolean crearMatriculaNumeroExpedientePost(Integer numeroExpediente, List<GrupoAsignatura> grupos) throws Exception;
 
     void realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception;
 

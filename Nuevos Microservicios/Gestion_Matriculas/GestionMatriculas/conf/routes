@@ -5,11 +5,8 @@
 GET     /api                        controllers.ApiDocController.api
 
 
-#Functions for Asignatura API
-GET     /asignaturasMatriculablesByAlumno/:numeroExpediente                     controllers.AsignaturaApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: Integer)
-
-#Functions for Grupo API
-GET     /gruposDisponibles:numeroExpediente                     controllers.GrupoApiController.gruposDisponiblesnumeroExpedienteGet(numeroExpediente: Integer)
+#Functions for GruposAsignaturas API
+GET     /asignaturasMatriculablesByAlumno/:numeroExpediente                     controllers.GruposAsignaturasApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: Integer)
 
 #Functions for Matriculas API
 POST     /crearMatricula/:numeroExpediente                     controllers.MatriculasApiController.crearMatriculaNumeroExpedientePost(numeroExpediente: Integer)

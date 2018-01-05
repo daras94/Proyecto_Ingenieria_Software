@@ -1,0 +1,173 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest de la Universidad de Villamayor para gestionar los pagos de matrícula de los alunmos",
+    "version" : "1.0.0",
+    "title" : "API Gestion Economica Matriculas Universidad Villamayor"
+  },
+  "host" : "localhost:9000",
+  "paths" : {
+    "/reservaMatricula" : {
+      "get" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Obtener el estado de reserva de la matricula de un alumno de un anno especifico",
+        "description" : "Devuelve el estado de reserva de una matricula.",
+        "parameters" : [ {
+          "name" : "Promocion",
+          "in" : "query",
+          "description" : "Promocion de la matricula que se esta buscando",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "alumno",
+          "in" : "query",
+          "description" : "NIF del alumno que se esta buscando",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "boolean"
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      },
+      "put" : {
+        "tags" : [ "Matricula" ],
+        "summary" : "Actualizar el estado de reserva de la matricula a true",
+        "description" : "Actualizacion del estado de la reserva de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
+        "parameters" : [ {
+          "name" : "Promocion",
+          "in" : "query",
+          "description" : "Promocion de la matricula que se quiere actualizar",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "alumno",
+          "in" : "query",
+          "description" : "NIF del alumno del que se quiere actualizar su matricula",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/pagosMatricula" : {
+      "get" : {
+        "tags" : [ "Pagos" ],
+        "summary" : "Devuelve la lista de pagos de una matricula",
+        "description" : "Devuelve la lista de pagos de una matricula de un alumno y una promocion determinados",
+        "parameters" : [ {
+          "name" : "Promocion",
+          "in" : "query",
+          "description" : "Promocion de la matricula de la que se quieren obtener los pagos",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "alumno",
+          "in" : "query",
+          "description" : "NIF del alumno del que se quieren obtener los pagos",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pago"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/actualizarPago" : {
+      "put" : {
+        "tags" : [ "Pagos" ],
+        "summary" : "Actualiza el estado de pago de un plazo de pago",
+        "description" : "Actualiza el atributo Pagado de un Pago a true",
+        "parameters" : [ {
+          "name" : "Promocion",
+          "in" : "query",
+          "description" : "Promocion de la matricula de la que se quiere actualizar el pago",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "alumno",
+          "in" : "query",
+          "description" : "NIF del alumno del que se quiere actualizar el pago",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "numeroPago",
+          "in" : "query",
+          "description" : "Numero de pago que se quiere actualiazr",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito'"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Pago" : {
+      "type" : "object",
+      "required" : [ "Importe", "Num_pago", "Pagado" ],
+      "properties" : {
+        "Num_pago" : {
+          "type" : "integer"
+        },
+        "Importe" : {
+          "type" : "number"
+        },
+        "Pagado" : {
+          "type" : "boolean"
+        }
+      }
+    }
+  }
+}
