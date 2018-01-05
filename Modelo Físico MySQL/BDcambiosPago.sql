@@ -272,11 +272,11 @@ CREATE TABLE IF NOT EXISTS `UVisa2017`.`Pago` (
   `pagado` TINYINT(1) NOT NULL,
   `num_expediente` INT NOT NULL,
   `Curso` YEAR NOT NULL,
-  PRIMARY KEY (`numero_pago`, `Matricula_num_expediente`, `Matricula_Curso`),
+  PRIMARY KEY (`numero_pago`, `num_expediente`, `Curso`),
   UNIQUE INDEX `numero_pago_UNIQUE` (`numero_pago` ASC),
-  INDEX `fk_Pago_Matricula1_idx` (`Matricula_num_expediente` ASC, `Matricula_Curso` ASC),
+  INDEX `fk_Pago_Matricula1_idx` (`num_expediente` ASC, `Curso` ASC),
   CONSTRAINT `fk_Pago_Matricula1`
-    FOREIGN KEY (`Matricula_num_expediente` , `Matricula_Curso`)
+    FOREIGN KEY (`num_expediente` , `Curso`)
     REFERENCES `UVisa2017`.`Matricula` (`num_expediente` , `Curso`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -311,7 +311,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`ReservaGrupo` (
   `hora` INT(11) NOT NULL,
-  `dia_semana` ENUM('L', 'M', 'MX', 'J', 'V') NOT NULL,
+  `dia_semana` INT(11) NOT NULL,
   `ID_Espacio` INT(11) NOT NULL,
   `grupo` INT(11) NOT NULL,
   PRIMARY KEY (`hora`, `dia_semana`, `ID_Espacio`),

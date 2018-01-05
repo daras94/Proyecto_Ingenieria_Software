@@ -37,7 +37,7 @@ public class BBDD {
         catch(Exception e){
             System.out.println(e.toString());
         }
-    
+        
     }
     
     public static ResultSet consulta_BDD (String SQL) throws SQLException{

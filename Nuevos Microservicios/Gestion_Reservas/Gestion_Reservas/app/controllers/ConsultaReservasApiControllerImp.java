@@ -20,14 +20,14 @@ public class ConsultaReservasApiControllerImp implements ConsultaReservasApiCont
     @Override
     public EspaciosLibres reservasDisponiblesEspaciosGet( @NotNull String dia,  @NotNull Integer hora) throws Exception {
         ArrayList<Integer> codigos = new ArrayList<>();
-        ArrayList<Espacio> espacios = new ArrayList<>();
+        EspaciosLibres espacios = new EspaciosLibres();
         try{
             conectar();
-            String sql = "SELECT ID_Espacio FROM reservaprofesor WHERE fecha = "+dia+" AND hora = "+hora+";";
+            String sql = "SELECT codigo FROM espacio WHERE codigo NOT IN (SELECT ID_Espacio FROM reservaprofesor WHERE fecha = "+dia+" AND hora = "+hora+");";
             ResultSet resultado = consulta_BDD(sql);
             
             while(resultado.next()){
-                codigos.add(resultado.getInt("ID_Espacio"));
+                codigos.add(resultado.getInt("codigo"));
             }
             
             for(int i = 0; i< codigos.size(); i++){
@@ -50,37 +50,42 @@ public class ConsultaReservasApiControllerImp implements ConsultaReservasApiCont
             }
             
         }catch(Exception e){
-            
+            e.printStackTrace();
         }
         
         
-        return (EspaciosLibres) espacios;
+        return espacios;
     }
 
     @Override
     public HorasLibres reservasDisponiblesHorasGet( @NotNull String dia,  @NotNull Integer espacio) throws Exception {
-        ArrayList<Integer> horas = new ArrayList<>();
+        HorasLibres horas = new HorasLibres();
         ArrayList<Integer> horasOcupadas = new ArrayList<>();
         try{
             conectar();
-            String sql = "SELECT hora FROM reservaprofesor WHERE fecha = "+dia+" AND ID_Espacio = "+espacio+";";
+            String sql = "SELECT hora FROM reservaprofesor WHERE fecha = '"+dia+"' AND ID_Espacio = "+espacio
+                    + " UNION SELECT hora FROM reservagrupo WHERE DAYOFWEEK( '"+dia+"' ) = dia_semana;";
             ResultSet resultado = consulta_BDD(sql);
             
             while(resultado.next()){
+                System.out.println(resultado.toString());
                 horasOcupadas.add(resultado.getInt("hora"));
             }
             
-            for(int i = 0; 0<24; i++){
+            for(int i = 0; i<24; i++){
                 if(!horasOcupadas.contains(i)){
                     horas.add(i);
                 }
             }
-        }catch(Exception e){
             
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            //Excepcion
+            return null;
         }
         
-        
-        return (HorasLibres) horas;
+        return horas;
     }
 
 }

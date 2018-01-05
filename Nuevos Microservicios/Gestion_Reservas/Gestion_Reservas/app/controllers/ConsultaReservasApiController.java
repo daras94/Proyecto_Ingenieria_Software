@@ -53,19 +53,25 @@ public class ConsultaReservasApiController extends Controller {
 
     @ApiAction
     public Result reservasDisponiblesHorasGet() throws Exception {
+        
         String valuedia = request().getQueryString("dia");
         String dia;
 
         dia = (String)valuedia;
-
+        System.out.println(dia);
         String valueespacio = request().getQueryString("espacio");
         Integer espacio;
 
         espacio = Integer.parseInt(valueespacio);
-
-        HorasLibres obj = imp.reservasDisponiblesHorasGet(dia, espacio);
-        JsonNode result = mapper.valueToTree(obj);
-        return ok(result);
+        try{
+            HorasLibres obj = imp.reservasDisponiblesHorasGet(dia, espacio);
+            JsonNode result = mapper.valueToTree(obj);
+            System.out.println(result.toString());
+            return ok(result);
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
         
     }
 }
