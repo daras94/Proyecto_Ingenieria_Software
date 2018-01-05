@@ -64,8 +64,26 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
     }
 
     @Override
-    public void realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
+    public boolean realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
         //Do your magic!!!
+        boolean exito=false;
+        try{
+            conectar();
+            String sql = "UPDATE Matricula SET reserva = TRUE WHERE num_expediente="+String.valueOf(numeroExpediente)+" AND Curso="+anno+";";
+            int resultado = actualizar_BDD(sql);
+            if(resultado==0){
+                exito=true;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return exito;
+        }
         
     }
 

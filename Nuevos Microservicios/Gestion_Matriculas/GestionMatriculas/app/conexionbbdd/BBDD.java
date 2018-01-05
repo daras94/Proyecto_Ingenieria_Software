@@ -97,6 +97,32 @@ public class BBDD {
         
     
     }
+    public static int actualizar_BDD(String SQL) throws SQLException{
+        int resultado = -1;
+        PreparedStatement sentencia = null;
+        try{
+            conexion.setAutoCommit(false);
+            sentencia=conexion.prepareStatement(SQL);
+            sentencia.execute();
+            conexion.commit();
+            resultado=0;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            if(conexion!=null){
+                conexion.rollback();
+            }
+        }
+        finally{
+            if(sentencia!=null){
+                sentencia.close();
+            }
+            if(conexion!=null){
+                conexion.setAutoCommit(true);
+            }
+            return resultado;
+        }
+    }
     
     public static int actualizar_BDD(String SQL, List<String> asignaturas) throws SQLException{
         int resultado = -1;
@@ -134,10 +160,13 @@ public class BBDD {
                     sentencias.get(i).close();
                 }
             }
-            conexion.setAutoCommit(true);
+            if(conexion!=null){
+                conexion.setAutoCommit(true);
+                
+            }
             return resultado;
-            
         }
+        
         
         
     }

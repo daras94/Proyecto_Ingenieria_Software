@@ -56,9 +56,17 @@ public class MatriculasApiController extends Controller {
 
     @ApiAction
     public Result realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
-        imp.realizarReservaNumeroExpedientePut(numeroExpediente);
-        
+        try{
+        boolean resultado =imp.realizarReservaNumeroExpedientePut(numeroExpediente);
+        if(!resultado){
+            return badRequest();
+        }
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
     }
 
     @ApiAction
