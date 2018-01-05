@@ -1,11 +1,11 @@
-{
+﻿{
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
     "title": "API Gestion Economica Matriculas Universidad Villamayor",
     "description": "API Rest de la Universidad de Villamayor para gestionar los pagos de matrícula de los alunmos"
   },
-  "host": "localhost:9000",
+  "host": "localhost:9500",
   "paths": {
     "/reservaMatricula": {
       "get": {
