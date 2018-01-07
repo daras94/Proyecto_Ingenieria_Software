@@ -1,22 +1,16 @@
 package controllers;
 
 import apimodels.GrupoAsignatura;
-import java.util.List;
 import apimodels.Matricula;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Http;
 import java.util.List;
-import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
-import java.io.IOException;
-import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
@@ -43,14 +37,14 @@ public class MatriculasApiController extends Controller {
         grupos = mapper.reader().forType(new TypeReference<List<GrupoAsignatura>>(){}).readValue(nodegrupos.toString());
         boolean exito = imp.crearMatriculaNumeroExpedientePost(numeroExpediente, grupos);
         if(!exito){
-            return badRequest();
+            return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
         
         return ok();
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
     }
 
@@ -59,13 +53,13 @@ public class MatriculasApiController extends Controller {
         try{
         boolean resultado =imp.realizarReservaNumeroExpedientePut(numeroExpediente);
         if(!resultado){
-            return badRequest();
+            return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
         return ok();
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
     }
 
@@ -75,13 +69,13 @@ public class MatriculasApiController extends Controller {
         List<Matricula> obj = imp.verExpedienteNumeroExpedienteGet(numeroExpediente);
         JsonNode result = mapper.valueToTree(obj);
         if(obj==null){
-            return badRequest();
+            return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
         return ok(result);
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
             
         

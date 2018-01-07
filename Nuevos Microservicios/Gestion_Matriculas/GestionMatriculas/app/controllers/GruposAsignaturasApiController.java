@@ -38,13 +38,13 @@ public class GruposAsignaturasApiController extends Controller {
         try{
         List<GrupoAsignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
         if(obj==null){
-            return badRequest();
+            return badRequest("Los datos que se han introducido no son correctos. Por favor vuelve a introducirlos.");
         }
         JsonNode result = mapper.valueToTree(obj);
         return ok(result);
         }catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
         
     }
