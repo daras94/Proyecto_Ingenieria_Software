@@ -1,7 +1,0 @@
-@(title: String, form: Form[LoginForm], isLoggedIn: Boolean, userInfo: Usuario)
-
-@import auth._
-
-@main(title, isLoggedIn, userInfo) {
-    @loginform(routes.GestionDeAuthentificacionApiController.loginUser(), form("nif"), form("password"))
-}
