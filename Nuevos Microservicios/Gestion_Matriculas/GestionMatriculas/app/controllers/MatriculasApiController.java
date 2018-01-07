@@ -1,6 +1,6 @@
 package controllers;
 
-import apimodels.Grupo;
+import apimodels.GrupoAsignatura;
 import java.util.List;
 import apimodels.Matricula;
 
@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T12:56:13.896Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
 
 public class MatriculasApiController extends Controller {
 
@@ -36,28 +36,54 @@ public class MatriculasApiController extends Controller {
 
     @ApiAction
     public Result crearMatriculaNumeroExpedientePost(Integer numeroExpediente) throws Exception {
+        try{
+        
         JsonNode nodegrupos = request().body().asJson();
-        List<Grupo> grupos;
-
-        grupos = mapper.readValue(nodegrupos.toString(), new TypeReference<List<List<Grupo>>>(){});
-
-        imp.crearMatriculaNumeroExpedientePost(numeroExpediente, grupos);
+        List<GrupoAsignatura> grupos;
+        grupos = mapper.reader().forType(new TypeReference<List<GrupoAsignatura>>(){}).readValue(nodegrupos.toString());
+        boolean exito = imp.crearMatriculaNumeroExpedientePost(numeroExpediente, grupos);
+        if(!exito){
+            return badRequest();
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
     }
 
     @ApiAction
     public Result realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
-        imp.realizarReservaNumeroExpedientePut(numeroExpediente);
-        
+        try{
+        boolean resultado =imp.realizarReservaNumeroExpedientePut(numeroExpediente);
+        if(!resultado){
+            return badRequest();
+        }
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
     }
 
     @ApiAction
     public Result verExpedienteNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
+        try{
         List<Matricula> obj = imp.verExpedienteNumeroExpedienteGet(numeroExpediente);
         JsonNode result = mapper.valueToTree(obj);
+        if(obj==null){
+            return badRequest();
+        }
         return ok(result);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError();
+        }
+            
         
     }
 }

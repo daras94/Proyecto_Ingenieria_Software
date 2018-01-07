@@ -1,0 +1,319 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor Gestion Reservas",
+    "description": "API Rest de la Universidad de Villamayor para realizar la gestion de reservas."
+  },
+  "host": "localhost:9040",
+  "paths": {
+    "/espacios": {
+      "get": {
+        "tags": [
+          "Espacios"
+        ],
+        "summary": "Obtener una lista con todos los espacios de la universidad",
+        "description": "Busqueda de la informacion de todos los espacios de la universidad",
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Espacio"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservas/disponibles/horas": {
+      "get": {
+        "tags": [
+          "Consulta Reservas"
+        ],
+        "summary": "Obtener horas libres",
+        "description": "Obtener las horas libres en un espacio y un dia determinados",
+        "parameters": [
+          {
+            "name": "dia",
+            "in": "query",
+            "required": true,
+            "description": "Dia del que se quiere comprobar las reservas",
+            "type": "string"
+          },
+          {
+            "name": "espacio",
+            "in": "query",
+            "required": true,
+            "description": "Espacio del que se quiere comprobar las reservas",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/HorasLibres"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "600": {
+            "description": "Espacio no registrado"
+          }
+        }
+      }
+    },
+    "/reservas/disponibles/espacios": {
+      "get": {
+        "tags": [
+          "Consulta Reservas"
+        ],
+        "summary": "Obtener los espacios libres",
+        "description": "Obtener los espacios libres a una hora y un dia determinados",
+        "parameters": [
+          {
+            "name": "dia",
+            "in": "query",
+            "required": true,
+            "description": "Dia del que se quiere comprobar las reservas",
+            "type": "string"
+          },
+          {
+            "name": "hora",
+            "in": "query",
+            "required": true,
+            "description": "Hora de la que se quiere comprobar las reservas",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EspaciosLibres"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservas/reservar": {
+      "post": {
+        "tags": [
+          "Gestion Reservas"
+        ],
+        "summary": "Realizar reserva",
+        "description": "Realizar una reserva de profesor",
+        "parameters": [
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Reserva actualizada",
+            "schema": {
+              "$ref": "#/definitions/Reserva"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "600": {
+            "description": "Espacio ocupado en el momento requerido"
+          },
+          "601": {
+            "description": "El NIF introducido no esta registrado"
+          }
+        }
+      }
+    },
+    "/reservas/cancelar": {
+      "delete": {
+        "tags": [
+          "Gestion Reservas"
+        ],
+        "summary": "Eliminar reserva",
+        "description": "Eliminar una reserva de un dia, hora y espacio",
+        "parameters": [
+          {
+            "name": "dia",
+            "in": "query",
+            "required": true,
+            "description": "Dia del que se quiere comprobar las reservas",
+            "type": "string"
+          },
+          {
+            "name": "hora",
+            "in": "query",
+            "required": true,
+            "description": "Hora de la que se quiere comprobar las reservas",
+            "type": "integer"
+          },
+          {
+            "name": "espacio",
+            "in": "query",
+            "required": true,
+            "description": "Espacio del que se quiere comprobar las reservas",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "600": {
+            "description": "Reseva no existente"
+          }
+        }
+      }
+    },
+    "/reservas/actualizar": {
+      "put": {
+        "tags": [
+          "Gestion Reservas"
+        ],
+        "summary": "Cambiar reserva",
+        "description": "Cambiar datos de una determinada reserva",
+        "parameters": [
+          {
+            "name": "dia",
+            "in": "query",
+            "required": true,
+            "description": "Dia del que se quiere comprobar las reservas",
+            "type": "string"
+          },
+          {
+            "name": "hora",
+            "in": "query",
+            "required": true,
+            "description": "Hora de la que se quiere comprobar las reservas",
+            "type": "integer"
+          },
+          {
+            "name": "espacio",
+            "in": "query",
+            "required": true,
+            "description": "Espacio del que se quiere comprobar las reservas",
+            "type": "integer"
+          },
+          {
+            "name": "reserva",
+            "in": "body",
+            "required": true,
+            "description": "Reserva actualizada",
+            "schema": {
+              "$ref": "#/definitions/Reserva"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "600": {
+            "description": "Reseva no existente"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Espacio": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre",
+        "Aforo",
+        "Precio"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Aforo": {
+          "type": "integer"
+        },
+        "Precio": {
+          "type": "number"
+        }
+      }
+    },
+    "Reserva": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "Espacio",
+        "Fecha",
+        "Hora"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Espacio": {
+          "type": "integer"
+        },
+        "Fecha": {
+          "type": "string"
+        },
+        "Hora": {
+          "type": "integer"
+        }
+      }
+    },
+    "HorasLibres": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "EspaciosLibres": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Espacio"
+      }
+    }
+  }
+}

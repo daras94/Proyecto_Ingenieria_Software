@@ -9,7 +9,7 @@
   "paths" : {
     "/asignaturasMatriculablesByAlumno/{numeroExpediente}" : {
       "get" : {
-        "tags" : [ "Asignatura" ],
+        "tags" : [ "Grupos_Asignaturas" ],
         "summary" : "Obtener las asignaturas matriculables del alumno.",
         "description" : "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
         "parameters" : [ {
@@ -26,44 +26,6 @@
               "type" : "array",
               "items" : {
                 "$ref" : "#/definitions/Asignatura"
-              }
-            }
-          },
-          "405" : {
-            "description" : "Operacion sin realizar"
-          },
-          "500" : {
-            "description" : "Internal Server Error"
-          }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
-      }
-    },
-    "/gruposDisponibles" : {
-      "get" : {
-        "tags" : [ "Grupo" ],
-        "summary" : "Obtener los grupos de las asignaturas que se quiere matricular.",
-        "description" : "Obtener los grupos para poder matricularse en las asignaturas",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "asignaturas",
-          "description" : "NIF del alumno que se quiere actualizar",
-          "required" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/definitions/Asignatura"
-            }
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Operacion realizada con exito",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Grupo"
               }
             }
           },
@@ -97,7 +59,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/Grupo"
+              "$ref" : "#/definitions/Grupo_Asignatura"
             }
           }
         } ],
@@ -199,36 +161,6 @@
         }
       }
     },
-    "Grupo" : {
-      "type" : "object",
-      "required" : [ "Actas", "Anno", "Asignatura", "Codigo", "Miembros", "Profesores", "Tipo" ],
-      "properties" : {
-        "Codigo" : {
-          "type" : "integer"
-        },
-        "Actas" : {
-          "type" : "boolean"
-        },
-        "Miembros" : {
-          "type" : "integer"
-        },
-        "Tipo" : {
-          "type" : "string"
-        },
-        "Asignatura" : {
-          "type" : "integer"
-        },
-        "Profesores" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "Anno" : {
-          "type" : "integer"
-        }
-      }
-    },
     "Asignatura_Matriculada" : {
       "type" : "object",
       "required" : [ "Asignatura", "Nota" ],
@@ -253,6 +185,24 @@
         },
         "Anno" : {
           "type" : "integer"
+        }
+      }
+    },
+    "Grupo_Asignatura" : {
+      "type" : "object",
+      "required" : [ "Asignatura", "IdGrupo", "Miembros", "Tipo" ],
+      "properties" : {
+        "Asignatura" : {
+          "$ref" : "#/definitions/Asignatura"
+        },
+        "IdGrupo" : {
+          "type" : "integer"
+        },
+        "Miembros" : {
+          "type" : "integer"
+        },
+        "Tipo" : {
+          "type" : "string"
         }
       }
     }

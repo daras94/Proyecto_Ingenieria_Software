@@ -1,0 +1,21 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /api                        controllers.ApiDocController.api
+
+
+#Functions for ConsultaReservas API
+GET     /reservas/disponibles/espacios                     controllers.ConsultaReservasApiController.reservasDisponiblesEspaciosGet()
+GET     /reservas/disponibles/horas                     controllers.ConsultaReservasApiController.reservasDisponiblesHorasGet()
+
+#Functions for Espacios API
+GET     /espacios                     controllers.EspaciosApiController.espaciosGet()
+
+#Functions for GestionReservas API
+PUT     /reservas/actualizar                     controllers.GestionReservasApiController.reservasActualizarPut()
+DELETE     /reservas/cancelar                     controllers.GestionReservasApiController.reservasCancelarDelete()
+POST     /reservas/reservar                     controllers.GestionReservasApiController.reservasReservarPost()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
