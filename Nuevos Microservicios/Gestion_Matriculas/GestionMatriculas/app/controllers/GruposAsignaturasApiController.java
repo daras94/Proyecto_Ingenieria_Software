@@ -16,6 +16,9 @@ import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
+import static play.mvc.Results.badRequest;
+import static play.mvc.Results.internalServerError;
+import static play.mvc.Results.ok;
 
 import swagger.SwaggerUtils.ApiAction;
 
