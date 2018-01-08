@@ -17,7 +17,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T17:39:30.340Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-08T16:26:42.569Z")
 
 public class MatriculaApiController extends Controller {
 
@@ -32,21 +32,32 @@ public class MatriculaApiController extends Controller {
 
 
     @ApiAction
-    public Result reservaMatriculaGet() throws Exception {
+    public Result eliminarMatriculasDelete() throws Exception {
         String valuepromocion = request().getQueryString("promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);
 
-        String valuealumno = request().getQueryString("alumno");
-        String alumno;
-
-        alumno = (String)valuealumno;
-
-        Boolean obj = imp.reservaMatriculaGet(promocion, alumno);
-        JsonNode result = mapper.valueToTree(obj);
-        return ok(result);
+        imp.eliminarMatriculasDelete(promocion);
         
+        return ok();
+    }
+
+    @ApiAction
+    public Result eliminarMatriculasPorPlazoDelete() throws Exception {
+        String valuepromocion = request().getQueryString("promocion");
+        Integer promocion;
+
+        promocion = Integer.parseInt(valuepromocion);
+
+        String valuenumPago = request().getQueryString("numPago");
+        Integer numPago;
+
+        numPago = Integer.parseInt(valuenumPago);
+
+        imp.eliminarMatriculasPorPlazoDelete(promocion, numPago);
+        
+        return ok();
     }
 
     @ApiAction
