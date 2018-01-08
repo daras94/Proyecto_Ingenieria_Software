@@ -39,6 +39,10 @@
         <activity
             android:name=".CuentaAlumno"
             android:label="@string/title_activity_cuenta_alumno"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".VerExpediente"
+            android:label="@string/title_activity_ver_expediente"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
