@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T16:38:57.570Z")
 
@@ -31,8 +30,9 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             actualizar_BDD(sql);
             
             
-        }catch(SQLException e){
-            throw(e);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw(new Exception());
             
         }
         
@@ -48,7 +48,8 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             
             
         }catch(Exception e){
-            throw(e);
+            e.printStackTrace();
+            throw(new Exception());
             
         }
         
@@ -68,8 +69,9 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             actualizar_BDD(sql);
             
             
-        }catch(SQLException e){
-            throw(e);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw(new Exception());
             
         }
         

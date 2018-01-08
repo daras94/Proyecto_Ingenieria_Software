@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 /**
  * Alumno
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-07T17:55:13.255Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2017-12-30T09:32:26.982Z")
 
 public class Alumno   {
   @JsonProperty("NIF")
@@ -35,7 +35,7 @@ public class Alumno   {
 
   @JsonProperty("Carrera")
   private Integer carrera = null;
-
+  
   @JsonProperty("Expediente")
   private Integer expediente = null;
 
@@ -200,15 +200,14 @@ public class Alumno   {
   public void setCarrera(Integer carrera) {
     this.carrera = carrera;
   }
-
   public Alumno expediente(Integer expediente) {
     this.expediente = expediente;
     return this;
   }
 
    /**
-   * Get expediente
-   * @return expediente
+   * Get cuentaCorriente
+   * @return cuentaCorriente
   **/
     @NotNull
   public Integer getExpediente() {

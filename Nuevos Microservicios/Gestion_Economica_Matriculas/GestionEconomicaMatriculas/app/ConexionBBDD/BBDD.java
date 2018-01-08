@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package conexionbbdd;
+package ConexionBBDD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

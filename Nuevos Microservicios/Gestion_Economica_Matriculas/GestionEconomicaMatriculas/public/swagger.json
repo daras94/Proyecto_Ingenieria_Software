@@ -5,34 +5,31 @@
     "version" : "1.0.0",
     "title" : "API Gestion Economica Matriculas Universidad Villamayor"
   },
-  "host" : "localhost:9500",
+  "host" : "localhost:9000",
   "paths" : {
-    "/getCorreos" : {
+    "/reservaMatricula" : {
       "get" : {
-        "tags" : [ "Alumno" ],
-        "summary" : "Devuelve los correos de los alumnos que no han pagado un plazo de la matricula",
-        "description" : "Devuelve una lista de los correos de los alumnos de una promocion concreta que no han realizado el pago de un plazo concreto",
+        "tags" : [ "Matricula" ],
+        "summary" : "Obtener el estado de reserva de la matricula de un alumno de un anno especifico",
+        "description" : "Devuelve el estado de reserva de una matricula.",
         "parameters" : [ {
           "name" : "Promocion",
           "in" : "query",
-          "description" : "Promocion de las matriculas a pagar",
+          "description" : "Promocion de la matricula que se esta buscando",
           "required" : true,
           "type" : "integer"
         }, {
-          "name" : "plazo",
+          "name" : "alumno",
           "in" : "query",
-          "description" : "numero de plazo a comprobar",
+          "description" : "NIF del alumno que se esta buscando",
           "required" : true,
-          "type" : "integer"
+          "type" : "string"
         } ],
         "responses" : {
-          "202" : {
+          "200" : {
             "description" : "Operacion realizada con exito",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
+              "type" : "boolean"
             }
           },
           "405" : {
@@ -44,73 +41,11 @@
         },
         "x-contentType" : "application/json",
         "x-accepts" : "application/json"
-      }
-    },
-    "/eliminarMatriculas" : {
-      "delete" : {
-        "tags" : [ "Matricula" ],
-        "summary" : "Anula las matriculas de los alumnos que no han pagado la reserva",
-        "description" : "Elimina la matricula de un alumno que no ha hecho el pago",
-        "parameters" : [ {
-          "name" : "Promocion",
-          "in" : "query",
-          "description" : "promocion de la matricula a eliminar",
-          "required" : true,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "202" : {
-            "description" : "Operacion realizada con exito"
-          },
-          "405" : {
-            "description" : "Operacion sin realizar"
-          },
-          "500" : {
-            "description" : "Internal Server Error"
-          }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
-      }
-    },
-    "/eliminarMatriculasPorPlazo" : {
-      "delete" : {
-        "tags" : [ "Matricula" ],
-        "summary" : "Anula las matriculas de los alumnos que no han pagado un plazo concreto",
-        "description" : "Elimina las matriculas de los alumnos que no han hecho un pago concreto",
-        "parameters" : [ {
-          "name" : "Promocion",
-          "in" : "query",
-          "description" : "promocion de la matricula a eliminar",
-          "required" : true,
-          "type" : "integer"
-        }, {
-          "name" : "numPago",
-          "in" : "query",
-          "description" : "numero de pago",
-          "required" : true,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "202" : {
-            "description" : "Operacion realizada con exito"
-          },
-          "405" : {
-            "description" : "Operacion sin realizar"
-          },
-          "500" : {
-            "description" : "Internal Server Error"
-          }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
-      }
-    },
-    "/reservaMatricula" : {
+      },
       "put" : {
         "tags" : [ "Matricula" ],
-        "summary" : "Actualizar el estado de reserva de la matricula",
-        "description" : "Actualizacion del estado de la reserva de una matricula de un alumno determinado a true",
+        "summary" : "Actualizar el estado de reserva de la matricula a true",
+        "description" : "Actualizacion del estado de la reserva de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
         "parameters" : [ {
           "name" : "Promocion",
           "in" : "query",
@@ -139,10 +74,49 @@
         "x-accepts" : "application/json"
       }
     },
+    "/pagosMatricula" : {
+      "get" : {
+        "tags" : [ "Pagos" ],
+        "summary" : "Devuelve la lista de pagos de una matricula",
+        "description" : "Devuelve la lista de pagos de una matricula de un alumno y una promocion determinados",
+        "parameters" : [ {
+          "name" : "Promocion",
+          "in" : "query",
+          "description" : "Promocion de la matricula de la que se quieren obtener los pagos",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "alumno",
+          "in" : "query",
+          "description" : "NIF del alumno del que se quieren obtener los pagos",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pago"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
     "/actualizarPago" : {
       "put" : {
         "tags" : [ "Pagos" ],
-        "summary" : "Actualiza el estado de un plazo de pago",
+        "summary" : "Actualiza el estado de pago de un plazo de pago",
         "description" : "Actualiza el atributo Pagado de un Pago a true",
         "parameters" : [ {
           "name" : "Promocion",
@@ -179,5 +153,21 @@
       }
     }
   },
-  "definitions" : { }
+  "definitions" : {
+    "Pago" : {
+      "type" : "object",
+      "required" : [ "Importe", "Num_pago", "Pagado" ],
+      "properties" : {
+        "Num_pago" : {
+          "type" : "integer"
+        },
+        "Importe" : {
+          "type" : "number"
+        },
+        "Pagado" : {
+          "type" : "boolean"
+        }
+      }
+    }
+  }
 }

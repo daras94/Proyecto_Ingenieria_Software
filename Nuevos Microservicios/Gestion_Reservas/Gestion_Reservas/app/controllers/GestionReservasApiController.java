@@ -13,7 +13,6 @@ import com.google.inject.Inject;
 import java.io.IOException;
 import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.sql.SQLException;
 
 import javax.validation.constraints.*;
 
@@ -54,14 +53,10 @@ public class GestionReservasApiController extends Controller {
         Integer espacio;
 
         espacio = Integer.parseInt(valueespacio);
-        try{
-            imp.reservasActualizarPut(dia, hora, espacio, reserva);
+
+        imp.reservasActualizarPut(dia, hora, espacio, reserva);
         
-            return ok(); 
-        }catch(SQLException e){
-            return badRequest();
-        }
-        
+        return ok();
     }
 
     @ApiAction
@@ -80,13 +75,10 @@ public class GestionReservasApiController extends Controller {
         Integer espacio;
 
         espacio = Integer.parseInt(valueespacio);
-        try{
-            imp.reservasCancelarDelete(dia, hora, espacio);
 
-            return ok();
-        }catch(SQLException e){
-            return badRequest();
-        }
+        imp.reservasCancelarDelete(dia, hora, espacio);
+        
+        return ok();
     }
 
     @ApiAction
@@ -95,13 +87,9 @@ public class GestionReservasApiController extends Controller {
         Reserva reserva;
 
         reserva = mapper.readValue(nodereserva.toString(), Reserva.class);
-        try{
-           imp.reservasReservarPost(reserva);
+
+        imp.reservasReservarPost(reserva);
         
-            return ok(); 
-        }catch(SQLException e){
-            return badRequest();
-        }
-        
+        return ok();
     }
 }

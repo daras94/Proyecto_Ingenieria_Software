@@ -1,50 +1,27 @@
 package controllers;
 
 
-import static conexionbbdd.BBDD.*;
+import static ConexionBBDD.BBDD.*;
 import play.mvc.Http;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.FileInputStream;
-import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-08T16:26:42.569Z")
+import java.sql.ResultSet;
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T17:39:30.340Z")
 
 public class MatriculaApiControllerImp implements MatriculaApiControllerImpInterface {
     @Override
-    public void eliminarMatriculasDelete( @NotNull Integer promocion) throws Exception {
-        String query = "DELETE FROM Matricula WHERE Curso = "+promocion+" AND reserva = false);";
+    public Boolean reservaMatriculaGet( @NotNull Integer promocion,  @NotNull String alumno) throws Exception {
+        String query = "SELECT reserva FROM Matricula WHERE Curso = "+promocion+" AND num_expediente = (SELECT num_expediente FROM Alumno WHERE Usuario_DNI = "+alumno+");";
+        boolean reserva = false;
         try{
             conectar();
         
-            consulta_BDD(query);
-        }
-        catch (Exception e){
-            System.out.println(e.toString());
-        }
-        finally{
-            if(conexion!=null){
-                conexion.close();
-            }
-        }
-        
-    }
-
-    @Override
-    public void eliminarMatriculasPorPlazoDelete( @NotNull Integer promocion,  @NotNull Integer numPago) throws Exception {
-        String query1 = "SELECT pagado, num_expediente FROM Pago WHERE Curso = "+promocion+" AND numero_pago = "+numPago+";";
-        try{
-            conectar();
-        
-            ResultSet respuesta = consulta_BDD(query1);
-            while(respuesta.next()){
-                if(respuesta.getBoolean("pagado") == false){
-                    String query2 = "DELETE FROM Pago WHERE num_expediente = "+respuesta.getInt("num_expediente")+" AND Curso = "+promocion+";";
-                    String query3 = "DELETE FROM Matricula WHERE Curso = "+promocion+" AND num_expediente = "+respuesta.getInt("num_expediente")+";";
-                    consulta_BDD(query2);
-                    consulta_BDD(query3);
-                }
+            ResultSet resultado = consulta_BDD(query);
+            if(resultado.next()){
+                reserva = resultado.getBoolean(1);
             }
         }
         catch (Exception e){
@@ -54,6 +31,7 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
             if(conexion!=null){
                 conexion.close();
             }
+            return reserva;
         }
     }
 
@@ -63,7 +41,7 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
         try{
             conectar();
         
-            consulta_BDD(query);
+            actualizar_BDD(query);
         }
         catch (Exception e){
             System.out.println(e.toString());
@@ -73,7 +51,6 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
                 conexion.close();
             }
         }
-        
     }
 
 }

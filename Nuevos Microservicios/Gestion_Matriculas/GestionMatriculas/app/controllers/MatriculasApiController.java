@@ -1,7 +1,8 @@
 package controllers;
 
+import apimodels.GrupoAsignatura;
+import java.util.List;
 import apimodels.Matricula;
-import apimodels.MatriculaAlta;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -19,7 +20,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-07T18:34:22.046Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
 
 public class MatriculasApiController extends Controller {
 
@@ -36,21 +37,20 @@ public class MatriculasApiController extends Controller {
     @ApiAction
     public Result crearMatriculaNumeroExpedientePost(Integer numeroExpediente) throws Exception {
         try{
+        
         JsonNode nodegrupos = request().body().asJson();
-        MatriculaAlta grupos;
-
-        grupos = mapper.readValue(nodegrupos.toString(), MatriculaAlta.class);
-
+        List<GrupoAsignatura> grupos;
+        grupos = mapper.reader().forType(new TypeReference<List<GrupoAsignatura>>(){}).readValue(nodegrupos.toString());
         boolean exito = imp.crearMatriculaNumeroExpedientePost(numeroExpediente, grupos);
         if(!exito){
-            return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
+            return badRequest();
         }
         
         return ok();
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError("Error interno del servidor");
+            return internalServerError();
         }
     }
 
@@ -59,13 +59,13 @@ public class MatriculasApiController extends Controller {
         try{
         boolean resultado =imp.realizarReservaNumeroExpedientePut(numeroExpediente);
         if(!resultado){
-            return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
+            return badRequest();
         }
         return ok();
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError("Error interno del servidor.");
+            return internalServerError();
         }
     }
 
@@ -75,14 +75,15 @@ public class MatriculasApiController extends Controller {
         List<Matricula> obj = imp.verExpedienteNumeroExpedienteGet(numeroExpediente);
         JsonNode result = mapper.valueToTree(obj);
         if(obj==null){
-            return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
+            return badRequest();
         }
         return ok(result);
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError("Error interno del servidor.");
+            return internalServerError();
         }
+            
         
     }
 }

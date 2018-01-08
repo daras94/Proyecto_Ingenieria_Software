@@ -9,9 +9,7 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface MatriculaApiControllerImpInterface {
-    void eliminarMatriculasDelete( @NotNull Integer promocion) throws Exception;
-
-    void eliminarMatriculasPorPlazoDelete( @NotNull Integer promocion,  @NotNull Integer numPago) throws Exception;
+    Boolean reservaMatriculaGet( @NotNull Integer promocion,  @NotNull String alumno) throws Exception;
 
     void reservaMatriculaPut( @NotNull Integer promocion,  @NotNull String alumno) throws Exception;
 

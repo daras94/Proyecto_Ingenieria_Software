@@ -99,7 +99,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
     public Alumno alumnoByNIFNIFGet(String NIF) throws Exception {
         //Do your magic!!!
-        Alumno alumno = null;
+        Alumno alumno = new Alumno();
         try{
             conectar();
             String sql = "SELECT * FROM Alumno NATURAL JOIN Usuario WHERE Usuario.NIF = '"+NIF+"';";
@@ -119,7 +119,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
                 int num_expediente = resultado.getInt("num_expediente");
                 
                
-                alumno = new Alumno();
+                
                 alumno.setNIF(dni);
                 alumno.setContrasenna(contrasenna);
                 alumno.setNombre(nombre);

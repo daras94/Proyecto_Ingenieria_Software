@@ -44,13 +44,11 @@ public class ConsultaReservasApiController extends Controller {
         Integer hora;
 
         hora = Integer.parseInt(valuehora);
-        try{
-            EspaciosLibres obj = imp.reservasDisponiblesEspaciosGet(dia, hora);
-            JsonNode result = mapper.valueToTree(obj);
-            return ok(result);
-        }catch(Exception e){
-            return badRequest();
-        }
+
+        EspaciosLibres obj = imp.reservasDisponiblesEspaciosGet(dia, hora);
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
+        
     }
 
     @ApiAction
@@ -71,6 +69,7 @@ public class ConsultaReservasApiController extends Controller {
             System.out.println(result.toString());
             return ok(result);
         }catch(Exception e){
+            e.printStackTrace();
             return badRequest();
         }
         

@@ -5,39 +5,36 @@
     "title": "API Gestion Economica Matriculas Universidad Villamayor",
     "description": "API Rest de la Universidad de Villamayor para gestionar los pagos de matrícula de los alunmos"
   },
-  "host": "localhost:9500",
+  "host": "localhost:9000",
   "paths": {
-    "/getCorreos": {
+    "/reservaMatricula": {
       "get": {
         "tags": [
-          "Alumno"
+          "Matricula"
         ],
-        "summary": "Devuelve los correos de los alumnos que no han pagado un plazo de la matricula",
-        "description": "Devuelve una lista de los correos de los alumnos de una promocion concreta que no han realizado el pago de un plazo concreto",
+        "summary": "Obtener el estado de reserva de la matricula de un alumno de un anno especifico",
+        "description": "Devuelve el estado de reserva de una matricula.",
         "parameters": [
           {
             "name": "Promocion",
             "in": "query",
             "required": true,
-            "description": "Promocion de las matriculas a pagar",
+            "description": "Promocion de la matricula que se esta buscando",
             "type": "integer"
           },
           {
-            "name": "plazo",
+            "name": "alumno",
             "in": "query",
             "required": true,
-            "description": "numero de plazo a comprobar",
-            "type": "integer"
+            "description": "NIF del alumno que se esta buscando",
+            "type": "string"
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "Operacion realizada con exito",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "type": "boolean"
             }
           },
           "405": {
@@ -47,80 +44,13 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/eliminarMatriculas": {
-      "delete": {
-        "tags": [
-          "Matricula"
-        ],
-        "summary": "Anula las matriculas de los alumnos que no han pagado la reserva",
-        "description": "Elimina la matricula de un alumno que no ha hecho el pago",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "promocion de la matricula a eliminar",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/eliminarMatriculasPorPlazo": {
-      "delete": {
-        "tags": [
-          "Matricula"
-        ],
-        "summary": "Anula las matriculas de los alumnos que no han pagado un plazo concreto",
-        "description": "Elimina las matriculas de los alumnos que no han hecho un pago concreto",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "promocion de la matricula a eliminar",
-            "type": "integer"
-          },
-          {
-            "name": "numPago",
-            "in": "query",
-            "required": true,
-            "description": "numero de pago",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/reservaMatricula": {
+      },
       "put": {
         "tags": [
           "Matricula"
         ],
-        "summary": "Actualizar el estado de reserva de la matricula",
-        "description": "Actualizacion del estado de la reserva de una matricula de un alumno determinado a true",
+        "summary": "Actualizar el estado de reserva de la matricula a true",
+        "description": "Actualizacion del estado de la reserva de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
         "parameters": [
           {
             "name": "Promocion",
@@ -150,12 +80,54 @@
         }
       }
     },
+    "/pagosMatricula": {
+      "get": {
+        "tags": [
+          "Pagos"
+        ],
+        "summary": "Devuelve la lista de pagos de una matricula",
+        "description": "Devuelve la lista de pagos de una matricula de un alumno y una promocion determinados",
+        "parameters": [
+          {
+            "name": "Promocion",
+            "in": "query",
+            "required": true,
+            "description": "Promocion de la matricula de la que se quieren obtener los pagos",
+            "type": "integer"
+          },
+          {
+            "name": "alumno",
+            "in": "query",
+            "required": true,
+            "description": "NIF del alumno del que se quieren obtener los pagos",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pago"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/actualizarPago": {
       "put": {
         "tags": [
           "Pagos"
         ],
-        "summary": "Actualiza el estado de un plazo de pago",
+        "summary": "Actualiza el estado de pago de un plazo de pago",
         "description": "Actualiza el atributo Pagado de un Pago a true",
         "parameters": [
           {
@@ -190,6 +162,27 @@
           "500": {
             "description": "Internal Server Error"
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Pago": {
+      "type": "object",
+      "required": [
+        "Num_pago",
+        "Importe",
+        "Pagado"
+      ],
+      "properties": {
+        "Num_pago": {
+          "type": "integer"
+        },
+        "Importe": {
+          "type": "number"
+        },
+        "Pagado": {
+          "type": "boolean"
         }
       }
     }

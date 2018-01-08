@@ -1,5 +1,6 @@
 package controllers;
 
+import apimodels.Pago;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -17,7 +18,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-08T16:26:42.569Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T17:39:30.340Z")
 
 public class PagosApiController extends Controller {
 
@@ -51,5 +52,23 @@ public class PagosApiController extends Controller {
         imp.actualizarPagoPut(promocion, alumno, numeroPago);
         
         return ok();
+    }
+
+    @ApiAction
+    public Result pagosMatriculaGet() throws Exception {
+        String valuepromocion = request().getQueryString("promocion");
+        Integer promocion;
+
+        promocion = Integer.parseInt(valuepromocion);
+
+        String valuealumno = request().getQueryString("alumno");
+        String alumno;
+
+        alumno = (String)valuealumno;
+
+        List<Pago> obj = imp.pagosMatriculaGet(promocion, alumno);
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
+        
     }
 }

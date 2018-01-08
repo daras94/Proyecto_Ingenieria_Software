@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 /**
  * Asignatura
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-07T18:34:22.046Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
 
 public class Asignatura   {
   @JsonProperty("Codigo")

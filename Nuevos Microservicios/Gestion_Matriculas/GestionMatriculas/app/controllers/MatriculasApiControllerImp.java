@@ -3,8 +3,8 @@ package controllers;
 import apimodels.Asignatura;
 import apimodels.AsignaturaMatriculada;
 import apimodels.GrupoAsignatura;
+import java.util.List;
 import apimodels.Matricula;
-import apimodels.MatriculaAlta;
 import static conexionbbdd.BBDD.actualizar_BDD;
 import static conexionbbdd.BBDD.conectar;
 import static conexionbbdd.BBDD.conexion;
@@ -17,17 +17,17 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-07T18:34:22.046Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
 
 public class MatriculasApiControllerImp implements MatriculasApiControllerImpInterface {
-    String anno="2017";
+    String anno = "2017";
     @Override
-    public boolean crearMatriculaNumeroExpedientePost(Integer numeroExpediente, MatriculaAlta grupos) throws Exception {
+    public boolean crearMatriculaNumeroExpedientePost(Integer numeroExpediente, List<GrupoAsignatura> grupos) throws Exception {
         //Do your magic!!!
         boolean exito = false;
         try{
             conectar();
-            boolean comprobacion = comprobar_asignaturas(numeroExpediente, grupos.getGrupos());
+            boolean comprobacion = comprobar_asignaturas(numeroExpediente, grupos);
             if(!comprobacion){
                 return false;
             }
@@ -36,29 +36,14 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             String sql_aux="";
             GrupoAsignatura aux = null;
             List<String> sentencias_sql = new ArrayList<>();
-            for(int i=0;i<grupos.getGrupos().size();i++){
-                aux = grupos.getGrupos().get(i);
+            for(int i=0;i<grupos.size();i++){
+                aux = grupos.get(i);
                 sql_aux = "INSERT INTO Asignatura_Matriculada VALUES("+String.valueOf(aux.getAsignatura().getCodigo())+", "+String.valueOf(numeroExpediente)+", ";
                 sql_aux += anno+", "+String.valueOf(aux.getIdGrupo())+", NULL);";
                 sentencias_sql.add(sql_aux);
                 sql_aux="";
                 aux=null;
             }
-            
-            String sql_pago = "INSERT INTO Pago VALUES("+String.valueOf(numeroExpediente)+", ";
-            String sql_pago_aux="";
-            if(grupos.getTipoPago()==1){
-                sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'UNITARIO', NULL, FALSE);";
-                sentencias_sql.add(sql_pago_aux);
-            }
-            else{
-                for(int i=0;i<grupos.getTipoPago();i++){
-                    sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'FRACIONARIO', NULL, FALSE);";
-                    sentencias_sql.add(sql_pago_aux);
-                    sql_pago_aux="";
-                }
-            }
-            
             
             int resultado = actualizar_BDD(sql,sentencias_sql);
             if(resultado==0){
@@ -99,7 +84,6 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             }
             return exito;
         }
-
         
     }
 
@@ -165,8 +149,9 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             return matriculas;
         }
     }
-
-      private boolean comprobar_asignaturas(Integer numeroExpediente, List<GrupoAsignatura> grupos){
+    
+    
+    private boolean comprobar_asignaturas(Integer numeroExpediente, List<GrupoAsignatura> grupos){
         boolean comprobacion = false;
         String sql="";
         ResultSet result=null;
@@ -240,4 +225,5 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
         
         
     }
+
 }
