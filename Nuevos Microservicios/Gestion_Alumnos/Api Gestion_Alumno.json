@@ -7,6 +7,29 @@
   },
   "host": "localhost:9100",
   "paths": {
+    "/getCarreras": {
+      "get": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "Carreras de la universidad",
+        "description": "Obtiene las carreras disponibles en la universidad para poder seleccionar una cuando se ingresa el alumno",
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Carrera"
+              }
+            }
+          },
+          "505": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/alta_alumno": {
       "post": {
         "tags": [
@@ -146,7 +169,8 @@
         "Apellido2",
         "FechaNacimiento",
         "Email",
-        "Carrera"
+        "Carrera",
+        "Expediente"
       ],
       "properties": {
         "NIF": {
@@ -174,6 +198,44 @@
           "type": "string"
         },
         "Carrera": {
+          "type": "integer"
+        },
+        "Expediente": {
+          "type": "integer"
+        }
+      }
+    },
+    "Carrera": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Facultad",
+        "Nombre",
+        "Numero_Creditos",
+        "Numero_Creditos_Obligatorios",
+        "Numero_Creditos_Optativos",
+        "Numero_Creditos_Transversales"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Facultad": {
+          "type": "string"
+        },
+        "Numero_Creditos": {
+          "type": "integer"
+        },
+        "Numero_Creditos_Optativos": {
+          "type": "integer"
+        },
+        "Numero_Creditos_Obligatorios": {
+          "type": "integer"
+        },
+        "Numero_Creditos_Transversales": {
           "type": "integer"
         }
       }

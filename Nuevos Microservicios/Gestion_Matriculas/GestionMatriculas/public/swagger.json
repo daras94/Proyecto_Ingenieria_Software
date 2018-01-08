@@ -25,7 +25,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Asignatura"
+                "$ref" : "#/definitions/Grupo_Asignatura"
               }
             }
           },
@@ -57,10 +57,7 @@
           "description" : "Grupos que el alumno ha decidido matricularse",
           "required" : true,
           "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/definitions/Grupo_Asignatura"
-            }
+            "$ref" : "#/definitions/MatriculaAlta"
           }
         } ],
         "responses" : {
@@ -169,6 +166,21 @@
           "$ref" : "#/definitions/Asignatura"
         },
         "Nota" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "MatriculaAlta" : {
+      "type" : "object",
+      "required" : [ "Grupos", "TipoPago" ],
+      "properties" : {
+        "Grupos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Grupo_Asignatura"
+          }
+        },
+        "TipoPago" : {
           "type" : "integer"
         }
       }
