@@ -19,37 +19,33 @@ import swagger.SwaggerUtils.ApiAction;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-08T16:26:42.569Z")
 
-public class PagosApiController extends Controller {
+public class AlumnoApiController extends Controller {
 
-    private final PagosApiControllerImp imp;
+    private final AlumnoApiControllerImp imp;
     private final ObjectMapper mapper;
 
     @Inject
-    private PagosApiController(PagosApiControllerImp imp) {
+    private AlumnoApiController(AlumnoApiControllerImp imp) {
         this.imp = imp;
         mapper = new ObjectMapper();
     }
 
 
     @ApiAction
-    public Result actualizarPagoPut() throws Exception {
+    public Result getCorreosGet() throws Exception {
         String valuepromocion = request().getQueryString("promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);
 
-        String valuealumno = request().getQueryString("alumno");
-        String alumno;
+        String valueplazo = request().getQueryString("plazo");
+        Integer plazo;
 
-        alumno = (String)valuealumno;
+        plazo = Integer.parseInt(valueplazo);
 
-        String valuenumeroPago = request().getQueryString("numeroPago");
-        Integer numeroPago;
-
-        numeroPago = Integer.parseInt(valuenumeroPago);
-
-        imp.actualizarPagoPut(promocion, alumno, numeroPago);
+        List<String> obj = imp.getCorreosGet(promocion, plazo);
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
         
-        return ok();
     }
 }
