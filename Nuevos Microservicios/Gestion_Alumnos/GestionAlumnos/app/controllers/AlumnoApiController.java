@@ -15,6 +15,11 @@ import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
+import static play.mvc.Controller.request;
+import static play.mvc.Results.badRequest;
+import static play.mvc.Results.internalServerError;
+import static play.mvc.Results.notFound;
+import static play.mvc.Results.ok;
 
 import swagger.SwaggerUtils.ApiAction;
 
@@ -42,15 +47,15 @@ public class AlumnoApiController extends Controller {
 
         boolean exito = imp.altaAlumnoPost(alumno);
         if(exito){
-            return ok();
+            return ok("Usuario Creado Correctamente");
         }
         
         else{
-            return badRequest();
+            return badRequest("Los datos que se han introducido no son correctos. Por favor repaselos de nuevo.");
         }
         }
         catch(Exception e){
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         
         }
     }
@@ -63,14 +68,14 @@ public class AlumnoApiController extends Controller {
                 return ok();
             }
             else{
-                return badRequest();
+                return badRequest("Los datos que se han introducido no son correctos. Por favor repaselos de nuevo.");
             }
             
             
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
         
         
@@ -82,13 +87,13 @@ public class AlumnoApiController extends Controller {
         try{
         Alumno obj = imp.alumnoByNIFNIFGet(NIF);
         if(obj==null){
-            return notFound();
+            return notFound("Los datos introducidos no se corresponde con ningun alumno.");
         }
         JsonNode result = mapper.valueToTree(obj);
         return ok(result);
         }
         catch(Exception e){
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
         
     }
@@ -106,12 +111,12 @@ public class AlumnoApiController extends Controller {
                 return ok();
             }
             else{
-                return badRequest();
+                return badRequest("Los datos que se han introducido no son correctos. Por favor repaselos de nuevo.");
             }
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return internalServerError();
+            return internalServerError("Error interno del servidor.");
         }
     }
 }
