@@ -153,7 +153,7 @@ public class Usuario {
                 && Objects.equals(this.nif, usuario.nif)
                 && Objects.equals(this.tipoUser, usuario.tipoUser)
                 && Objects.equals(this.authTokent, usuario.authTokent)
-                && Objects.equals(this.authTokent, usuario.authTokent);
+                && Objects.equals(this.num_expediente, usuario.num_expediente);
     }
 
     @Override
