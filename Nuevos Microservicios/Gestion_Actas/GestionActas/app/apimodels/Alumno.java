@@ -26,6 +26,9 @@ public class Alumno   {
 
   @JsonProperty("Nota")
   private Double nota = null;
+  
+  @JsonProperty("Expediente")
+  private Integer expediente = null;
 
   public Alumno DNI(String DNI) {
     this.DNI = DNI;
@@ -134,6 +137,24 @@ public class Alumno   {
   public void setNota(Double nota) {
     this.nota = nota;
   }
+  
+  public Alumno expediente(Integer expediente) {
+    this.expediente = expediente;
+    return this;
+  }
+
+   /**
+   * Get DNI
+   * @return DNI
+  **/
+    @NotNull
+  public Integer getExpediente() {
+    return expediente;
+  }
+
+  public void setExpediente(Integer expediente) {
+    this.expediente = expediente;
+  }
 
 
   @Override
@@ -150,7 +171,8 @@ public class Alumno   {
         Objects.equals(this.apellido1, alumno.apellido1) &&
         Objects.equals(this.apellido2, alumno.apellido2) &&
         Objects.equals(this.email, alumno.email) &&
-        Objects.equals(this.nota, alumno.nota);
+        Objects.equals(this.nota, alumno.nota)&&
+        Objects.equals(this.expediente, alumno.expediente);
   }
 
   @Override
@@ -169,6 +191,7 @@ public class Alumno   {
     sb.append("    apellido2: ").append(toIndentedString(apellido2)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    nota: ").append(toIndentedString(nota)).append("\n");
+    sb.append("    expediente: ").append(toIndentedString(expediente)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -15,6 +15,6 @@ public interface ListaNotasApiControllerImpInterface {
 
     List<Alumno> obtenerListaIdGet(Integer id) throws Exception;
 
-    void subirNotasIdPut(Integer id, List<Alumno> alumnos) throws Exception;
+    int subirNotasIdPut(Integer id, List<Alumno> alumnos) throws Exception;
 
 }

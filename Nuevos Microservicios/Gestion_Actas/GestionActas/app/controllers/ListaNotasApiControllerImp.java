@@ -1,6 +1,7 @@
 package controllers;
 
 import apimodels.Alumno;
+import static conexionbbdd.BBDD.actualizar_BDD;
 import static conexionbbdd.BBDD.conectar;
 import static conexionbbdd.BBDD.conexion;
 import static conexionbbdd.BBDD.consulta_BDD;
@@ -46,6 +47,7 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
                 aux.setApellido2(result.getString("apellido2"));
                 aux.setEmail(result.getString("email"));
                 aux.setNota(result.getDouble("nota"));
+                aux.setExpediente(result.getInt("num_expediente"));
                 
                 alumnos.add(aux);
                 aux=null;
@@ -70,8 +72,35 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
     }
 
     @Override
-    public void subirNotasIdPut(Integer id, List<Alumno> alumnos) throws Exception {
-        //Do your magic!!!
+    public int subirNotasIdPut(Integer id, List<Alumno> alumnos) throws Exception {
+        int resultado = -1;
+        List<String> sentencias = null;
+        try{
+            conectar();
+            sentencias=new ArrayList<>();
+            String SQL = "UPDATE Asignatura_Matriculada SET nota = ";
+            String sql_aux="";
+            Alumno alum_aux=null;
+            for(int i =0;i<alumnos.size();i++){
+                alum_aux=alumnos.get(i);
+                sql_aux=String.valueOf(alum_aux.getNota())+" WHERE num_expediente = "+String.valueOf(alum_aux.getExpediente())+" AND Grupo_id_grupo= "+String.valueOf(id)+";";
+                sentencias.add(SQL+sql_aux);
+                alum_aux=null;
+                sql_aux="";
+            }
+            
+            resultado = actualizar_BDD(sentencias);
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return resultado;
+        }
         
     }
 

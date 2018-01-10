@@ -59,13 +59,20 @@ public class ListaNotasApiController extends Controller {
 
     @ApiAction
     public Result subirNotasIdPut(Integer id) throws Exception {
+        try{
         JsonNode nodealumnos = request().body().asJson();
-        List<Alumno> alumnos;
+        List<Alumno> alumnos = mapper.reader().forType(new TypeReference<List<Alumno>>(){}).readValue(nodealumnos.toString());
 
-        alumnos = mapper.readValue(nodealumnos.toString(), new TypeReference<List<List<Alumno>>>(){});
-
-        imp.subirNotasIdPut(id, alumnos);
+        int n =imp.subirNotasIdPut(id, alumnos);
+        if(n<0){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 }
