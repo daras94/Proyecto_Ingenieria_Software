@@ -22,7 +22,16 @@ public class CreditosAlumnoApiControllerImp implements CreditosAlumnoApiControll
         ResultSet result = null;
         try{
             conectar();
+            //Obtener codigo de la carrera del alumno
             String sql="";
+            sql+="SELECT cod_carrera FROM Alumno WHERE num_expediente="+numeroExpediente+";";
+            result = consulta_BDD(sql);
+            result.next();
+            int codigo_carrera=result.getInt("cod_carrera");
+            sql="";
+            result = null;
+            
+            //Calculo creditos ya obtenidos
             sql += "SELECT tipo,sum(creditos) as numero_cred FROM Asignatura_Matriculada NATURAL JOIN Asignatura WHERE num_expediente=";
             sql+=numeroExpediente+" and nota>=5 GROUP BY tipo;";
             
@@ -40,10 +49,18 @@ public class CreditosAlumnoApiControllerImp implements CreditosAlumnoApiControll
             sql="";
             result=null;
             
+            //Calculo
+            sql+="SELECT num_cred_opt,num_cred_tran,num_cred_obl FROM Carrera WHERE cod_carrera = "+codigo_carrera+";";
+            result = consulta_BDD(sql);
+            result.next();
+            int cred_opt_res=result.getInt("num_cred_opt")-cred_opt;
+            int cred_obl_res=result.getInt("num_cred_obl")-cred_obl;
+            int cred_tran_res=result.getInt("num_cred_tran")-cred_tran;
+            
             creditos = new CreditosAlumno();
-            creditos.setCreditosObligatorios(cred_obl);
-            creditos.setCreditosOptativos(cred_opt);
-            creditos.setCreditosTransversales(cred_tran);
+            creditos.setCreditosObligatorios(cred_obl_res);
+            creditos.setCreditosOptativos(cred_opt_res);
+            creditos.setCreditosTransversales(cred_tran_res);
             
             
             

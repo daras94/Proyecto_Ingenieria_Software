@@ -1,7 +1,6 @@
 package controllers;
 
 import javax.inject.*;
-import models.Secured;
 import play.mvc.*;
 
 public class ApiDocController extends Controller {
