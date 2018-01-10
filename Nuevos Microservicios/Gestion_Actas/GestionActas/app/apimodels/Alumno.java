@@ -25,7 +25,7 @@ public class Alumno   {
   private String email = null;
 
   @JsonProperty("Nota")
-  private Integer nota = null;
+  private Double nota = null;
 
   public Alumno DNI(String DNI) {
     this.DNI = DNI;
@@ -117,7 +117,7 @@ public class Alumno   {
     this.email = email;
   }
 
-  public Alumno nota(Integer nota) {
+  public Alumno nota(Double nota) {
     this.nota = nota;
     return this;
   }
@@ -127,11 +127,11 @@ public class Alumno   {
    * @return nota
   **/
     @NotNull
-  public Integer getNota() {
+  public Double getNota() {
     return nota;
   }
 
-  public void setNota(Integer nota) {
+  public void setNota(Double nota) {
     this.nota = nota;
   }
 

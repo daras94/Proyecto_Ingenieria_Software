@@ -42,9 +42,18 @@ public class ListaNotasApiController extends Controller {
 
     @ApiAction
     public Result obtenerListaIdGet(Integer id) throws Exception {
+        try{
         List<Alumno> obj = imp.obtenerListaIdGet(id);
+        if(obj==null){
+            return badRequest("Introduzca los datos correctamente");
+        }
         JsonNode result = mapper.valueToTree(obj);
         return ok(result);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
         
     }
 

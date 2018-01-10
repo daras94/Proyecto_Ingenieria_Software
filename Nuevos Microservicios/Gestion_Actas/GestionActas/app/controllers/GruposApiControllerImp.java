@@ -15,6 +15,7 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-10T16:49:20.722Z")
 
 public class GruposApiControllerImp implements GruposApiControllerImpInterface {
+    String anno = "2017";
     @Override
     public List<Grupo> obtenerGruposNifGet(String nif) throws Exception {
         List<Grupo> grupos = null;
@@ -22,7 +23,7 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
         try{
             conectar();
             String SQL = "";
-            SQL+="SELECT * FROM Profesor_Grupo INNNER JOIN Grupo ON (grupo_id=id_grupo) WHERE Profesor_NIF = "+nif+";";
+            SQL+="SELECT * FROM Profesor_Grupo INNNER JOIN Grupo ON (grupo_id=id_grupo) WHERE Profesor_NIF = "+nif+" AND Curso= "+anno+";";
             result = consulta_BDD(SQL);
             
             grupos = new ArrayList<>();
