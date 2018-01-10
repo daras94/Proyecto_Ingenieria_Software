@@ -4,7 +4,7 @@ import apimodels.Espacio;
 import apimodels.EspaciosLibres;
 import apimodels.Reserva;
 import static conexionbbdd.BBDD.*;
-
+import java.sql.SQLException;
 import play.mvc.Http;
 import java.util.List;
 import java.util.ArrayList;
@@ -31,8 +31,7 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             
             
         }catch(Exception e){
-            e.printStackTrace();
-            throw(new Exception());
+            throw(e);
             
         }
         
@@ -48,8 +47,7 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             
             
         }catch(Exception e){
-            e.printStackTrace();
-            throw(new Exception());
+            throw(e);
             
         }
         
@@ -63,15 +61,13 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             String fecha = reserva.getFecha();
             int espacio = reserva.getEspacio();
             int hora = reserva.getHora();
-            
             conectar();
             String sql = "INSERT INTO reservaprofesor VALUES ('"+NIF+"',"+espacio+",'"+fecha+"',"+hora+");";
             actualizar_BDD(sql);
             
-            
+            System.out.println("post");
         }catch(Exception e){
-            e.printStackTrace();
-            throw(new Exception());
+            throw(e);
             
         }
         

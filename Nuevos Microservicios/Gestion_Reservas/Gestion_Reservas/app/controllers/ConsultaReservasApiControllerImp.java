@@ -5,7 +5,7 @@ import apimodels.EspaciosLibres;
 import apimodels.HorasLibres;
 import static conexionbbdd.BBDD.conectar;
 import static conexionbbdd.BBDD.consulta_BDD;
-
+import java.sql.SQLException;
 import play.mvc.Http;
 import java.util.List;
 import java.util.ArrayList;
@@ -49,8 +49,9 @@ public class ConsultaReservasApiControllerImp implements ConsultaReservasApiCont
                 }
             }
             
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
+            throw(e);
+            
         }
         
         
@@ -79,10 +80,9 @@ public class ConsultaReservasApiControllerImp implements ConsultaReservasApiCont
             }
             
             
-        }catch(Exception e){
-            e.printStackTrace();
-            //Excepcion
-            return null;
+        }catch(SQLException e){
+            throw(e);
+            
         }
         
         return horas;
