@@ -14,6 +14,7 @@ import com.google.inject.Inject;
 import java.io.IOException;
 import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.sql.SQLException;
 
 import javax.validation.constraints.*;
 
@@ -44,13 +45,15 @@ public class ConsultaReservasApiController extends Controller {
         Integer hora;
 
         hora = Integer.parseInt(valuehora);
+
         try{
             EspaciosLibres obj = imp.reservasDisponiblesEspaciosGet(dia, hora);
             JsonNode result = mapper.valueToTree(obj);
             return ok(result);
-        }catch(Exception e){
+        }catch(SQLException e){
             return badRequest();
         }
+        
     }
 
     @ApiAction
@@ -70,7 +73,7 @@ public class ConsultaReservasApiController extends Controller {
             JsonNode result = mapper.valueToTree(obj);
             System.out.println(result.toString());
             return ok(result);
-        }catch(Exception e){
+        }catch(SQLException e){
             return badRequest();
         }
         

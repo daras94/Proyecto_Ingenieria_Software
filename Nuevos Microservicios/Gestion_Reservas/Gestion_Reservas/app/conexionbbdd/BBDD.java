@@ -50,7 +50,6 @@ public class BBDD {
         }
         catch(Exception e){
             System.out.println(e.toString());
-            
             throw(e);
         }
         
@@ -97,23 +96,39 @@ public class BBDD {
     
     }
     
-    public static int actualizar_BDD(String SQL) throws SQLException{
+    public static int actualizar_BDD(String SQL) throws Exception{
         int resultado = -1;
+        boolean noerror = true;
         PreparedStatement sentencia1 = null;
-        
+        try{
             conexion.setAutoCommit(false);
             sentencia1 = conexion.prepareStatement(SQL);
             sentencia1.execute();
             conexion.commit();
             resultado=0;
-        
-            if(sentencia1!=null){
-                sentencia1.close();
+        }
+        catch(Exception e){
+            noerror = false;
+            System.out.println(e.toString());
+            if(conexion!=null){
+                conexion.rollback();
             }
-            conexion.setAutoCommit(true);
-            return resultado;
             
-        
+        }
+        finally{
+            
+            if(!noerror){
+                throw new Exception();
+            }
+            else{
+                if(sentencia1!=null){
+                   sentencia1.close();
+                }
+                conexion.setAutoCommit(true);
+                return resultado;
+            }
+                
+        }
         
         
     }

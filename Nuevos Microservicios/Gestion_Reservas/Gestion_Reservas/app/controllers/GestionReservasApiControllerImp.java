@@ -4,7 +4,7 @@ import apimodels.Espacio;
 import apimodels.EspaciosLibres;
 import apimodels.Reserva;
 import static conexionbbdd.BBDD.*;
-
+import java.sql.SQLException;
 import play.mvc.Http;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T16:38:57.570Z")
 
@@ -31,7 +30,7 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             actualizar_BDD(sql);
             
             
-        }catch(SQLException e){
+        }catch(Exception e){
             throw(e);
             
         }
@@ -62,13 +61,12 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             String fecha = reserva.getFecha();
             int espacio = reserva.getEspacio();
             int hora = reserva.getHora();
-            
             conectar();
             String sql = "INSERT INTO reservaprofesor VALUES ('"+NIF+"',"+espacio+",'"+fecha+"',"+hora+");";
             actualizar_BDD(sql);
             
-            
-        }catch(SQLException e){
+            System.out.println("post");
+        }catch(Exception e){
             throw(e);
             
         }

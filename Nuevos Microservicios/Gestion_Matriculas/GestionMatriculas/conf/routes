@@ -5,6 +5,9 @@
 GET     /api                        controllers.ApiDocController.api
 
 
+#Functions for CreditosAlumno API
+GET     /creditosalumno/:numeroExpediente                     controllers.CreditosAlumnoApiController.creditosalumnoNumeroExpedienteGet(numeroExpediente: Integer)
+
 #Functions for GruposAsignaturas API
 GET     /asignaturasMatriculablesByAlumno/:numeroExpediente                     controllers.GruposAsignaturasApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: Integer)
 

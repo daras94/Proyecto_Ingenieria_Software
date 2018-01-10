@@ -54,14 +54,14 @@ public class GestionReservasApiController extends Controller {
         Integer espacio;
 
         espacio = Integer.parseInt(valueespacio);
+
         try{
             imp.reservasActualizarPut(dia, hora, espacio, reserva);
         
             return ok(); 
-        }catch(SQLException e){
+        }catch(Exception e){
             return badRequest();
         }
-        
     }
 
     @ApiAction
@@ -80,11 +80,12 @@ public class GestionReservasApiController extends Controller {
         Integer espacio;
 
         espacio = Integer.parseInt(valueespacio);
+
         try{
             imp.reservasCancelarDelete(dia, hora, espacio);
 
             return ok();
-        }catch(SQLException e){
+        }catch(Exception e){
             return badRequest();
         }
     }
@@ -95,13 +96,13 @@ public class GestionReservasApiController extends Controller {
         Reserva reserva;
 
         reserva = mapper.readValue(nodereserva.toString(), Reserva.class);
+
         try{
-           imp.reservasReservarPost(reserva);
+            imp.reservasReservarPost(reserva);
         
             return ok(); 
-        }catch(SQLException e){
+        }catch(Exception e){
             return badRequest();
         }
-        
     }
 }

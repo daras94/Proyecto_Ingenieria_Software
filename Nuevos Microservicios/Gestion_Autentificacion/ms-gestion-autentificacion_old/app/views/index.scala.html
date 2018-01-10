@@ -1,0 +1,67 @@
+@*
+ * This template takes a single argument, a String containing a
+ * message to display.
+ *@
+@(page: String, isLoggedIn: Boolean, userInfo: Usuario, tipo_user: String)
+
+@main(page, isLoggedIn, userInfo) {
+<section id="main" class="wrapper">
+    <div class="inner" style="margin-top: -100px;">
+        <div class="row">
+            <!-- Break -->
+            <div class="4u 12u" style="width: 15%; margin-top:20px;">
+                <div class="row">
+                    <ul>
+                        <!-- Interfaces de Aois para usuarios. -->
+                        @if(tipo_user == "ROLE_USUARIO"){
+                            <li><a href="/api" target="myiframe">Registro</a></li>
+                            <li><a href='' onclick="" target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                        } 
+                        
+                        <!-- Interfaces de Aois para profasores. -->
+                        @if(tipo_user == "ROLE_PROFESOR"){
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                        } 
+                        
+                        <!-- Interfaces de Aois para admin. -->
+                        @if(tipo_user == "ROLE_ADMIN"){
+                            <li><a href='/api' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                            <li><a href='' target="myiframe">Registro</a></li>
+                        }
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="4u 12u" id="my-div" style="margin-top:-70px; margin-bottom: -143px;">
+                <!--div class="box"-->
+                    <!--p><iframe name="myiframe" width='1050px' height='797px'></iframe></p-->
+                        <p><iframe id="myiframe" name="myiframe"  width='1050px' height='797px'  frameborder="1" transparency="transparency"  ></iframe></p>
+                <!--/div-->
+            </div>
+        </div>
+    </div>
+</section>
+}

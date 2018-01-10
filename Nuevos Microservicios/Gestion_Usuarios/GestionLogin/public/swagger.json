@@ -1,0 +1,58 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest del microservicio encargado de la gestion de las matriculas de la Universidad de Villamayor.",
+    "version" : "1.0.0",
+    "title" : "API Universidad Villamayor Matriculas"
+  },
+  "host" : "localhost:9300",
+  "paths" : {
+    "/login/{nif}/{contrasenna}" : {
+      "post" : {
+        "tags" : [ "Usuario" ],
+        "summary" : "Iniciar sesion del usuario",
+        "description" : "Busca en la base de datos si existe un usuario con los credenciales enviados",
+        "parameters" : [ {
+          "name" : "nif",
+          "in" : "path",
+          "description" : "NIF del usuario que quiere iniciar sesion",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "contrasenna",
+          "in" : "path",
+          "description" : "Contrasenna del usuario que quiere iniciar sesion",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Usuario encontrado con exito",
+            "schema" : {
+              "$ref" : "#/definitions/Cuenta"
+            }
+          },
+          "404" : {
+            "description" : "Usuario incorrecto"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Cuenta" : {
+      "type" : "object",
+      "required" : [ "NIF", "Tipo" ],
+      "properties" : {
+        "NIF" : {
+          "type" : "string"
+        },
+        "Tipo" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
