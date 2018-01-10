@@ -183,9 +183,11 @@
         "Email" : {
           "type" : "string"
         },
-        "Nota" : {
-          "type" : "integer"
+        "Nota": {
+          "type": "double"
         }
+	"Expediente": {
+          "type": "integer"
       }
     }
   }
