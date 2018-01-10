@@ -7,6 +7,38 @@
   },
   "host": "localhost:9200",
   "paths": {
+    "/creditosalumno/{numeroExpediente}": {
+      "get": {
+        "tags": [
+          "Creditos_Alumno"
+        ],
+        "summary": "Creditos superados del alumno",
+        "description": "Devuelve los créditos superados por parte del alumno que quiere hacer una nueva matricula",
+        "parameters": [
+          {
+            "name": "numeroExpediente",
+            "in": "path",
+            "required": true,
+            "description": "Numero de expediente del alumno.",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "$ref": "#/definitions/CreditosAlumno"
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
       "get": {
         "tags": [
@@ -63,10 +95,7 @@
             "required": true,
             "description": "Grupos que el alumno ha decidido matricularse",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Grupo_Asignatura"
-              }
+              "$ref": "#/definitions/MatriculaAlta"
             }
           }
         ],
@@ -191,6 +220,24 @@
         }
       }
     },
+    "MatriculaAlta": {
+      "type": "object",
+      "required": [
+        "Grupos",
+        "TipoPago"
+      ],
+      "properties": {
+        "Grupos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grupo_Asignatura"
+          }
+        },
+        "TipoPago": {
+          "type": "integer"
+        }
+      }
+    },
     "Matricula": {
       "type": "object",
       "required": [
@@ -229,6 +276,25 @@
         },
         "Tipo": {
           "type": "string"
+        }
+      }
+    },
+    "CreditosAlumno": {
+      "type": "object",
+      "required": [
+        "CreditosObligatorios",
+        "CreditosOptativos",
+        "CreditosTransversales"
+      ],
+      "properties": {
+        "CreditosObligatorios": {
+          "type": "integer"
+        },
+        "CreditosOptativos": {
+          "type": "integer"
+        },
+        "CreditosTransversales": {
+          "type": "integer"
         }
       }
     }
