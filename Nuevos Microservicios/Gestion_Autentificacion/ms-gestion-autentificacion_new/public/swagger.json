@@ -36,20 +36,24 @@
                 "responses": {
                     "200": {
                         "description": "Se Inicio la sesion correctamente",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "headers": {
-                            "X-Rate-Limit": {
-                                "type": "integer",
-                                "format": "int32",
-                                "description": "llamadas por hora permitidas por el usuario"
-                            },
-                            "X-Expires-After": {
-                                "type": "string",
-                                "format": "date-time",
-                                "description": "Fecha en formato GMT en la que espira el token"
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Usuario"
+                                }
                             }
+                        }
+                    },
+                    "headers": {
+                        "X-Rate-Limit": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "llamadas por hora permitidas por el usuario"
+                        },
+                        "X-Expires-After": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Fecha en formato GMT en la que espira el token"
                         }
                     },
                     "400": {
@@ -101,6 +105,26 @@
         }
     },
     "definitions": { 
-
+        "Usuario": {
+            "type": "object",
+            "required": ["name", "nif", "tipo_user", "authTokent", "num_expediente"],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "nif": {
+                    "type": "string"
+                },
+                "tipo_user": {
+                    "type": "string"
+                },
+                "authTokent": {
+                    "type": "string"
+                },
+                "num_expediente": {
+                    "type": "string"
+                }
+            }
+        }
     }
 }

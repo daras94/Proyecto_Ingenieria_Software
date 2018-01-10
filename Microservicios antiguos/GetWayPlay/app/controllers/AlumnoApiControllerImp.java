@@ -3,21 +3,15 @@ package controllers;
 import apimodels.Alumno;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import play.mvc.Http;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
-import javax.json.*;
-import javax.validation.constraints.*;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2017-12-18T11:43:47.926Z")
 

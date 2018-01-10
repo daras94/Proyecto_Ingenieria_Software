@@ -16,8 +16,9 @@ public class UsuarioDB {
 
     private static Map<String, Usuario> userinfos = new HashMap<String, Usuario>();
 
-    public static void addUserInfo(String name, String nif, String password, String tipo_user) {
-        userinfos.put(nif, new Usuario(name, nif, password, tipo_user));
+    public static String addUserInfo(Usuario user) {
+        userinfos.put(user.createAuthTokent(), user);
+        return user.getAuthTokent();
     }
 
     public static void deletUser(String nif) {
@@ -32,12 +33,12 @@ public class UsuarioDB {
         return userinfos.get((nif == null) ? null : nif);
     }
 
-    public static boolean isValid(String nif, String password) {
+   /*public static boolean isValid(String nif, String password) {
         boolean isUser = false;
         if ((nif != null) && (password != null)) {
             Usuario user = getUser(nif);
             isUser = user.getNif().equals(nif) && user.getPassword().equals(password);
         }
         return isUser;
-    }
+    }*/
 }

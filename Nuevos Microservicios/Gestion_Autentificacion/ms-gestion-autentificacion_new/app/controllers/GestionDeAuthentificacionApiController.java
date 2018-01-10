@@ -1,14 +1,17 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import play.mvc.Controller;
 import play.mvc.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
+import java.util.List;
 import models.LoginForm;
-import models.Secured;
+import models.Usuario;
 import play.mvc.Security;
 import play.data.Form;
 import views.html.*;
+import play.mvc.Http;
 import swagger.SwaggerUtils.ApiAction;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-02T17:03:41.435Z")
@@ -16,30 +19,32 @@ import swagger.SwaggerUtils.ApiAction;
 public class GestionDeAuthentificacionApiController extends Controller {
 
     private final GestionDeAuthentificacionApiControllerImp imp;
+    private final ObjectMapper mapper;
+    /**
+     * Atributos de cabecera para tokents.
+     */
+    public final static String AUTH_TOKEN_HEADER = "X-AUTH-TOKEN";
+    public static final String AUTH_TOKEN = "authToken";
     
 
     @Inject
     private GestionDeAuthentificacionApiController(GestionDeAuthentificacionApiControllerImp imp) {
         this.imp = imp;
-    }
-
-    @ApiAction
-    public Result loginUserInit() throws Exception {
-        Form<LoginForm> loginForm = Form.form(LoginForm.class).bindFromRequest();
-        return ok(login.render("UV : Iniciar Sesion", loginForm, Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+        mapper = new ObjectMapper();
     }
 
     @ApiAction
     public Result loginUser() throws Exception {
         Form<LoginForm> loginForm = Form.form(LoginForm.class).bindFromRequest();
         if (loginForm.hasErrors()) {
-            flash("error", "Error: La contraseña/usuarios no son correctos.");
-            return badRequest(login.render("UV : Inicio Session.", loginForm, Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+            return badRequest(loginForm.errorsAsJson());
         } else {
-            imp.loginUser(loginForm.get().nif, loginForm.get().password);
-            session().clear();
-            session("nif", loginForm.get().nif);
-            return redirect(routes.HomeController.index());
+            Usuario user = imp.loginUser(loginForm.get().nif, loginForm.get().password);
+            if(user != null) {
+                session().clear();
+                session("nif", loginForm.get().nif);
+            }
+            return (user == null)? unauthorized() : ok((JsonNode)mapper.valueToTree(user));
         }
     }
 
@@ -50,7 +55,8 @@ public class GestionDeAuthentificacionApiController extends Controller {
             imp.logoutUser();
             session().clear();
         }
-        return redirect(routes.GestionDeAuthentificacionApiController.loginUserInit());
+        return ok();
+        //return redirect(routes.GestionDeAuthentificacionApiController.loginUserInit());
     }
 
 }
