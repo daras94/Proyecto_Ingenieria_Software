@@ -35,9 +35,19 @@ public class ListaNotasApiController extends Controller {
 
     @ApiAction
     public Result cerrarActasIdPut(Integer id) throws Exception {
-        imp.cerrarActasIdPut(id);
+        try{
+            
+        int n = imp.cerrarActasIdPut(id);
+        if(n<0){
+            return badRequest("Introduzca correctamente los datos");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface ListaNotasApiControllerImpInterface {
-    void cerrarActasIdPut(Integer id) throws Exception;
+    int cerrarActasIdPut(Integer id) throws Exception;
 
     List<Alumno> obtenerListaIdGet(Integer id) throws Exception;
 

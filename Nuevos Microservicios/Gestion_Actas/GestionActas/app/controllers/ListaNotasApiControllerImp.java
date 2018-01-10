@@ -19,8 +19,24 @@ import javax.validation.constraints.*;
 public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInterface {
     String anno = "2017";
     @Override
-    public void cerrarActasIdPut(Integer id) throws Exception {
+    public int cerrarActasIdPut(Integer id) throws Exception {
         //Do your magic!!!
+        int resultado = -1;
+        try{
+            conectar();
+            
+            String SQL = "UPDATE Grupo SET actas = FALSE WHERE id_grupo = "+String.valueOf(id)+";";
+            resultado = actualizar_BDD(SQL);
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return resultado;
+        }
         
     }
 
