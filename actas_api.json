@@ -1,0 +1,254 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Gestión de actas",
+    "description": "API Rest de la Universidad de Villamayor para acceder a las actas."
+  },
+  "host": "localhost:9120",
+  "paths": {
+    "/Actas_crear/{NIF}": {
+      "post": {
+        "tags": [
+          "Actas"
+        ],
+        "summary": "Generar o subir actas",
+        "description": "Integrar en la base de datos la informacion del acta que se sube.",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "nif del profesor",
+            "type": "string"
+          },
+          {
+            "name": "numgrupo",
+            "in": "path",
+            "required": true,
+            "description": "id del grupo",
+            "type": "integer"
+          },
+          {
+            "name": "notas",
+            "in": "path",
+            "required": true,
+            "description": "notas de los alumnos",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "numexp",
+            "in": "path",
+            "required": true,
+            "description": "alumnos de las notas",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Actas_modificar/{NIF}": {
+      "put": {
+        "tags": [
+          "Modificacion_de_actas"
+        ],
+        "summary": "modificar la nota de las actas",
+        "description": "permite la modificación de las notas del acta de un alumno",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "nif del profesor que quiere modificar",
+            "type": "string"
+          },
+          {
+            "name": "numgrupo",
+            "in": "path",
+            "required": true,
+            "description": "el id del grupo",
+            "type": "integer"
+          },
+          {
+            "name": "nota",
+            "in": "path",
+            "required": true,
+            "description": "la nueva nota",
+            "type": "integer"
+          },
+          {
+            "name": "numexpediente",
+            "in": "path",
+            "required": true,
+            "description": "el numero de expediente del alumno",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modificación realizada con éxito"
+          },
+          "405": {
+            "description": "Operación sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/Cerrar_actas/{NIF}": {
+      "put": {
+        "tags": [
+          "Cerrar_Actas"
+        ],
+        "summary": "No permitir más modificaciones de actas",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "el nif del profesor",
+            "type": "string"
+          },
+          {
+            "name": "numgrupo",
+            "in": "path",
+            "required": true,
+            "description": "id del grupo a cerrar actas",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada con éxito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/Ver_actas/{NIF}": {
+      "get": {
+        "summary": "permite ver las notas",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "el nif del profesor",
+            "type": "string"
+          },
+          {
+            "name": "numgrupo",
+            "in": "path",
+            "required": true,
+            "description": "el grupo cuya acta quiere ver",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operacion realizada",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Conjunto"
+              }
+            }
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Alumno": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "CuentaCorriente",
+        "Contrasenna",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "FechaNacimiento",
+        "Email",
+        "Carrera",
+        "Expediente"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "CuentaCorriente": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "integer"
+        },
+        "Expediente": {
+          "type": "integer"
+        }
+      }
+    },
+    "Conjunto": {
+      "type": "object",
+      "required": [
+        "Alumno",
+        "nota"
+      ],
+      "properties": {
+        "Alumno": {
+          "$ref": "#/definitions/Alumno"
+        },
+        "nota": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
