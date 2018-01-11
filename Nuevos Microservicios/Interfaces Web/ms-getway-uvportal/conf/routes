@@ -1,0 +1,63 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET       /                                                      controllers.HomeController.index
+# An example controller showing how to use dependency injection
+GET       /count                                                 controllers.CountController.count
+GET       /registro                                              controllers.HomeController.registro
+
+# An example controller showing how to write asynchronous code
+GET       /message                                               controllers.AsyncController.message
+
+GET       /api                                                   controllers.ApiDocController.api
+
+#Functions for GestionDeAlumno API
+POST      /alta_alumno                                           controllers.ms_gestion_alumno.GestionDeAlumnoApiController.altaAlumnoPost()
+DELETE    /alumnoByNIF/:NIF                                      controllers.ms_gestion_alumno.GestionDeAlumnoApiController.alumnoByNIFNIFDelete(NIF: String)
+GET       /alumnoByNIF/:NIF                                      controllers.ms_gestion_alumno.GestionDeAlumnoApiController.alumnoByNIFNIFGet(NIF: String)
+PUT       /alumnoByNIF/:NIF                                      controllers.ms_gestion_alumno.GestionDeAlumnoApiController.alumnoByNIFNIFPut(NIF: String)
+
+#Functions for GestionDeAuthentificacion API
+GET       /login                                                 controllers.ms_gestion_autentificacion.GestionDeAuthentificacionApiController.loginUserInit()
+POST      /login                                                 controllers.ms_gestion_autentificacion.GestionDeAuthentificacionApiController.loginUser()
+GET       /logout                                                controllers.ms_gestion_autentificacion.GestionDeAuthentificacionApiController.logoutUser()
+
+#Functions for GestionDeConsultasDeReservas_ API
+GET       /reservas/disponibles/espacios                         controllers.ms_gestion_reservas.GestionDeConsultasDeReservas_ApiController.reservasDisponiblesEspaciosGet()
+GET       /reservas/disponibles/horas                            controllers.ms_gestion_reservas.GestionDeConsultasDeReservas_ApiController.reservasDisponiblesHorasGet()
+
+#Functions for GestionDeEspacios_ API
+GET       /espacios                                              controllers.ms_gestion_recursos.GestionDeEspacios_ApiController.espaciosGet()
+
+#Functions for GestionDeFactura_ API
+GET       /facturas                                              controllers.ms_gestion_recursos.GestionDeFactura_ApiController.facturasGet(NIF: String, mes: Integer, ao: Integer)
+
+#Functions for GestionDeMatricula API
+GET       /reservaMatricula                                      controllers.ms_gestion_matricula.GestionDeMatriculaApiController.reservaMatriculaGet()
+PUT       /reservaMatricula                                      controllers.ms_gestion_matricula.GestionDeMatriculaApiController.reservaMatriculaPut()
+
+#Functions for GestionDeMatriculas_ API
+POST      /crearMatricula/:numeroExpediente                      controllers.ms_gestion_matricula.GestionDeMatriculas_ApiController.crearMatriculaNumeroExpedientePost(numeroExpediente: Integer)
+PUT       /realizarReserva/:numeroExpediente                     controllers.ms_gestion_matricula.GestionDeMatriculas_ApiController.realizarReservaNumeroExpedientePut(numeroExpediente: Integer)
+GET       /verExpediente/:numeroExpediente                       controllers.ms_gestion_matricula.GestionDeMatriculas_ApiController.verExpedienteNumeroExpedienteGet(numeroExpediente: Integer)
+
+#Functions for GestionDeNominas_ API
+POST      /nomina                                                controllers.ms_gestion_economica.GestionDeNominas_ApiController.nominaPost()
+GET       /nominas/:NIF                                          controllers.ms_gestion_economica.GestionDeNominas_ApiController.nominasNIFGet(NIF: String)
+
+#Functions for GestionDePagos API
+PUT       /actualizarPago                                        controllers.ms_gestion_economica.GestionDePagosApiController.actualizarPagoPut()
+GET       /pagosMatricula                                        controllers.ms_gestion_economica.GestionDePagosApiController.pagosMatriculaGet()
+
+#Functions for GestionDeReservas API
+PUT       /reservas/actualizar                                   controllers.ms_gestion_reservas.GestionDeReservasApiController.reservasActualizarPut()
+DELETE    /reservas/cancelar                                     controllers.ms_gestion_reservas.GestionDeReservasApiController.reservasCancelarDelete()
+POST      /reservas/reservar                                     controllers.ms_gestion_reservas.GestionDeReservasApiController.reservasReservarPost()
+
+#Functions for GestionGruposDeAsignaturas_ API
+GET       /asignaturasMatriculablesByAlumno/:numeroExpediente    controllers.ms_gestion_grupos.GestionGruposDeAsignaturas_ApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: Integer)
+
+# Map static resources from the /public folder to the /assets URL path
+GET       /assets/*file                                          controllers.Assets.versioned(path="/public", file: Asset)

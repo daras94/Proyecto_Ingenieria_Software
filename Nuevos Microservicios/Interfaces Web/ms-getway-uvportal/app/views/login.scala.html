@@ -1,0 +1,8 @@
+@(title: String, form: Form[ms_gestion_autentificacion.LoginForm], isLoggedIn: Boolean, userInfo: Usuario)
+
+@import auth._
+@import controllers.ms_gestion_autentificacion.routes
+
+@main(title, isLoggedIn, userInfo) {
+    @(loginform(routes.GestionDeAuthentificacionApiController.loginUser(), form("nif"), form("password")))
+}
