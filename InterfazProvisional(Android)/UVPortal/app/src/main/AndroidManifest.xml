@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login"
+            android:name=".IP"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".ElegirCarrera"
             android:label="@string/title_activity_elegir_carrera"
@@ -37,12 +40,20 @@
             android:label="@string/title_activity_introducir_usuario"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CuentaAlumno"
-            android:label="@string/title_activity_cuenta_alumno"
+            android:name=".CuentaProfesor"
+            android:label="@string/title_activity_cuenta_profesor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".VerExpediente"
-            android:label="@string/title_activity_ver_expediente"
+            android:name=".TipoReserva"
+            android:label="@string/title_activity_tipo_reserva"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ReservaEspacio"
+            android:label="@string/title_activity_reserva_espacio"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".VerReservas"
+            android:label="@string/title_activity_ver_reservas"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

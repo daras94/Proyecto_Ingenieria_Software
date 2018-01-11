@@ -25,6 +25,7 @@
     <string name="title_activity_elegir_carrera">Escoja una carrera</string>
     <string name="title_activity_elegir_asignaturas">Escoja asignatura</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">Login</string>
 
     <string name="siguiente">Sig.</string>
     <string name="title_activity_introducir_usuario">Introduzca sus datos</string>
@@ -34,7 +35,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_ver_expediente">VerExpediente</string>
+    <string name="title_activity_cuenta_profesor">Profesor</string>
+    <string name="title_activity_tipo_reserva">TipoReserva</string>
+    <string name="title_activity_reserva_espacio">ReservaEspacio</string>
+    <string name="title_activity_ver_reservas">VerReservas</string>
 
 
 </resources>

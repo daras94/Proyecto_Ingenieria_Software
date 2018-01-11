@@ -2,13 +2,10 @@ package com.uvportal.uahgii.uvportal;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.database.Cursor;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,7 +30,6 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class ElegirCarrera extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -53,6 +50,8 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
 
     RequestQueue rq;
 
+    ProgressBar pgb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +63,8 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
         Bundle b = intent.getExtras();
 
         rq = Volley.newRequestQueue(this);
+
+        pgb = (ProgressBar) findViewById(R.id.load);
 
         nif = b.get("nif").toString();
         String pass = b.get("pass").toString();
@@ -111,7 +112,7 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                pgb.setVisibility(View.INVISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -123,7 +124,7 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
         jr.setRetryPolicy(new DefaultRetryPolicy(0,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rq.add(jr);
 
-        adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.carrera_item,R.id.txt_carrera_item,new ArrayList<String>());
+        adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.list_item_simple,R.id.txt_carrera_item,new ArrayList<String>());
         listaCarreras.setAdapter(adapter);
 
         Log.d("QWERT","Request enviada");
@@ -156,6 +157,7 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
                 startActivity(intent);
             }
         },null);
+        jr.setRetryPolicy(new DefaultRetryPolicy(0,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rq.add(jr);
     }
 

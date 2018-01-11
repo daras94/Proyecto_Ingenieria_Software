@@ -89,7 +89,7 @@ public class IntroducirUsuario extends AppCompatActivity {
                         @Override
                         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                             EditText et = (EditText) view;
-                            et.setText(i+"-"+i1+"-"+i2);
+                            et.setText(i+"-"+(i1+1)+"-"+i2);
                         }
                     },c.get(Calendar.YEAR)-18, c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                     dpd.show();
