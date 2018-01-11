@@ -23,7 +23,7 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
         try{
             conectar();
             String SQL = "";
-            SQL+="SELECT * FROM Profesor_Grupo INNNER JOIN Grupo ON (grupo_id=id_grupo) WHERE Profesor_NIF = "+nif+" AND Curso= "+anno+" AND actas = TRUE;";
+            SQL+="SELECT * FROM Profesor_Grupo INNNER JOIN Grupo ON (grupo_id=id_grupo) WHERE Profesor_NIF = '"+nif+"' AND anno = "+anno+" AND actas = FALSE;";
             result = consulta_BDD(SQL);
             
             grupos = new ArrayList<>();

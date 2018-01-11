@@ -188,7 +188,8 @@
         "Apellido1",
         "Apellido2",
         "Email",
-        "Nota"
+        "Nota",
+        "Expediente"
       ],
       "properties": {
         "DNI": {
@@ -207,9 +208,9 @@
           "type": "string"
         },
         "Nota": {
-          "type": "double"
-        }
-	"Expediente": {
+          "type": "number"
+        },
+        "Expediente": {
           "type": "integer"
         }
       }

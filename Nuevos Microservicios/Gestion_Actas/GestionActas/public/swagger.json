@@ -1,193 +1,218 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "description" : "API Rest del microservicio encargado de las actas de los alumnos.",
-    "version" : "1.0.0",
-    "title" : "API Universidad Villamayor Actas"
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Universidad Villamayor Actas",
+    "description": "API Rest del microservicio encargado de las actas de los alumnos."
   },
-  "host" : "localhost:9600",
-  "paths" : {
-    "/obtenerGrupos/{nif}" : {
-      "get" : {
-        "tags" : [ "Grupos" ],
-        "summary" : "Grupos que imparte un profesor",
-        "description" : "Devuelve los grupos que imparte el profesor en el curso actual",
-        "parameters" : [ {
-          "name" : "nif",
-          "in" : "path",
-          "description" : "DNI del profesor",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Operacion realizada con exito",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Grupo"
+  "host": "localhost:9600",
+  "paths": {
+    "/obtenerGrupos/{nif}": {
+      "get": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Grupos que imparte un profesor",
+        "description": "Devuelve los grupos que imparte el profesor en el curso actual",
+        "parameters": [
+          {
+            "name": "nif",
+            "in": "path",
+            "required": true,
+            "description": "DNI del profesor",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Grupo"
               }
             }
           },
-          "405" : {
-            "description" : "Operacion sin realizar"
+          "405": {
+            "description": "Operacion sin realizar"
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "500": {
+            "description": "Internal Server Error"
           }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
+        }
       }
     },
-    "/obtenerLista/{id}" : {
-      "get" : {
-        "tags" : [ "ListaNotas" ],
-        "summary" : "Lista de alumnos",
-        "description" : "Devuelve una lista de todos los alumnos para poder introducir las notas",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID del grupo que se quiere obtener la lista",
-          "required" : true,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Operacion realizada con exito",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Alumno"
+    "/obtenerLista/{id}": {
+      "get": {
+        "tags": [
+          "ListaNotas"
+        ],
+        "summary": "Lista de alumnos",
+        "description": "Devuelve una lista de todos los alumnos para poder introducir las notas",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del grupo que se quiere obtener la lista",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Alumno"
               }
             }
           },
-          "405" : {
-            "description" : "Operacion sin realizar"
+          "405": {
+            "description": "Operacion sin realizar"
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "500": {
+            "description": "Internal Server Error"
           }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
+        }
       }
     },
-    "/subirNotas/{id}" : {
-      "put" : {
-        "tags" : [ "ListaNotas" ],
-        "summary" : "Lista de alumnos con las notas introducidas",
-        "description" : "Introduce en la base de datos las notas de los alumnos",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID del grupo de los alumnos que se han insertado las notas",
-          "required" : true,
-          "type" : "integer"
-        }, {
-          "in" : "body",
-          "name" : "alumnos",
-          "description" : "Notas de los alumnos",
-          "required" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/definitions/Alumno"
+    "/subirNotas/{id}": {
+      "put": {
+        "tags": [
+          "ListaNotas"
+        ],
+        "summary": "Lista de alumnos con las notas introducidas",
+        "description": "Introduce en la base de datos las notas de los alumnos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del grupo de los alumnos que se han insertado las notas",
+            "type": "integer"
+          },
+          {
+            "name": "alumnos",
+            "in": "body",
+            "required": true,
+            "description": "Notas de los alumnos",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Alumno"
+              }
             }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Operacion realizada con exito"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
           },
-          "405" : {
-            "description" : "Operacion sin realizar"
+          "405": {
+            "description": "Operacion sin realizar"
           },
-          "500" : {
-            "description" : "Internal Server Error"
+          "500": {
+            "description": "Internal Server Error"
           }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
+        }
       }
     },
-    "/cerrarActas/{id}" : {
-      "put" : {
-        "tags" : [ "ListaNotas" ],
-        "summary" : "Cerrar acta de un grupo",
-        "description" : "Cierra las actas de los alumnos del grupo",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID del grupo del que se van a cerrar las actas",
-          "required" : true,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Operacion realizada con exito"
-          },
-          "405" : {
-            "description" : "Operacion sin realizar"
-          },
-          "500" : {
-            "description" : "Internal Server Error"
+    "/cerrarActas/{id}": {
+      "put": {
+        "tags": [
+          "ListaNotas"
+        ],
+        "summary": "Cerrar acta de un grupo",
+        "description": "Cierra las actas de los alumnos del grupo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del grupo del que se van a cerrar las actas",
+            "type": "integer"
           }
-        },
-        "x-contentType" : "application/json",
-        "x-accepts" : "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     }
   },
-  "definitions" : {
-    "Grupo" : {
-      "type" : "object",
-      "required" : [ "Actas", "Anno", "Asignatura", "ID", "Miembros", "Tipo" ],
-      "properties" : {
-        "ID" : {
-          "type" : "integer"
+  "definitions": {
+    "Grupo": {
+      "type": "object",
+      "required": [
+        "ID",
+        "Actas",
+        "Tipo",
+        "Miembros",
+        "Asignatura",
+        "Anno"
+      ],
+      "properties": {
+        "ID": {
+          "type": "integer"
         },
-        "Actas" : {
-          "type" : "boolean"
+        "Actas": {
+          "type": "boolean"
         },
-        "Tipo" : {
-          "type" : "string"
+        "Tipo": {
+          "type": "string"
         },
-        "Miembros" : {
-          "type" : "integer"
+        "Miembros": {
+          "type": "integer"
         },
-        "Asignatura" : {
-          "type" : "integer"
+        "Asignatura": {
+          "type": "integer"
         },
-        "Anno" : {
-          "type" : "integer"
+        "Anno": {
+          "type": "integer"
         }
       }
     },
-    "Alumno" : {
-      "type" : "object",
-      "required" : [ "Apellido1", "Apellido2", "DNI", "Email", "Nombre", "Nota" ],
-      "properties" : {
-        "DNI" : {
-          "type" : "string"
+    "Alumno": {
+      "type": "object",
+      "required": [
+        "DNI",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "Email",
+        "Nota",
+        "Expediente"
+      ],
+      "properties": {
+        "DNI": {
+          "type": "string"
         },
-        "Nombre" : {
-          "type" : "string"
+        "Nombre": {
+          "type": "string"
         },
-        "Apellido1" : {
-          "type" : "string"
+        "Apellido1": {
+          "type": "string"
         },
-        "Apellido2" : {
-          "type" : "string"
+        "Apellido2": {
+          "type": "string"
         },
-        "Email" : {
-          "type" : "string"
+        "Email": {
+          "type": "string"
         },
         "Nota": {
-          "type": "double"
-        }
-	"Expediente": {
+          "type": "number"
+        },
+        "Expediente": {
           "type": "integer"
+        }
       }
     }
   }

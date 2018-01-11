@@ -25,7 +25,7 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
         try{
             conectar();
             
-            String SQL = "UPDATE Grupo SET actas = FALSE WHERE id_grupo = "+String.valueOf(id)+";";
+            String SQL = "UPDATE Grupo SET actas = TRUE WHERE id_grupo = "+String.valueOf(id)+";";
             resultado = actualizar_BDD(SQL);
         }
         catch(Exception e){
@@ -50,7 +50,6 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
             String SQL = "";
             SQL+="SELECT * FROM Asignatura_Matriculada NATURAL JOIN Alumno INNER JOIN Usuario ON (Usuario_NIF=NIF) WHERE Curso= "+anno+" AND Grupo_id_grupo = ";
             SQL+=String.valueOf(id)+";";
-            
             result = consulta_BDD(SQL);
             
             alumnos = new ArrayList<>();
