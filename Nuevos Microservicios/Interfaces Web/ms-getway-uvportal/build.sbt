@@ -1,0 +1,17 @@
+name := """ms-getway-uvportal"""
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.11.7"
+
+libraryDependencies ++= Seq(
+    javaJdbc,
+    cache,
+    javaWs,
+    "org.webjars" % "swagger-ui" % "2.2.10-1",
+    "javax.validation" % "validation-api" % "1.1.0.Final"
+)
+
+PlayKeys.devSettings := Seq("play.server.http.port" -> "9310")
