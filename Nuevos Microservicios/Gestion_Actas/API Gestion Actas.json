@@ -207,6 +207,9 @@
           "type": "string"
         },
         "Nota": {
+          "type": "double"
+        }
+	"Expediente": {
           "type": "integer"
         }
       }
