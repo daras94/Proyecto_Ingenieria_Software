@@ -40,9 +40,10 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
     @Override
     public void reservasCancelarDelete( @NotNull String dia,  @NotNull Integer hora,  @NotNull Integer espacio) throws Exception {
         try{
-            
+            System.out.println("sdfvsdfa");
             conectar();
-            String sql = "DELETE FROM reservaprofesor WHERE fecha = '"+dia+"' AND hora = "+hora+" AND ID_Espacio ="+espacio+";";
+            String sql = "DELETE FROM reservaprofesor WHERE fecha = '"+dia+"' AND hora = "+hora+" AND ID_Espacio = "+espacio+";";
+            System.out.println(sql);
             actualizar_BDD(sql);
             
             
@@ -65,13 +66,43 @@ public class GestionReservasApiControllerImp implements GestionReservasApiContro
             String sql = "INSERT INTO reservaprofesor VALUES ('"+NIF+"',"+espacio+",'"+fecha+"',"+hora+");";
             actualizar_BDD(sql);
             
-            System.out.println("post");
         }catch(Exception e){
             throw(e);
             
         }
         
         
+    }
+    
+    @Override
+    public List<Reserva> reservasNifGet(String nif) throws Exception {
+        try{
+            
+            ArrayList<Reserva> reservas = new ArrayList<>();
+            
+            conectar();
+            String sql = "SELECT * FROM reservaprofesor WHERE Profesor_NIF = '"+nif+"' ORDER BY fecha AND HORA";
+            ResultSet result = consulta_BDD(sql);
+            
+            while(result.next()){
+                Reserva reserva = new Reserva();
+                String fecha = result.getString("fecha");
+                int espacio = result.getInt("ID_Espacio");
+                int hora = result.getInt("hora");
+                
+                reserva.setEspacio(espacio);
+                reserva.setFecha(fecha);
+                reserva.setHora(hora);;
+                reserva.setNIF(nif);
+                reservas.add(reserva);
+            }
+            
+            return reservas;
+            
+        }catch(Exception e){
+            throw(e);
+            
+        }
     }
 
 }

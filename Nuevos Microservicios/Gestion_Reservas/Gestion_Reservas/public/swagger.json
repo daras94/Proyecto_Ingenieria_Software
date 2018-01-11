@@ -95,7 +95,43 @@
           "200" : {
             "description" : "Operacion realizada con exito",
             "schema" : {
+              "type" : "array",
+              "items" : {
                 "$ref" : "#/definitions/EspaciosLibres"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/reservas/{nif}" : {
+      "get" : {
+        "tags" : [ "Gestion Reservas" ],
+        "summary" : "Ver reservas",
+        "description" : "Ver reservas de un profesor",
+        "parameters" : [ {
+          "name" : "nif",
+          "in" : "path",
+          "description" : "NIF del profesor",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Reserva"
+              }
             }
           },
           "405" : {

@@ -15,6 +15,7 @@ GET     /espacios                     controllers.EspaciosApiController.espacios
 #Functions for GestionReservas API
 PUT     /reservas/actualizar                     controllers.GestionReservasApiController.reservasActualizarPut()
 DELETE     /reservas/cancelar                     controllers.GestionReservasApiController.reservasCancelarDelete()
+GET     /reservas/:nif                     controllers.GestionReservasApiController.reservasNifGet(nif: String)
 POST     /reservas/reservar                     controllers.GestionReservasApiController.reservasReservarPost()
 
 # Map static resources from the /public folder to the /assets URL path

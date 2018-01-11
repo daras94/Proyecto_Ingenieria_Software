@@ -10,9 +10,12 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface GestionReservasApiControllerImpInterface {
+    
     void reservasActualizarPut( @NotNull String dia,  @NotNull Integer hora,  @NotNull Integer espacio, Reserva reserva) throws Exception;
 
     void reservasCancelarDelete( @NotNull String dia,  @NotNull Integer hora,  @NotNull Integer espacio) throws Exception;
+
+    List<Reserva> reservasNifGet(String nif) throws Exception;
 
     void reservasReservarPost(Reserva reserva) throws Exception;
 

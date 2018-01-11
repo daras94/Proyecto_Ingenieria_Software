@@ -58,7 +58,7 @@ public class GestionReservasApiController extends Controller {
         try{
             imp.reservasActualizarPut(dia, hora, espacio, reserva);
         
-            return ok(); 
+            return ok(mapper.createObjectNode()); 
         }catch(Exception e){
             return badRequest();
         }
@@ -80,11 +80,11 @@ public class GestionReservasApiController extends Controller {
         Integer espacio;
 
         espacio = Integer.parseInt(valueespacio);
-
+           System.out.println("1");
         try{
             imp.reservasCancelarDelete(dia, hora, espacio);
 
-            return ok();
+            return ok(mapper.createObjectNode());
         }catch(Exception e){
             return badRequest();
         }
@@ -100,9 +100,22 @@ public class GestionReservasApiController extends Controller {
         try{
             imp.reservasReservarPost(reserva);
         
-            return ok(); 
+            return ok(mapper.createObjectNode()); 
         }catch(Exception e){
             return badRequest();
         }
+    }
+    
+    @ApiAction
+    public Result reservasNifGet(String nif) throws Exception {
+        List<Reserva> obj = imp.reservasNifGet(nif);
+        
+        try{
+            JsonNode result = mapper.valueToTree(obj);
+            return ok(result); 
+        }catch(Exception e){
+            return badRequest();
+        }
+        
     }
 }
