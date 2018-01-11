@@ -45,16 +45,17 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
                 aux=null;
             }
             
-            String sql_pago = "INSERT INTO Pago VALUES("+String.valueOf(numeroExpediente)+", ";
+            String sql_pago = "INSERT INTO Pago VALUES(";
             String sql_pago_aux="";
             if(grupos.getTipoPago()==1){
-                sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'UNITARIO', NULL, FALSE);";
-                sentencias_sql.add(sql_pago_aux);
+                sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'UNITARIO', NULL, FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
+                
             }
             else{
                 for(int i=0;i<grupos.getTipoPago();i++){
-                    sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'FRACIONARIO', NULL, FALSE);";
+                    sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'FRACIONARIO', NULL, FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
                     sentencias_sql.add(sql_pago_aux);
+                    System.out.println(sql_pago_aux);
                     sql_pago_aux="";
                 }
             }
