@@ -1,0 +1,296 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API Rest administracion  para la Universidad de Villamayor.",
+    "version": "2.0.0",
+    "title": "Administrador."
+  },
+  "host": "localhost:9520",
+  "paths": {
+    "/Admin/Espacios": {
+      "post": {
+        "tags": [
+          "Insertar aula"
+        ],
+        "summary": "insertar un aula en la base de datos",
+        "description": "permite al administrados insertar aulas o recursos nuevos",
+        "parameters": [
+          {
+            "name": "espacio",
+            "in": "body",
+            "required": true,
+            "description": "el aula a insertar",
+            "schema": {
+              "$ref": "#/definitions/Espacio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "eliminar un espacio"
+        ],
+        "summary": "eliminación de espacio en la base de datos",
+        "description": "eliminar un espacio mediante su codigo id.",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "description": "id del espacio",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/Admin/Profesores": {
+      "post": {
+        "tags": [
+          "insertar un profesor"
+        ],
+        "summary": "inserta un profesor",
+        "description": "mete un profesor nuevo en la base de datos",
+        "parameters": [
+          {
+            "name": "profesor",
+            "in": "body",
+            "required": true,
+            "description": "el profesor a insertar",
+            "schema": {
+              "$ref": "#/definitions/Profesor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "eliminar un profesor"
+        ],
+        "summary": "elimina un profesor",
+        "description": "permite eliminar profesores de la base de datos mediante su nif.",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "el nif del profesor",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/Admin/Asignaturas": {
+      "post": {
+        "tags": [
+          "insertar una asignatura"
+        ],
+        "summary": "insertar una asignatura",
+        "description": "permite insertar una asignatura nueva en la base de datos",
+        "parameters": [
+          {
+            "name": "asignatura",
+            "in": "body",
+            "required": true,
+            "description": "la asignatura a añadir",
+            "schema": {
+              "$ref": "#/definitions/Asignatura"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "eliminar asignatura"
+        ],
+        "summary": "permite eliminar una asignatura",
+        "description": "permite eliminar una asignatura de la base de datos utilizando su codigo.",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "description": "el codigo de la asignatura",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Espacio": {
+      "type": "object",
+      "required": [
+        "codigo",
+        "nombre",
+        "aforo_max",
+        "precio_alquiler"
+      ],
+      "properties": {
+        "codigo": {
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "aforo_max": {
+          "type": "integer"
+        },
+        "precio_alquiler": {
+          "type": "integer"
+        }
+      }
+    },
+    "Profesor": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "CuentaCorriente",
+        "Contrasenna",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "FechaNacimiento",
+        "Email",
+        "Categoria",
+        "Antiguedad",
+        "TramosInvestigacion",
+        "TramosDocentes",
+        "Departamento"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "CuentaCorriente": {
+          "type": "string"
+        },
+        "Categoria": {
+          "type": "string"
+        },
+        "Antiguedad": {
+          "type": "integer"
+        },
+        "TramosInvestigacion": {
+          "type": "integer"
+        },
+        "TramosDocentes": {
+          "type": "string"
+        },
+        "Departamento": {
+          "type": "integer"
+        }
+      }
+    },
+    "Asignatura": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre",
+        "Tipo",
+        "Creditos",
+        "Carrera"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "integer"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Creditos": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
