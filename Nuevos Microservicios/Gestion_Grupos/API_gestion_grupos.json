@@ -1,0 +1,123 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Gestion de Grupos Universidad Villamayor",
+    "description": "API Rest de la Universidad de Villamayor para asignar profesores a los grupos y obtener otros datos de interes en realcion a estos."
+  },
+  "host": "localhost:9700",
+  "paths": {
+    "/getGrupos": {
+      "get": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Devuelve el listado de grupos no asignados a un profesor de la universidad",
+        "description": "Devuelve el listado de grupos (id del grupo, asignatura y tipo) no asignados a un profesor de la universidad",
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Grupo"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/postGrupoAsignado": {
+      "post": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Post de una nueva asignacion Profesor_Grupo",
+        "description": "Introduce en la base de datos una nueva relacion Profesor_Grupo",
+        "parameters": [
+          {
+            "name": "profesor",
+            "in": "query",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          },
+          {
+            "name": "grupo",
+            "in": "query",
+            "required": true,
+            "description": "id del grupo",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/getCargaDocente": {
+      "get": {
+        "tags": [
+          "Departamento"
+        ],
+        "summary": "Calcula y devuelve la carga docente de un departamento",
+        "description": "Calcula la carga docente de un departamento",
+        "parameters": [
+          {
+            "name": "departamento",
+            "in": "path",
+            "required": true,
+            "description": "codigo del departamento",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito"
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Grupo": {
+      "type": "object",
+      "required": [
+        "id",
+        "asignatura",
+        "tipo"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "asignatura": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
