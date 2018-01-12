@@ -148,7 +148,7 @@
       }
     },
     "/realizarReserva/{numeroExpediente}": {
-      "put": {
+      "post": {
         "tags": [
           "Matriculas"
         ],
