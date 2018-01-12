@@ -16,6 +16,10 @@ import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
+import static play.mvc.Controller.request;
+import static play.mvc.Results.badRequest;
+import static play.mvc.Results.internalServerError;
+import static play.mvc.Results.ok;
 
 import swagger.SwaggerUtils.ApiAction;
 
@@ -55,9 +59,10 @@ public class MatriculasApiController extends Controller {
     }
 
     @ApiAction
-    public Result realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
+    public Result realizarReservaNumeroExpedientePost(Integer numeroExpediente) throws Exception {
         try{
-        boolean resultado =imp.realizarReservaNumeroExpedientePut(numeroExpediente);
+            
+        boolean resultado =imp.realizarReservaNumeroExpedientePost(numeroExpediente);
         if(!resultado){
             return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
@@ -86,3 +91,4 @@ public class MatriculasApiController extends Controller {
         
     }
 }
+

@@ -33,7 +33,7 @@ public class CreditosAlumnoApiControllerImp implements CreditosAlumnoApiControll
             
             //Calculo creditos ya obtenidos
             sql += "SELECT tipo,sum(creditos) as numero_cred FROM Asignatura_Matriculada NATURAL JOIN Asignatura WHERE num_expediente=";
-            sql+=numeroExpediente+" and nota>=5 GROUP BY tipo;";
+            sql+=numeroExpediente+" and nota_teoria>=5 and nota_lab>=5 GROUP BY tipo;";
             
             result = consulta_BDD(sql);
             int cred_opt = 0;

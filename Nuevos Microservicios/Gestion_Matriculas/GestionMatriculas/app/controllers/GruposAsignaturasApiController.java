@@ -1,7 +1,6 @@
 package controllers;
 
-import apimodels.Asignatura;
-import apimodels.GrupoAsignatura;
+import apimodels.AsignaturaMatriculable;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -16,13 +15,10 @@ import swagger.SwaggerUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
-import static play.mvc.Results.badRequest;
-import static play.mvc.Results.internalServerError;
-import static play.mvc.Results.ok;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T19:26:19.921Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-12T18:22:06.797Z")
 
 public class GruposAsignaturasApiController extends Controller {
 
@@ -39,7 +35,7 @@ public class GruposAsignaturasApiController extends Controller {
     @ApiAction
     public Result asignaturasMatriculablesByAlumnoNumeroExpedienteGet(Integer numeroExpediente) throws Exception {
         try{
-        List<GrupoAsignatura> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
+        List<AsignaturaMatriculable> obj = imp.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente);
         if(obj==null){
             return badRequest("Los datos que se han introducido no son correctos. Por favor vuelve a introducirlos.");
         }

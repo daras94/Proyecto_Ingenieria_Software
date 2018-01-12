@@ -2,21 +2,24 @@ package apimodels;
 
 import java.util.Objects;
 import apimodels.Asignatura;
+import apimodels.GruposAsignatura;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.*;
 /**
- * AsignaturaMatriculada
+ * AsignaturaMatriculable
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-12T18:22:06.797Z")
 
-public class AsignaturaMatriculada   {
+public class AsignaturaMatriculable   {
   @JsonProperty("Asignatura")
   private Asignatura asignatura = null;
 
-  @JsonProperty("Nota")
-  private Integer nota = null;
+  @JsonProperty("Grupos")
+  private List<GruposAsignatura> grupos = new ArrayList<GruposAsignatura>();
 
-  public AsignaturaMatriculada asignatura(Asignatura asignatura) {
+  public AsignaturaMatriculable asignatura(Asignatura asignatura) {
     this.asignatura = asignatura;
     return this;
   }
@@ -34,22 +37,27 @@ public class AsignaturaMatriculada   {
     this.asignatura = asignatura;
   }
 
-  public AsignaturaMatriculada nota(Integer nota) {
-    this.nota = nota;
+  public AsignaturaMatriculable grupos(List<GruposAsignatura> grupos) {
+    this.grupos = grupos;
+    return this;
+  }
+
+  public AsignaturaMatriculable addGruposItem(GruposAsignatura gruposItem) {
+    this.grupos.add(gruposItem);
     return this;
   }
 
    /**
-   * Get nota
-   * @return nota
+   * Get grupos
+   * @return grupos
   **/
     @NotNull
-  public Integer getNota() {
-    return nota;
+  public List<GruposAsignatura> getGrupos() {
+    return grupos;
   }
 
-  public void setNota(Integer nota) {
-    this.nota = nota;
+  public void setGrupos(List<GruposAsignatura> grupos) {
+    this.grupos = grupos;
   }
 
 
@@ -61,23 +69,23 @@ public class AsignaturaMatriculada   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AsignaturaMatriculada asignaturaMatriculada = (AsignaturaMatriculada) o;
-    return Objects.equals(this.asignatura, asignaturaMatriculada.asignatura) &&
-        Objects.equals(this.nota, asignaturaMatriculada.nota);
+    AsignaturaMatriculable asignaturaMatriculable = (AsignaturaMatriculable) o;
+    return Objects.equals(this.asignatura, asignaturaMatriculable.asignatura) &&
+        Objects.equals(this.grupos, asignaturaMatriculable.grupos);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(asignatura, nota);
+    return Objects.hash(asignatura, grupos);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AsignaturaMatriculada {\n");
+    sb.append("class AsignaturaMatriculable {\n");
     
     sb.append("    asignatura: ").append(toIndentedString(asignatura)).append("\n");
-    sb.append("    nota: ").append(toIndentedString(nota)).append("\n");
+    sb.append("    grupos: ").append(toIndentedString(grupos)).append("\n");
     sb.append("}");
     return sb.toString();
   }

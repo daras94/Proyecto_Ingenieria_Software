@@ -1,18 +1,14 @@
 package apimodels;
 
 import java.util.Objects;
-import apimodels.Asignatura;
 import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.*;
 /**
- * GrupoAsignatura
+ * GruposAsignatura
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-10T11:25:04.680Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-12T18:22:06.797Z")
 
-public class GrupoAsignatura   {
-  @JsonProperty("Asignatura")
-  private Asignatura asignatura = null;
-
+public class GruposAsignatura   {
   @JsonProperty("IdGrupo")
   private Integer idGrupo = null;
 
@@ -22,25 +18,7 @@ public class GrupoAsignatura   {
   @JsonProperty("Tipo")
   private String tipo = null;
 
-  public GrupoAsignatura asignatura(Asignatura asignatura) {
-    this.asignatura = asignatura;
-    return this;
-  }
-
-   /**
-   * Get asignatura
-   * @return asignatura
-  **/
-    @NotNull
-  public Asignatura getAsignatura() {
-    return asignatura;
-  }
-
-  public void setAsignatura(Asignatura asignatura) {
-    this.asignatura = asignatura;
-  }
-
-  public GrupoAsignatura idGrupo(Integer idGrupo) {
+  public GruposAsignatura idGrupo(Integer idGrupo) {
     this.idGrupo = idGrupo;
     return this;
   }
@@ -58,7 +36,7 @@ public class GrupoAsignatura   {
     this.idGrupo = idGrupo;
   }
 
-  public GrupoAsignatura miembros(Integer miembros) {
+  public GruposAsignatura miembros(Integer miembros) {
     this.miembros = miembros;
     return this;
   }
@@ -76,7 +54,7 @@ public class GrupoAsignatura   {
     this.miembros = miembros;
   }
 
-  public GrupoAsignatura tipo(String tipo) {
+  public GruposAsignatura tipo(String tipo) {
     this.tipo = tipo;
     return this;
   }
@@ -103,24 +81,22 @@ public class GrupoAsignatura   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GrupoAsignatura grupoAsignatura = (GrupoAsignatura) o;
-    return Objects.equals(this.asignatura, grupoAsignatura.asignatura) &&
-        Objects.equals(this.idGrupo, grupoAsignatura.idGrupo) &&
-        Objects.equals(this.miembros, grupoAsignatura.miembros) &&
-        Objects.equals(this.tipo, grupoAsignatura.tipo);
+    GruposAsignatura gruposAsignatura = (GruposAsignatura) o;
+    return Objects.equals(this.idGrupo, gruposAsignatura.idGrupo) &&
+        Objects.equals(this.miembros, gruposAsignatura.miembros) &&
+        Objects.equals(this.tipo, gruposAsignatura.tipo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(asignatura, idGrupo, miembros, tipo);
+    return Objects.hash(idGrupo, miembros, tipo);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GrupoAsignatura {\n");
+    sb.append("class GruposAsignatura {\n");
     
-    sb.append("    asignatura: ").append(toIndentedString(asignatura)).append("\n");
     sb.append("    idGrupo: ").append(toIndentedString(idGrupo)).append("\n");
     sb.append("    miembros: ").append(toIndentedString(miembros)).append("\n");
     sb.append("    tipo: ").append(toIndentedString(tipo)).append("\n");

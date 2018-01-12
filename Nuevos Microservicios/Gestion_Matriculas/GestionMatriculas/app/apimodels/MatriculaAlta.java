@@ -1,7 +1,7 @@
 package apimodels;
 
 import java.util.Objects;
-import apimodels.GrupoAsignatura;
+import apimodels.AsignaturaAlta;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.*;
@@ -9,21 +9,21 @@ import com.fasterxml.jackson.annotation.*;
 /**
  * MatriculaAlta
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-10T11:25:04.680Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-12T18:22:06.797Z")
 
 public class MatriculaAlta   {
   @JsonProperty("Grupos")
-  private List<GrupoAsignatura> grupos = new ArrayList<GrupoAsignatura>();
+  private List<AsignaturaAlta> grupos = new ArrayList<AsignaturaAlta>();
 
   @JsonProperty("TipoPago")
   private Integer tipoPago = null;
 
-  public MatriculaAlta grupos(List<GrupoAsignatura> grupos) {
+  public MatriculaAlta grupos(List<AsignaturaAlta> grupos) {
     this.grupos = grupos;
     return this;
   }
 
-  public MatriculaAlta addGruposItem(GrupoAsignatura gruposItem) {
+  public MatriculaAlta addGruposItem(AsignaturaAlta gruposItem) {
     this.grupos.add(gruposItem);
     return this;
   }
@@ -33,11 +33,11 @@ public class MatriculaAlta   {
    * @return grupos
   **/
     @NotNull
-  public List<GrupoAsignatura> getGrupos() {
+  public List<AsignaturaAlta> getGrupos() {
     return grupos;
   }
 
-  public void setGrupos(List<GrupoAsignatura> grupos) {
+  public void setGrupos(List<AsignaturaAlta> grupos) {
     this.grupos = grupos;
   }
 
