@@ -10,10 +10,10 @@
     "/creditosalumno/{numeroExpediente}": {
       "get": {
         "tags": [
-          "CreditosAlumno"
+          "Creditos_Alumno"
         ],
-        "summary": "Creditos restantes del alumno",
-        "description": "Devuelve los créditos que le falta al alumno para terminar la carrera.",
+        "summary": "Creditos superados del alumno",
+        "description": "Devuelve los créditos superados por parte del alumno que quiere hacer una nueva matricula",
         "parameters": [
           {
             "name": "numeroExpediente",
@@ -42,7 +42,7 @@
     "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
       "get": {
         "tags": [
-          "GruposAsignaturas"
+          "Grupos_Asignaturas"
         ],
         "summary": "Obtener las asignaturas matriculables del alumno.",
         "description": "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
@@ -61,7 +61,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/AsignaturaMatriculable"
+                "$ref": "#/definitions/Grupo_Asignatura"
               }
             }
           },
@@ -148,7 +148,7 @@
       }
     },
     "/realizarReserva/{numeroExpediente}": {
-      "post": {
+      "put": {
         "tags": [
           "Matriculas"
         ],
@@ -205,25 +205,7 @@
         }
       }
     },
-    "AsignaturaMatriculable": {
-      "type": "object",
-      "required": [
-        "Asignatura",
-        "Grupos"
-      ],
-      "properties": {
-        "Asignatura": {
-          "$ref": "#/definitions/Asignatura"
-        },
-        "Grupos": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/GruposAsignatura"
-          }
-        }
-      }
-    },
-    "AsignaturaMatriculada": {
+    "Asignatura_Matriculada": {
       "type": "object",
       "required": [
         "Asignatura",
@@ -248,29 +230,10 @@
         "Grupos": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AsignaturaAlta"
+            "$ref": "#/definitions/Grupo_Asignatura"
           }
         },
         "TipoPago": {
-          "type": "integer"
-        }
-      }
-    },
-    "AsignaturaAlta": {
-      "type": "object",
-      "required": [
-        "CodigoAsignatura",
-        "CodigoGrupoTeoria",
-        "CodigoGrupoLab"
-      ],
-      "properties": {
-        "CodigoAsignatura": {
-          "type": "integer"
-        },
-        "CodigoGrupoTeoria": {
-          "type": "integer"
-        },
-        "CodigoGrupoLab": {
           "type": "integer"
         }
       }
@@ -285,7 +248,7 @@
         "Asignaturas": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AsignaturaMatriculada"
+            "$ref": "#/definitions/Asignatura_Matriculada"
           }
         },
         "Anno": {
@@ -293,14 +256,18 @@
         }
       }
     },
-    "GruposAsignatura": {
+    "Grupo_Asignatura": {
       "type": "object",
       "required": [
+        "Asignatura",
         "IdGrupo",
         "Miembros",
         "Tipo"
       ],
       "properties": {
+        "Asignatura": {
+          "$ref": "#/definitions/Asignatura"
+        },
         "IdGrupo": {
           "type": "integer"
         },

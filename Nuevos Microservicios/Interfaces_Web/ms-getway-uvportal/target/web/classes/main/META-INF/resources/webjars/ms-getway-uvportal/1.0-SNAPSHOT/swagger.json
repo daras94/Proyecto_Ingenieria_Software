@@ -1,0 +1,1238 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API MicroServicio Getway UVPortal Universidad de villammayor.",
+        "version": "2.0.0 beta",
+        "title": "API Rest GetWay."
+    },
+    "host": "localhost:9310",
+    "basePath": "/",
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [" - Gestion de Authentificacion:"],
+                "summary": "Iniciar sesion por NIF",
+                "description": "",
+                "operationId": "loginUser",
+                "consumes": ["consumes application/x-www-form-urlencoded"],
+                "produces": ["application/json"],
+                "parameters": [{
+                        "name": "nif",
+                        "in": "query",
+                        "description": "Introduca su NIF como usuario.",
+                        "required": true,
+                        "type": "string",
+                        "maxLength": 9,
+                        "minLength": 9,
+                        "pattern": "^([0-9]{8}|[XYZ]{1}[0-9]{7})[TRWAGMYFPDXBNJZSQVHLCKET]{1}$"
+                    }, {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Introduca su contraseña de usuario.",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Se Inicio la sesion correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Usuario"
+                                }
+                            }
+                        },
+                        "headers": {
+                            "X-Rate-Limit": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "llamadas por hora permitidas por el usuario"
+                            },
+                            "X-Expires-After": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Fecha en formato GMT en la que espira el token"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "400": {
+                        "description": "Error el NIF/contraseña es incorrecto"
+                    },
+                    "500": {
+                        "description": "Error Interno del Servidor"
+                    }
+                },
+                "x-contentType": "consumes application/x-www-form-urlencoded",
+                "x-accepts": "application/json"
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [" - Gestion de Authentificacion:"],
+                "summary": "Logs out current logged in user session",
+                "description": "",
+                "operationId": "logoutUser",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "description": "La sesion se ha cerrado correctamente"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ADMIN", "ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/alta_alumno": {
+            "post": {
+                "tags": [" - Gestion de Alumno:"],
+                "summary": "Dar de alta un alumno",
+                "description": "Introducir en la base de datos la informacion de un nuevo alumno.",
+                "parameters": [{
+                        "in": "body",
+                        "name": "alumno",
+                        "description": "Objeto JSON del contenido del alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Alumno"
+                        }
+                    }],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/alumnoByNIF/{NIF}": {
+            "get": {
+                "tags": [" - Gestion de Alumno:"],
+                "summary": "Obtener alumno por NIF",
+                "description": "Busqueda de la informacion de un alumno con su NIF",
+                "parameters": [{
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del alumno",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "$ref": "#/definitions/Alumno"
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            },
+            "put": {
+                "tags": [" - Gestion de Alumno:"],
+                "summary": "Actualizar alumno",
+                "description": "Actualizacion de la informacion de la cuenta de un alumno",
+                "parameters": [{
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del alumno que se quiere actualizar",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "in": "body",
+                        "name": "alumno",
+                        "description": "Objeto JSON del contenido del alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Alumno"
+                        }
+                    }],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            },
+            "delete": {
+                "tags": [" - Gestion de Alumno:"],
+                "summary": "Eliminar alumno por NIF",
+                "description": "Eliminar la cuenta de un almuno por NIF",
+                "parameters": [{
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del alumno",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "201": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ADMIN"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/reservaMatricula": {
+            "get": {
+                "tags": [" - Gestion de Matricula:"],
+                "summary": "Obtener el estado de reserva de la matricula de un alumno de un anno especifico",
+                "description": "Devuelve el estado de reserva de una matricula.",
+                "parameters": [{
+                        "name": "Promocion",
+                        "in": "query",
+                        "description": "Promocion de la matricula que se esta buscando",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "alumno",
+                        "in": "query",
+                        "description": "NIF del alumno que se esta buscando",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            },
+            "put": {
+                "tags": [" - Gestion de Matricula:"],
+                "summary": "Actualizar el estado de reserva de la matricula a true",
+                "description": "Actualizacion del estado de la reserva de una matricula de un alumno determinado (la consulta se realiza si lo acepta la base de datos)",
+                "parameters": [{
+                        "name": "Promocion",
+                        "in": "query",
+                        "description": "Promocion de la matricula que se quiere actualizar",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "alumno",
+                        "in": "query",
+                        "description": "NIF del alumno del que se quiere actualizar su matricula",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/pagosMatricula": {
+            "get": {
+                "tags": [" - Gestion de Pagos:"],
+                "summary": "Devuelve la lista de pagos de una matricula",
+                "description": "Devuelve la lista de pagos de una matricula de un alumno y una promocion determinados",
+                "parameters": [{
+                        "name": "Promocion",
+                        "in": "query",
+                        "description": "Promocion de la matricula de la que se quieren obtener los pagos",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "alumno",
+                        "in": "query",
+                        "description": "NIF del alumno del que se quieren obtener los pagos",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Pago"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/actualizarPago": {
+            "put": {
+                "tags": [" - Gestion de Pagos:"],
+                "summary": "Actualiza el estado de pago de un plazo de pago",
+                "description": "Actualiza el atributo Pagado de un Pago a true",
+                "parameters": [{
+                        "name": "Promocion",
+                        "in": "query",
+                        "description": "Promocion de la matricula de la que se quiere actualizar el pago",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "alumno",
+                        "in": "query",
+                        "description": "NIF del alumno del que se quiere actualizar el pago",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "numeroPago",
+                        "in": "query",
+                        "description": "Numero de pago que se quiere actualiazr",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito'"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_ADMIN"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/nomina": {
+            "post": {
+                "tags": [" - Gestion de Nominas: "],
+                "summary": "Dar de alta una nomina",
+                "description": "Integrar en la base de datos una nueva nomina.",
+                "parameters": [{
+                        "name": "NIF",
+                        "in": "query",
+                        "description": "NIF del profesor",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "fecha de la nomina",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ADMIN"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/nominas/{NIF}": {
+            "get": {
+                "tags": [" - Gestion de Nominas: "],
+                "summary": "Obtener todas las nominas de un profesor",
+                "description": "",
+                "parameters": [{
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del profesor",
+                        "required": true,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Nomina"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_PROFESOR", "ROLE_ADMIN"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/facturas": {
+            "get": {
+                "tags": [" - Gestion de Factura: "],
+                "summary": "Obtener la factura",
+                "description": "Obtener la factura de una profesor en un año y mes determinado",
+                "parameters": [{
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del profesor",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "Mes",
+                        "in": "path",
+                        "description": "Mes correspondiente a la factura",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "Año",
+                        "in": "path",
+                        "description": "Año correspondiente a la factura",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Factura"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_PROFESOR", "ROLE_ADMIN"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
+            "get": {
+                "tags": [" - Gestion grupos de Asignaturas: "],
+                "summary": "Obtener las asignaturas matriculables del alumno.",
+                "description": "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
+                "parameters": [{
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "description": "Numero de expediente del alumno.",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Grupo_Asignatura"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/crearMatricula/{numeroExpediente}": {
+            "post": {
+                "tags": [" - Gestion de matriculas: "],
+                "summary": "Creacion de una nueva matricula",
+                "description": "Creacion de una nueva matricula en el expediente del alumno indicado a partir de los grupos seleccionados.",
+                "parameters": [{
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "description": "Numero de expediente del alumno",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "in": "body",
+                        "name": "grupos",
+                        "description": "Grupos que el alumno ha decidido matricularse",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Grupo_Asignatura"
+                            }
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/verExpediente/{numeroExpediente}": {
+            "get": {
+                "tags": [" - Gestion de matriculas: "],
+                "summary": "Ver las matriculas",
+                "description": "Ver todo el expediente del alumno",
+                "parameters": [{
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "description": "Numero de expediente del alumno",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Matricula"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/realizarReserva/{numeroExpediente}": {
+            "put": {
+                "tags": [" - Gestion de matriculas: "],
+                "summary": "Realizar la reserva",
+                "description": "Realiza la reserva de la ultima matricula dada de alta en el expediente",
+                "parameters": [{
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "description": "Numero de expediente del alumno",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/espacios": {
+            "get": {
+                "tags": [" - Gestion de Espacios: "],
+                "summary": "Obtener una lista con todos los espacios de la universidad",
+                "description": "Busqueda de la informacion de todos los espacios de la universidad",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Espacio"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR", "ROLE_ADMIN"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/reservas/disponibles/horas": {
+            "get": {
+                "tags": [" - Gestion de Consultas de Reservas: "],
+                "summary": "Obtener horas libres",
+                "description": "Obtener las horas libres en un espacio y un dia determinados",
+                "parameters": [{
+                        "name": "dia",
+                        "in": "query",
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "espacio",
+                        "in": "query",
+                        "description": "Espacio del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "$ref": "#/definitions/HorasLibres"
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Espacio no registrado"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/reservas/disponibles/espacios": {
+            "get": {
+                "tags": [" - Gestion de Consultas de Reservas: "],
+                "summary": "Obtener los espacios libres",
+                "description": "Obtener los espacios libres a una hora y un dia determinados",
+                "parameters": [{
+                        "name": "dia",
+                        "in": "query",
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "hora",
+                        "in": "query",
+                        "description": "Hora de la que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/EspaciosLibres"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/reservas/reservar": {
+            "post": {
+                "tags": [" - Gestion  de Reservas:"],
+                "summary": "Realizar reserva",
+                "description": "Realizar una reserva de profesor",
+                "parameters": [{
+                        "in": "body",
+                        "name": "reserva",
+                        "description": "Reserva actualizada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Reserva"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Espacio ocupado en el momento requerido"
+                    },
+                    "601": {
+                        "description": "El NIF introducido no esta registrado"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/reservas/cancelar": {
+            "delete": {
+                "tags": [" - Gestion  de Reservas:"],
+                "summary": "Eliminar reserva",
+                "description": "Eliminar una reserva de un dia, hora y espacio",
+                "parameters": [{
+                        "name": "dia",
+                        "in": "query",
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "hora",
+                        "in": "query",
+                        "description": "Hora de la que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "espacio",
+                        "in": "query",
+                        "description": "Espacio del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "integer"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Reseva no existente"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/reservas/actualizar": {
+            "put": {
+                "tags": [" - Gestion  de Reservas:"],
+                "summary": "Cambiar reserva",
+                "description": "Cambiar datos de una determinada reserva",
+                "parameters": [{
+                        "name": "dia",
+                        "in": "query",
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "hora",
+                        "in": "query",
+                        "description": "Hora de la que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "name": "espacio",
+                        "in": "query",
+                        "description": "Espacio del que se quiere comprobar las reservas",
+                        "required": true,
+                        "type": "integer"
+                    }, {
+                        "in": "body",
+                        "name": "reserva",
+                        "description": "Reserva actualizada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Reserva"
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "401": {
+                        "description": "Not authenticated"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Reseva no existente"
+                    }
+                },
+                "security": [{
+                        "OauthSecurity": ["ROLE_ALUMNO", "ROLE_PROFESOR"]
+                    }],
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        }
+    },
+    "securityDefinitions": {
+        "OauthSecurity": {
+            "type": "oauth2",
+            "authorizationUrl": "https://localhost:9000/login",
+            "tokenUrl": "https://localhost:9000/token",
+            "flow": "accessCode",
+            "scopes": {
+                "ROLE_ADMIN": "Admin scope",
+                "ROLE_ALUMNO": "Alumno scope",
+                "ROLE_PROFESOR": "Profesor scope"
+            }
+        }
+    },
+    "definitions": {
+        "Usuario": {
+            "type": "object",
+            "required": ["name", "nif", "tipo_user", "authTokent", "num_expediente"],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "nif": {
+                    "type": "string"
+                },
+                "tipo_user": {
+                    "type": "string"
+                },
+                "authTokent": {
+                    "type": "string"
+                },
+                "num_expediente": {
+                    "type": "string"
+                }
+            }
+        },
+        "Alumno": {
+            "type": "object",
+            "required": ["Apellido1", "Apellido2", "Carrera", "Contrasenna", "CuentaCorriente", "Email", "Expediente", "FechaNacimiento", "NIF", "Nombre"],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Contrasenna": {
+                    "type": "string"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Apellido1": {
+                    "type": "string"
+                },
+                "Apellido2": {
+                    "type": "string"
+                },
+                "FechaNacimiento": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "CuentaCorriente": {
+                    "type": "string"
+                },
+                "Carrera": {
+                    "type": "integer"
+                },
+                "Expediente": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Pago": {
+            "type": "object",
+            "required": ["Importe", "Num_pago", "Pagado"],
+            "properties": {
+                "Num_pago": {
+                    "type": "integer"
+                },
+                "Importe": {
+                    "type": "number"
+                },
+                "Pagado": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Profesor": {
+            "type": "object",
+            "required": ["Antiguedad", "Apellido1", "Apellido2", "Categoria", "Contrasenna", "CuentaCorriente", "Departamento", "Email", "FechaNacimiento", "NIF", "Nombre", "TramosDocentes", "TramosInvestigacion"],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Contrasenna": {
+                    "type": "string"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Apellido1": {
+                    "type": "string"
+                },
+                "Apellido2": {
+                    "type": "string"
+                },
+                "FechaNacimiento": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "CuentaCorriente": {
+                    "type": "string"
+                },
+                "Categoria": {
+                    "type": "string"
+                },
+                "Antiguedad": {
+                    "type": "integer"
+                },
+                "TramosInvestigacion": {
+                    "type": "integer"
+                },
+                "TramosDocentes": {
+                    "type": "string"
+                },
+                "Departamento": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Nomina": {
+            "type": "object",
+            "required": ["NIF", "Salario"],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Numero": {
+                    "type": "integer"
+                },
+                "Fecha": {
+                    "type": "string"
+                },
+                "Salario": {
+                    "type": "number"
+                }
+            }
+        },
+        "Factura": {
+            "type": "object",
+            "required": ["Coste", "Espacio", "Fecha", "Hora"],
+            "properties": {
+                "Espacio": {
+                    "type": "string"
+                },
+                "Fecha": {
+                    "type": "string"
+                },
+                "Hora": {
+                    "type": "string"
+                },
+                "Coste": {
+                    "type": "number"
+                }
+            }
+        },
+        "Asignatura": {
+            "type": "object",
+            "required": ["Carrera", "Codigo", "Creditos", "Nombre", "Tipo"],
+            "properties": {
+                "Codigo": {
+                    "type": "integer"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Carrera": {
+                    "type": "integer"
+                },
+                "Tipo": {
+                    "type": "string"
+                },
+                "Creditos": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Asignatura_Matriculada": {
+            "type": "object",
+            "required": ["Asignatura", "Nota"],
+            "properties": {
+                "Asignatura": {
+                    "$ref": "#/definitions/Asignatura"
+                },
+                "Nota": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Matricula": {
+            "type": "object",
+            "required": ["Anno", "Asignaturas"],
+            "properties": {
+                "Asignaturas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Asignatura_Matriculada"
+                    }
+                },
+                "Anno": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Grupo_Asignatura": {
+            "type": "object",
+            "required": ["Asignatura", "IdGrupo", "Miembros", "Tipo"],
+            "properties": {
+                "Asignatura": {
+                    "$ref": "#/definitions/Asignatura"
+                },
+                "IdGrupo": {
+                    "type": "integer"
+                },
+                "Miembros": {
+                    "type": "integer"
+                },
+                "Tipo": {
+                    "type": "string"
+                }
+            }
+        },
+        "Espacio": {
+            "type": "object",
+            "required": ["Aforo", "Codigo", "Nombre", "Precio"],
+            "properties": {
+                "Codigo": {
+                    "type": "integer"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Aforo": {
+                    "type": "integer"
+                },
+                "Precio": {
+                    "type": "number"
+                }
+            }
+        },
+        "Reserva": {
+            "type": "object",
+            "required": ["Espacio", "Fecha", "Hora", "NIF"],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Espacio": {
+                    "type": "integer"
+                },
+                "Fecha": {
+                    "type": "string"
+                },
+                "Hora": {
+                    "type": "integer"
+                }
+            }
+        },
+        "HorasLibres": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "EspaciosLibres": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Espacio"
+            }
+        }
+    }
+}

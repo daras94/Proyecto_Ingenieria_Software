@@ -139,7 +139,7 @@
       }
     },
     "/realizarReserva/{numeroExpediente}" : {
-      "post" : {
+      "put" : {
         "tags" : [ "Matriculas" ],
         "summary" : "Realizar la reserva",
         "description" : "Realiza la reserva de la ultima matricula dada de alta en el expediente",

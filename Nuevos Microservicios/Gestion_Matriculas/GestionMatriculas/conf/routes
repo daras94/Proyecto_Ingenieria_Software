@@ -13,7 +13,7 @@ GET     /asignaturasMatriculablesByAlumno/:numeroExpediente                     
 
 #Functions for Matriculas API
 POST     /crearMatricula/:numeroExpediente                     controllers.MatriculasApiController.crearMatriculaNumeroExpedientePost(numeroExpediente: Integer)
-POST     /realizarReserva/:numeroExpediente                     controllers.MatriculasApiController.realizarReservaNumeroExpedientePost(numeroExpediente: Integer)
+PUT     /realizarReserva/:numeroExpediente                     controllers.MatriculasApiController.realizarReservaNumeroExpedientePut(numeroExpediente: Integer)
 GET     /verExpediente/:numeroExpediente                     controllers.MatriculasApiController.verExpedienteNumeroExpedienteGet(numeroExpediente: Integer)
 
 # Map static resources from the /public folder to the /assets URL path

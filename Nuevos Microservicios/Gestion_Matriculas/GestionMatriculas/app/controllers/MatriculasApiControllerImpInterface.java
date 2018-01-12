@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 public interface MatriculasApiControllerImpInterface {
     boolean crearMatriculaNumeroExpedientePost(Integer numeroExpediente, MatriculaAlta grupos) throws Exception;
 
-    boolean realizarReservaNumeroExpedientePost(Integer numeroExpediente) throws Exception;
+    boolean realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception;
 
     List<Matricula> verExpedienteNumeroExpedienteGet(Integer numeroExpediente) throws Exception;
 }

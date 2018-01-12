@@ -124,13 +124,15 @@ public class BBDD {
         }
     }
     
-    public static int actualizar_BDD(List<String> asignaturas) throws SQLException{
+    public static int actualizar_BDD(String SQL, List<String> asignaturas) throws SQLException{
         int resultado = -1;
+        PreparedStatement sentencia1 = null;
         List<PreparedStatement> sentencias = new ArrayList<>();
         try{ 
             conexion.setAutoCommit(false);
             
-            
+            sentencia1 = conexion.prepareStatement(SQL);
+            sentencia1.execute();
             PreparedStatement aux = null;
             for(int i=0;i<asignaturas.size();i++){
                 aux = conexion.prepareStatement(asignaturas.get(i));
@@ -150,7 +152,9 @@ public class BBDD {
             
         }
         finally{
-            
+            if(sentencia1!=null){
+                sentencia1.close();
+            }
             for(int i=0;i<sentencias.size();i++){
                 if(sentencias.get(i)!=null){
                     sentencias.get(i).close();

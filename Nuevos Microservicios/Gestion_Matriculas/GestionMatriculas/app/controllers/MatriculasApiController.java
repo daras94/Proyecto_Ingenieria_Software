@@ -55,9 +55,9 @@ public class MatriculasApiController extends Controller {
     }
 
     @ApiAction
-    public Result realizarReservaNumeroExpedientePost(Integer numeroExpediente) throws Exception {
+    public Result realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
         try{
-        boolean resultado =imp.realizarReservaNumeroExpedientePost(numeroExpediente);
+        boolean resultado =imp.realizarReservaNumeroExpedientePut(numeroExpediente);
         if(!resultado){
             return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
