@@ -98,7 +98,7 @@
         }
       }
     },
-    "/info_grupo": {
+    "/getInfoGrupo": {
       "get": {
         "tags": [
           "Grupos"
@@ -133,7 +133,7 @@
         }
       }
     },
-    "/Profesores": {
+    "/getProfesores": {
       "get": {
         "tags": [
           "Profesores"

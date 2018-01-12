@@ -1,0 +1,211 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Rest de la Universidad de Villamayor para asignar profesores a los grupos y obtener otros datos de interes en realcion a estos.",
+    "version" : "1.0.0",
+    "title" : "API Gestion de Grupos Universidad Villamayor"
+  },
+  "host" : "localhost:9700",
+  "paths" : {
+    "/getGrupos" : {
+      "get" : {
+        "tags" : [ "Grupos" ],
+        "summary" : "Devuelve el listado de grupos no asignados a un profesor de la universidad",
+        "description" : "Devuelve el listado de grupos (id del grupo, asignatura y tipo) no asignados a un profesor de la universidad",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Grupo"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/postGrupoAsignado" : {
+      "post" : {
+        "tags" : [ "Grupos" ],
+        "summary" : "Post de una nueva asignacion Profesor_Grupo",
+        "description" : "Introduce en la base de datos una nueva relacion Profesor_Grupo",
+        "parameters" : [ {
+          "name" : "profesor",
+          "in" : "query",
+          "description" : "NIF del profesor",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "grupo",
+          "in" : "query",
+          "description" : "id del grupo",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/getCargaDocente" : {
+      "get" : {
+        "tags" : [ "Departamento" ],
+        "summary" : "Calcula y devuelve la carga docente de un departamento",
+        "description" : "Calcula la carga docente de un departamento",
+        "parameters" : [ {
+          "name" : "departamento",
+          "in" : "path",
+          "description" : "codigo del departamento",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito"
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/getInfoGrupo" : {
+      "get" : {
+        "tags" : [ "Grupos" ],
+        "summary" : "Obtener informacion del grupo",
+        "description" : "Devuelve un array de objetos con el id del grupo y la asignatura que imparte a partir del id de un profesor",
+        "parameters" : [ {
+          "name" : "NIF",
+          "in" : "path",
+          "description" : "NIF del profesor",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/infoGrupo"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    },
+    "/getProfesores" : {
+      "get" : {
+        "tags" : [ "Profesores" ],
+        "summary" : "Obtener una lista de profesores",
+        "description" : "Obtener los profesores con sus atributos principales",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Profesor"
+              }
+            }
+          },
+          "405" : {
+            "description" : "Operacion sin realizar"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "x-contentType" : "application/json",
+        "x-accepts" : "application/json"
+      }
+    }
+  },
+  "definitions" : {
+    "Grupo" : {
+      "type" : "object",
+      "required" : [ "asignatura", "id", "tipo" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "asignatura" : {
+          "type" : "string"
+        },
+        "tipo" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Profesor" : {
+      "type" : "object",
+      "required" : [ "Apellido1", "Apellido2", "Departamento", "NIF", "Nombre" ],
+      "properties" : {
+        "NIF" : {
+          "type" : "string"
+        },
+        "Nombre" : {
+          "type" : "string"
+        },
+        "Apellido1" : {
+          "type" : "string"
+        },
+        "Apellido2" : {
+          "type" : "string"
+        },
+        "FechaNacimiento" : {
+          "type" : "string"
+        },
+        "Departamento" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "infoGrupo" : {
+      "type" : "object",
+      "required" : [ "Asignatura_grupo", "Id_grupo" ],
+      "properties" : {
+        "Id_grupo" : {
+          "type" : "integer"
+        },
+        "Asignatura_grupo" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

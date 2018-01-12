@@ -1,0 +1,20 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /api                        controllers.ApiDocController.api
+
+
+#Functions for Departamento API
+GET     /getCargaDocente                     controllers.DepartamentoApiController.getCargaDocenteGet(departamento: Integer)
+
+#Functions for Grupos API
+GET     /getGrupos                     controllers.GruposApiController.getGruposGet()
+GET     /getInfoGrupo                     controllers.GruposApiController.getInfoGrupoGet(NIF: String)
+POST     /postGrupoAsignado                     controllers.GruposApiController.postGrupoAsignadoPost()
+
+#Functions for Profesores API
+GET     /getProfesores                     controllers.ProfesoresApiController.getProfesoresGet()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
