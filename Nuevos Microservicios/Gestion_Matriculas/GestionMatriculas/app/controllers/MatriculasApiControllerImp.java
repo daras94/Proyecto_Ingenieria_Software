@@ -31,8 +31,7 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             if(!comprobacion){
                 return false;
             }
-            conexion.setAutoCommit(false);
-            String sql = "INSERT INTO Matricula VALUES ("+String.valueOf(numeroExpediente)+", "+anno+", FALSE);";
+            
             String sql_aux="";
             GrupoAsignatura aux = null;
             List<String> sentencias_sql = new ArrayList<>();
@@ -61,7 +60,7 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             }
             
             
-            int resultado = actualizar_BDD(sql,sentencias_sql);
+            int resultado = actualizar_BDD(sentencias_sql);
             if(resultado==0){
                 exito=true;
             }
@@ -80,12 +79,12 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
     }
 
     @Override
-    public boolean realizarReservaNumeroExpedientePut(Integer numeroExpediente) throws Exception {
+    public boolean realizarReservaNumeroExpedientePost(Integer numeroExpediente) throws Exception {
         //Do your magic!!!
         boolean exito=false;
         try{
             conectar();
-            String sql = "UPDATE Matricula SET reserva = TRUE WHERE num_expediente="+String.valueOf(numeroExpediente)+" AND Curso="+anno+";";
+            String sql = "INSERT INTO Matricula VALUES ("+String.valueOf(numeroExpediente)+", "+anno+", FALSE);";
             int resultado = actualizar_BDD(sql);
             if(resultado==0){
                 exito=true;
