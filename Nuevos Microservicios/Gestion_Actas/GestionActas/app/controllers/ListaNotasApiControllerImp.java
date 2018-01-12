@@ -92,8 +92,18 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
         List<String> sentencias = null;
         try{
             conectar();
+            String SQL = "SELECT tipo FROM Grupo WHERE id_grupo = "+String.valueOf(id);
+            ResultSet result = consulta_BDD(SQL);
+            String tipo_nota="";
+            if(result.getString("tipo").equals("T")){
+                tipo_nota = "nota_teoria";
+            }
+            else{
+                tipo_nota = "nota_lab";
+            }
+            result = null;
             sentencias=new ArrayList<>();
-            String SQL = "UPDATE Asignatura_Matriculada SET nota = ";
+            SQL = "UPDATE Asignatura_Matriculada SET "+tipo_nota+" = ";
             String sql_aux="";
             Alumno alum_aux=null;
             for(int i =0;i<alumnos.size();i++){
