@@ -41,7 +41,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `UVisa2017`.`Usuario` (
   `NIF` VARCHAR(9) NOT NULL,
-  `tipo_user` ENUM('ROLE_ADMIN', 'ROLE_ALUMNO', 'ROLE_PROFESOR') NOT NULL,
+  `tipo_user` ENUM('ADMIN', 'ALUMNO', 'PROFESOR') NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido1` VARCHAR(45) NOT NULL,
   `apellido2` VARCHAR(45) NOT NULL,
