@@ -2,6 +2,7 @@ package controllers;
 
 import apimodels.Grupo;
 import apimodels.InfoGrupo;
+import static conexionbbdd.BBDD.*;
 
 import play.mvc.Http;
 import java.util.List;
@@ -26,8 +27,21 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
 
     @Override
     public void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo) throws Exception {
-        //Do your magic!!!
+        String query = "INSERT INTO Profesor_Grupo VALUES("+grupo+","+profesor+");";
         
+        try{
+            conectar();
+        
+            consulta_BDD(query);
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+        }
     }
 
 }
