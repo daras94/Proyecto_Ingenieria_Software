@@ -97,6 +97,67 @@
           }
         }
       }
+    },
+    "/info_grupo": {
+      "get": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Obtener informacion del grupo",
+        "description": "Devuelve un array de objetos con el id del grupo y la asignatura que imparte a partir del id de un profesor",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "NIF del profesor",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/infoGrupo"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Profesores": {
+      "get": {
+        "tags": [
+          "Profesores"
+        ],
+        "summary": "Obtener una lista de profesores",
+        "description": "Obtener los profesores con sus atributos principales",
+        "responses": {
+          "202": {
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Profesor"
+              }
+            }
+          },
+          "405": {
+            "description": "Operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -115,6 +176,51 @@
           "type": "string"
         },
         "tipo": {
+          "type": "string"
+        }
+      }
+    },
+    "Profesor": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "Departamento"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "string"
+        },
+        "Departamento": {
+          "type": "integer"
+        }
+      }
+    },
+    "infoGrupo": {
+      "type": "object",
+      "required": [
+        "Id_grupo",
+        "Asignatura_grupo"
+      ],
+      "properties": {
+        "Id_grupo": {
+          "type": "integer"
+        },
+        "Asignatura_grupo": {
           "type": "string"
         }
       }
