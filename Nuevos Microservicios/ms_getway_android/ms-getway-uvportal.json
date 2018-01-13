@@ -457,7 +457,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/eliminarMatriculas": {
@@ -486,7 +488,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/eliminarMatriculasPorPlazo": {
@@ -522,7 +526,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/reservaMatricula": {
@@ -558,7 +564,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/actualizarPago": {
@@ -601,7 +609,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/nomina": {
@@ -638,7 +648,9 @@
                         "description": "Internal Server Error"
                     }
                 }
-            }
+            },
+            "x-contentType" : "application/json",
+            "x-accepts" : "application/json"
         },
         "/nominas/{NIF}": {
             "get": {
@@ -672,7 +684,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/facturas": {
@@ -721,7 +735,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/creditosalumno/{numeroExpediente}": {
@@ -753,7 +769,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
@@ -788,7 +806,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/crearMatricula/{numeroExpediente}": {
@@ -826,7 +846,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/verExpediente/{numeroExpediente}": {
@@ -861,7 +883,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/realizarReserva/{numeroExpediente}": {
@@ -890,7 +914,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/espacios": {
@@ -916,7 +942,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/reservas/disponibles/horas": {
@@ -958,7 +986,9 @@
                     "600": {
                         "description": "Espacio no registrado"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/reservas/disponibles/espacios": {
@@ -1000,7 +1030,9 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/reservas/reservar": {
@@ -1037,7 +1069,9 @@
                     "601": {
                         "description": "El NIF introducido no esta registrado"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/reservas/cancelar": {
@@ -1083,7 +1117,9 @@
                     "600": {
                         "description": "Reseva no existente"
                     }
-                }
+                },
+                "x-contentType" : "application/json",
+                "x-accepts" : "application/json"
             }
         },
         "/reservas/actualizar": {
@@ -1139,7 +1175,9 @@
                         "description": "Reseva no existente"
                     }
                 }
-            }
+            },
+            "x-contentType" : "application/json",
+            "x-accepts" : "application/json"
         }
     },
     "definitions": {
