@@ -53,8 +53,12 @@ public class CreditosAlumnoApiControllerImp implements CreditosAlumnoApiControll
             sql+="SELECT num_cred_opt,num_cred_tran,num_cred_obl FROM Carrera WHERE cod_carrera = "+codigo_carrera+";";
             result = consulta_BDD(sql);
             result.next();
-            int creditos_extra=(int) (Math.ceil((result.getInt("num_cred_opt")*0.1)/6))*6;
+            int creditos_extra=0;
             int cred_opt_res=result.getInt("num_cred_opt")+creditos_extra-cred_opt;
+            if(cred_opt_res<0){
+                creditos_extra=((int) (Math.ceil((result.getInt("num_cred_opt")*0.1)/6))*6)-(cred_opt_res*-1);
+                cred_opt_res=0;
+            }
             int cred_obl_res=result.getInt("num_cred_obl")-cred_obl;
             int cred_tran_res=result.getInt("num_cred_tran")-cred_tran;
             

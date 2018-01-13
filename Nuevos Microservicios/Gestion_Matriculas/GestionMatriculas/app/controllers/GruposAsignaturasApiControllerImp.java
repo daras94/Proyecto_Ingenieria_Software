@@ -66,25 +66,17 @@ public class GruposAsignaturasApiControllerImp implements GruposAsignaturasApiCo
             sql="";
             
             //Obtener asignaturas matriculables
-            String tipos_asi ="";
+            String tipos_asi ="'TFG'";
             if(cred_obl_res>0){
-                tipos_asi+="'OB'";
+                tipos_asi+=", 'OB'";
             }
             if(cred_opt_res>0){
-                if(!tipos_asi.equals("")){
-                    tipos_asi+=",";
-                }
-                tipos_asi+="'OP'";
+                tipos_asi+=", 'OP'";
             }
             if(cred_tran_res>0){
-                if(!tipos_asi.equals("")){
-                    tipos_asi+=",";
-                }
-                tipos_asi+="'T'";
+                tipos_asi+=", 'T'";
             }
-            if((cred_obl_res==0)&&(cred_opt_res==0)&&(cred_tran_res==0)){
-                tipos_asi+="'TFG";
-            }
+            
             String codigos_aprobados ="0";
             if(codigos_asignaturas_aprobadas.size()!=0){
                 for(int i=0;i<codigos_asignaturas_aprobadas.size();i++){

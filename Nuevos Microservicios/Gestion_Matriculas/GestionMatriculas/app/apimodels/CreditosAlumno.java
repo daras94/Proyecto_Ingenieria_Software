@@ -17,6 +17,9 @@ public class CreditosAlumno   {
 
   @JsonProperty("CreditosTransversales")
   private Integer creditosTransversales = null;
+  
+  @JsonProperty("CreditosOptativosExtra")
+  private Integer creditosOptativosExtra = null;
 
   public CreditosAlumno creditosObligatorios(Integer creditosObligatorios) {
     this.creditosObligatorios = creditosObligatorios;
@@ -71,6 +74,24 @@ public class CreditosAlumno   {
   public void setCreditosTransversales(Integer creditosTransversales) {
     this.creditosTransversales = creditosTransversales;
   }
+  
+  public CreditosAlumno creditosOptativosExtra(Integer creditosOptativosExtra) {
+    this.creditosOptativosExtra = creditosOptativosExtra;
+    return this;
+  }
+
+   /**
+   * Get creditosOptativosExtra
+   * @return creditosOptativosExtra
+  **/
+    @NotNull
+  public Integer getCreditosOptativosExtra() {
+    return creditosOptativosExtra;
+  }
+
+  public void setCreditosOptativosExtra(Integer creditosOptativosExtra) {
+    this.creditosOptativosExtra = creditosOptativosExtra;
+  }
 
 
   @Override
@@ -84,12 +105,13 @@ public class CreditosAlumno   {
     CreditosAlumno creditosAlumno = (CreditosAlumno) o;
     return Objects.equals(this.creditosObligatorios, creditosAlumno.creditosObligatorios) &&
         Objects.equals(this.creditosOptativos, creditosAlumno.creditosOptativos) &&
-        Objects.equals(this.creditosTransversales, creditosAlumno.creditosTransversales);
+        Objects.equals(this.creditosTransversales, creditosAlumno.creditosTransversales) &&
+        Objects.equals(this.creditosOptativosExtra, creditosAlumno.creditosOptativosExtra);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(creditosObligatorios, creditosOptativos, creditosTransversales);
+    return Objects.hash(creditosObligatorios, creditosOptativos, creditosTransversales, creditosOptativosExtra);
   }
 
   @Override
@@ -100,6 +122,7 @@ public class CreditosAlumno   {
     sb.append("    creditosObligatorios: ").append(toIndentedString(creditosObligatorios)).append("\n");
     sb.append("    creditosOptativos: ").append(toIndentedString(creditosOptativos)).append("\n");
     sb.append("    creditosTransversales: ").append(toIndentedString(creditosTransversales)).append("\n");
+    sb.append("    creditosOptativosExtra: ").append(toIndentedString(creditosOptativosExtra)).append("\n");
     sb.append("}");
     return sb.toString();
   }
