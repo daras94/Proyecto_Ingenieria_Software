@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import models.LoginForm;
 import models.Usuario;
+import models.UsuarioDB;
 import play.mvc.Security;
+import play.mvc.Http.Cookie;
 import play.data.Form;
-import views.html.*;
+import static play.mvc.Controller.ctx;
 import play.mvc.Http;
 import swagger.SwaggerUtils.ApiAction;
 
@@ -20,11 +22,10 @@ public class GestionDeAuthentificacionApiController extends Controller {
     private final GestionDeAuthentificacionApiControllerImp imp;
     private final ObjectMapper mapper;
     /**
-     * Atributos de cabecera para tokents.
+     * Atributos de cabecera para tokents y cookie.
      */
-    public final static String AUTH_TOKEN_HEADER = "X-AUTH-TOKEN";
-    public static final String AUTH_TOKEN = "authToken";
-    
+    protected Cookie cookie;
+      
 
     @Inject
     private GestionDeAuthentificacionApiController(GestionDeAuthentificacionApiControllerImp imp) {
@@ -40,25 +41,43 @@ public class GestionDeAuthentificacionApiController extends Controller {
         } else {
             Usuario user = imp.loginUser(loginForm.get().nif, loginForm.get().password);
             if(user != null) {
-                String authTokent = user.getAuthTokent();
                 session().clear();
-                session("nif", loginForm.get().nif);
-                response().setCookie(Http.Cookie.builder(AUTH_TOKEN, authTokent).withSecure(ctx().request().secure()).build());
-                
+                session().put(user.getAuthTokent(), user.getAuthTokent());
+                session(user.getAuthTokent(), loginForm.get().nif);
+                cookie = Http.Cookie.builder(Secured.AUTH_TOKEN, user.getAuthTokent()).withSecure(ctx().request().secure()).build();
             }
-            return (user == null)? unauthorized() : ok((JsonNode)mapper.valueToTree(user));
+            return (user == null)? unauthorized() : ok((JsonNode)mapper.valueToTree(user)).withHeader(Secured.AUTH_TOKEN_HEADER, user.getAuthTokent()).withCookies(cookie);
         }
     }
 
     @ApiAction
     @Security.Authenticated(Secured.class)
     public Result logoutUser() throws Exception {
-        if (Secured.isLoggedIn(ctx())) {
-            imp.logoutUser();
+        Form<Token> tokenUser = Form.form(Token.class).bindFromRequest();
+        Boolean isAuth = UsuarioDB.isAuth(tokenUser.get().tokenUser);
+        if (isAuth) {
             session().clear();
+            imp.logoutUser(tokenUser.get().tokenUser);
         }
-        return ok();
-        //return redirect(routes.GestionDeAuthentificacionApiController.loginUserInit());
+        JsonNode result = mapper.valueToTree(isAuth);
+        return (isAuth)? ok(result) :  badRequest(result);
+    }
+    
+    @ApiAction
+    @Security.Authenticated(Secured.class)
+    public Result token() throws Exception {
+        final String token = request().getQueryString("authtokent");
+        Boolean isAuth = imp.token(token);
+        System.out.println(" - TOKEN: " + token + " -------> AUTH: " + token);
+        if (isAuth) {
+            //session().put("nif", user);
+        }
+        JsonNode result = mapper.valueToTree(isAuth);
+        return (isAuth)? ok(result).withHeader(Secured.AUTH_TOKEN_HEADER, token).withCookies(cookie) : unauthorized(result);
+    }
+    
+    public static class Token {
+        public String tokenUser;
     }
 
 }

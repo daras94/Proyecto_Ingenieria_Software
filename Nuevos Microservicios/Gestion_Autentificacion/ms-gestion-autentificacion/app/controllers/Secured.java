@@ -7,6 +7,7 @@ package controllers;
 
 import models.Usuario;
 import models.UsuarioDB;
+import play.Logger;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -15,29 +16,32 @@ import play.mvc.Result;
  * @author david
  */
 public class Secured extends play.mvc.Security.Authenticator {
-
-    protected Usuario user;
+    
+    protected Logger.ALogger log = Logger.of(this.getClass());
+    public final static String AUTH_TOKEN_HEADER = "X-AUTH-TOKEN";
+    public static final String AUTH_TOKEN = "authToken";
     
     @Override
     public String getUsername(Http.Context ctx) {
-        String[] authTokenHeaderValues = ctx.request().headers().get(GestionDeAuthentificacionApiController.AUTH_TOKEN_HEADER);
-        System.err.println(authTokenHeaderValues);
-        if ((authTokenHeaderValues != null) && (authTokenHeaderValues.length == 1) && (authTokenHeaderValues[0] != null)) {
-            this.user = UsuarioDB.getUser(authTokenHeaderValues[0]);
-            System.out.println(user);
+        String[] authTokenHeader = ctx.request().headers().get(AUTH_TOKEN_HEADER);
+        if ((authTokenHeader != null) && (authTokenHeader.length == 1) && (authTokenHeader[0] != null)) {
+            Usuario user = UsuarioDB.getUser(authTokenHeader[0]);
             if (user != null) {
-                ctx.args.put("user", user);
+                ctx.session().put(user.getAuthTokent(), user.getAuthTokent());
+                log.info(" - TokentAuth: " + authTokenHeader[0] + " Authorice ----> " + user.toString());
+                return user.getNif();
             }
         }
-        return (user != null)? user.getNif() : null;
+        log.info(" - TokentAuth: " + authTokenHeader[0] + " No authorice ----> 401");
+        return null;
     }
 
     @Override
     public Result onUnauthorized(Http.Context context) {
-        return unauthorized();
+        return unauthorized("401 o Autorizado").withHeader(AUTH_TOKEN_HEADER, "");
     }
 
-    public static Usuario getUser(Http.Context ctx) {
+    /*public static Usuario getUser(Http.Context ctx) {
         return (Usuario)ctx.args.get("user");
     }
 
@@ -47,5 +51,5 @@ public class Secured extends play.mvc.Security.Authenticator {
 
     public static Usuario getUserInfo(Http.Context ctx) {
         return (isLoggedIn(ctx)? UsuarioDB.getUser(getUser(ctx).getNif()) : null);
-    }    
+    }*/
 }

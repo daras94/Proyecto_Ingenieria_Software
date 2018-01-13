@@ -1,1831 +1,1541 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "description": "API MicroServicio Getway UVPortal Universidad de villammayor.",
-    "version": "2.1.0 beta",
-    "title": "API Rest GetWay."
-  },
-  "host": "localhost:9320",
-  "paths": {
-    "/login": {
-      "post": {
-        "tags": [
-          "Authentificacion"
-        ],
-        "summary": "Iniciar sesion por NIF",
-        "description": "",
-        "operationId": "loginUser",
-        "consumes": [
-          "consumes application/x-www-form-urlencoded"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "nif",
-            "in": "query",
-            "description": "Introduca su NIF como usuario.",
-            "required": true,
-            "type": "string",
-            "maxLength": 9,
-            "minLength": 9,
-            "pattern": "^([0-9]{8}|[XYZ]{1}[0-9]{7})[TRWAGMYFPDXBNJZSQVHLCKET]{1}$"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "Introduca su contraseña de usuario.",
-            "required": true,
-            "type": "string",
-            "format": "password"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Se Inicio la sesion correctamente",
-            "schema": {
-              "$ref": "#/definitions/Usuario"
+    "swagger": "2.0",
+    "info": {
+        "description": "API MicroServicio Getway UVPortal Universidad de villammayor.",
+        "version": "2.1.0 beta",
+        "title": "API Rest GetWay."
+    },
+    "host": "localhost:9320",
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentificacion"
+                ],
+                "summary": "Iniciar sesion por NIF",
+                "description": "",
+                "operationId": "loginUser",
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "nif",
+                        "in": "query",
+                        "description": "Introduca su NIF como usuario.",
+                        "required": true,
+                        "type": "string",
+                        "maxLength": 9,
+                        "minLength": 9,
+                        "pattern": "^([0-9]{8}|[XYZ]{1}[0-9]{7})[TRWAGMYFPDXBNJZSQVHLCKET]{1}$"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Introduca su contraseña de usuario.",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se Inicio la sesion correctamente",
+                        "schema": {
+                            "$ref": "#/definitions/Usuario"
+                        },
+                        "headers": {
+                            "X-Rate-Limit": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "llamadas por hora permitidas por el usuario"
+                            },
+                            "X-Expires-After": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Fecha en formato GMT en la que espira el token"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error el NIF/contraseña es incorrecto"
+                    },
+                    "403": {
+                        "description": "Aceso Denegado"
+                    },
+                    "500": {
+                        "description": "Error Interno del Servidor"
+                    }
+                },
+                "x-contentType": "consumes application/x-www-form-urlencoded",
+                "x-accepts": "application/json"
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Authentificacion"
+                ],
+                "summary": "Logs out current logged in user session",
+                "description": "",
+                "operationId": "logoutUser",
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "tokenUser",
+                        "in": "query",
+                        "description": "El token del usuario que esta cerrando sesion.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se cero la sesion correctamente."
+                    },
+                    "400": {
+                        "description": "Error al cerrar la sesion."
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    },
+                    "500": {
+                        "description": "Error Interno del Servidor"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/obtenerGrupos/{nif}": {
+            "get": {
+                "tags": [
+                    "Grupos"
+                ],
+                "summary": "Grupos que imparte un profesor",
+                "description": "Devuelve los grupos que imparte el profesor en el curso actual",
+                "parameters": [
+                    {
+                        "name": "nif",
+                        "in": "path",
+                        "required": true,
+                        "description": "DNI del profesor",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Grupo"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/obtenerLista/{id}": {
+            "get": {
+                "tags": [
+                    "ListaNotas"
+                ],
+                "summary": "Lista de alumnos",
+                "description": "Devuelve una lista de todos los alumnos para poder introducir las notas",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del grupo que se quiere obtener la lista",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/AlumnoActas"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/subirNotas/{id}": {
+            "put": {
+                "tags": [
+                    "ListaNotas"
+                ],
+                "summary": "Lista de alumnos con las notas introducidas",
+                "description": "Introduce en la base de datos las notas de los alumnos",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del grupo de los alumnos que se han insertado las notas",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "alumnos",
+                        "in": "body",
+                        "required": true,
+                        "description": "Notas de los alumnos",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/AlumnoActas"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/cerrarActas/{id}": {
+            "put": {
+                "tags": [
+                    "ListaNotas"
+                ],
+                "summary": "Cerrar acta de un grupo",
+                "description": "Cierra las actas de los alumnos del grupo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del grupo del que se van a cerrar las actas",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/getCarreras": {
+            "get": {
+                "tags": [
+                    "Carrera"
+                ],
+                "summary": "Carreras de la universidad",
+                "description": "Obtiene las carreras disponibles en la universidad para poder seleccionar una cuando se ingresa el alumno",
+                "parameters": [],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Carrera"
+                            }
+                        }
+                    },
+                    "505": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/alta_alumno": {
+            "post": {
+                "tags": [
+                    "Alumno"
+                ],
+                "summary": "Dar de alta un alumno",
+                "description": "Introducir en la base de datos la informacion de un nuevo alumno.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "alumno",
+                        "description": "Objeto JSON del contenido del alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Alumno"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/alumnoByNIF/{NIF}": {
+            "get": {
+                "tags": [
+                    "Alumno"
+                ],
+                "summary": "Obtener alumno por NIF",
+                "description": "Busqueda de la informacion de un alumno con su NIF",
+                "parameters": [
+                    {
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del alumno",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "$ref": "#/definitions/Alumno"
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
             },
-            "headers": {
-              "X-Rate-Limit": {
-                "type": "integer",
-                "format": "int32",
-                "description": "llamadas por hora permitidas por el usuario"
-              },
-              "X-Expires-After": {
-                "type": "string",
-                "format": "date-time",
-                "description": "Fecha en formato GMT en la que espira el token"
-              }
+            "put": {
+                "tags": [
+                    "Alumno"
+                ],
+                "summary": "Actualizar alumno",
+                "description": "Actualizacion de la informacion de la cuenta de un alumno",
+                "parameters": [
+                    {
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del alumno que se quiere actualizar",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "alumno",
+                        "description": "Objeto JSON del contenido del alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Alumno"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            },
+            "delete": {
+                "tags": [
+                    "Alumno"
+                ],
+                "summary": "Eliminar alumno por NIF",
+                "description": "Eliminar la cuenta de un almuno por NIF",
+                "parameters": [
+                    {
+                        "name": "NIF",
+                        "in": "path",
+                        "description": "NIF del alumno",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
             }
-          },
-          "400": {
-            "description": "Error el NIF/contraseña es incorrecto"
-          },
-          "403": {
-            "description": "Aceso Denegado"
-          },
-          "500": {
-            "description": "Error Interno del Servidor"
-          }
         },
-        "x-contentType": "consumes application/x-www-form-urlencoded",
-        "x-accepts": "application/json"
-      }
-    },
-    "/logout": {
-      "post": {
-        "tags": [
-          "Authentificacion"
-        ],
-        "summary": "Logs out current logged in user session",
-        "description": "",
-        "operationId": "logoutUser",
-        "consumes": [
-          "consumes application/x-www-form-urlencoded"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "tokenUser",
-            "in": "query",
-            "description": "El token del usuario que esta cerrando sesion.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Se cero la sesion correctamente."
-          },
-          "400": {
-            "description": "Error al cerrar la sesion."
-          },
-          "401": {
-            "description": "No autorizado"
-          },
-          "500": {
-            "description": "Error Interno del Servidor"
-          }
+        "/getCorreos": {
+            "get": {
+                "tags": [
+                    "Alumno"
+                ],
+                "summary": "Devuelve los correos de los alumnos que no han pagado un plazo de la matricula",
+                "description": "Devuelve una lista de los correos de los alumnos de una promocion concreta que no han realizado el pago de un plazo concreto",
+                "parameters": [
+                    {
+                        "name": "Promocion",
+                        "in": "query",
+                        "required": true,
+                        "description": "Promocion de las matriculas a pagar",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "plazo",
+                        "in": "query",
+                        "required": true,
+                        "description": "numero de plazo a comprobar",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         },
-        "x-contentType": "application/json",
-        "x-accepts": "application/json"
-      }
-    },
-    "/obtenerGrupos/{nif}": {
-      "get": {
-        "tags": [
-          "Grupos"
-        ],
-        "summary": "Grupos que imparte un profesor",
-        "description": "Devuelve los grupos que imparte el profesor en el curso actual",
-        "parameters": [
-          {
-            "name": "nif",
-            "in": "path",
-            "required": true,
-            "description": "DNI del profesor",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Grupo"
-              }
+        "/eliminarMatriculas": {
+            "delete": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "Anula las matriculas de los alumnos que no han pagado la reserva",
+                "description": "Elimina la matricula de un alumno que no ha hecho el pago",
+                "parameters": [
+                    {
+                        "name": "Promocion",
+                        "in": "query",
+                        "required": true,
+                        "description": "promocion de la matricula a eliminar",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/obtenerLista/{id}": {
-      "get": {
-        "tags": [
-          "ListaNotas"
-        ],
-        "summary": "Lista de alumnos",
-        "description": "Devuelve una lista de todos los alumnos para poder introducir las notas",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID del grupo que se quiere obtener la lista",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AlumnoActas"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/subirNotas/{id}": {
-      "put": {
-        "tags": [
-          "ListaNotas"
-        ],
-        "summary": "Lista de alumnos con las notas introducidas",
-        "description": "Introduce en la base de datos las notas de los alumnos",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID del grupo de los alumnos que se han insertado las notas",
-            "type": "integer"
-          },
-          {
-            "name": "alumnos",
-            "in": "body",
-            "required": true,
-            "description": "Notas de los alumnos",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AlumnoActas"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/cerrarActas/{id}": {
-      "put": {
-        "tags": [
-          "ListaNotas"
-        ],
-        "summary": "Cerrar acta de un grupo",
-        "description": "Cierra las actas de los alumnos del grupo",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID del grupo del que se van a cerrar las actas",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getCarreras": {
-      "get": {
-        "tags": [
-          "Carrera"
-        ],
-        "summary": "Carreras de la universidad",
-        "description": "Obtiene las carreras disponibles en la universidad para poder seleccionar una cuando se ingresa el alumno",
-        "parameters": [],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Carrera"
-              }
-            }
-          },
-          "505": {
-            "description": "Internal Server Error"
-          }
         },
-        "x-contentType": "application/json",
-        "x-accepts": "application/json"
-      }
-    },
-    "/alta_alumno": {
-      "post": {
-        "tags": [
-          "Alumno"
-        ],
-        "summary": "Dar de alta un alumno",
-        "description": "Introducir en la base de datos la informacion de un nuevo alumno.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "alumno",
-            "description": "Objeto JSON del contenido del alumno",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Alumno"
+        "/eliminarMatriculasPorPlazo": {
+            "delete": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "Anula las matriculas de los alumnos que no han pagado un plazo concreto",
+                "description": "Elimina las matriculas de los alumnos que no han hecho un pago concreto",
+                "parameters": [
+                    {
+                        "name": "Promocion",
+                        "in": "query",
+                        "required": true,
+                        "description": "promocion de la matricula a eliminar",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "numPago",
+                        "in": "query",
+                        "required": true,
+                        "description": "numero de pago",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
         },
-        "x-contentType": "application/json",
-        "x-accepts": "application/json"
-      }
-    },
-    "/alumnoByNIF/{NIF}": {
-      "get": {
-        "tags": [
-          "Alumno"
-        ],
-        "summary": "Obtener alumno por NIF",
-        "description": "Busqueda de la informacion de un alumno con su NIF",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "path",
-            "description": "NIF del alumno",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "$ref": "#/definitions/Alumno"
+        "/reservaMatricula": {
+            "put": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "Actualizar el estado de reserva de la matricula",
+                "description": "Actualizacion del estado de la reserva de una matricula de un alumno determinado a true",
+                "parameters": [
+                    {
+                        "name": "Promocion",
+                        "in": "query",
+                        "required": true,
+                        "description": "Promocion de la matricula que se quiere actualizar",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "alumno",
+                        "in": "query",
+                        "required": true,
+                        "description": "NIF del alumno del que se quiere actualizar su matricula",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
         },
-        "x-contentType": "application/json",
-        "x-accepts": "application/json"
-      },
-      "put": {
-        "tags": [
-          "Alumno"
-        ],
-        "summary": "Actualizar alumno",
-        "description": "Actualizacion de la informacion de la cuenta de un alumno",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "path",
-            "description": "NIF del alumno que se quiere actualizar",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "alumno",
-            "description": "Objeto JSON del contenido del alumno",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Alumno"
+        "/actualizarPago": {
+            "put": {
+                "tags": [
+                    "Pagos"
+                ],
+                "summary": "Actualiza el estado de un plazo de pago",
+                "description": "Actualiza el atributo Pagado de un Pago a true",
+                "parameters": [
+                    {
+                        "name": "Promocion",
+                        "in": "query",
+                        "required": true,
+                        "description": "Promocion de la matricula de la que se quiere actualizar el pago",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "alumno",
+                        "in": "query",
+                        "required": true,
+                        "description": "NIF del alumno del que se quiere actualizar el pago",
+                        "type": "string"
+                    },
+                    {
+                        "name": "numeroPago",
+                        "in": "query",
+                        "required": true,
+                        "description": "Numero de pago que se quiere actualiazr",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito'"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
         },
-        "x-contentType": "application/json",
-        "x-accepts": "application/json"
-      },
-      "delete": {
-        "tags": [
-          "Alumno"
-        ],
-        "summary": "Eliminar alumno por NIF",
-        "description": "Eliminar la cuenta de un almuno por NIF",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "path",
-            "description": "NIF del alumno",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+        "/nomina": {
+            "post": {
+                "tags": [
+                    "Nomina"
+                ],
+                "summary": "Dar de alta una nomina",
+                "description": "Integrar en la base de datos una nueva nomina.",
+                "parameters": [
+                    {
+                        "name": "NIF",
+                        "in": "query",
+                        "required": true,
+                        "description": "NIF del profesor",
+                        "type": "string"
+                    },
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "required": true,
+                        "description": "fecha de la nomina",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         },
-        "x-contentType": "application/json",
-        "x-accepts": "application/json"
-      }
-    },
-    "/getCorreos": {
-      "get": {
-        "tags": [
-          "Alumno"
-        ],
-        "summary": "Devuelve los correos de los alumnos que no han pagado un plazo de la matricula",
-        "description": "Devuelve una lista de los correos de los alumnos de una promocion concreta que no han realizado el pago de un plazo concreto",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "Promocion de las matriculas a pagar",
-            "type": "integer"
-          },
-          {
-            "name": "plazo",
-            "in": "query",
-            "required": true,
-            "description": "numero de plazo a comprobar",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+        "/nominas/{NIF}": {
+            "get": {
+                "tags": [
+                    "Nomina"
+                ],
+                "summary": "Obtener todas las nominas de un profesor",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "NIF",
+                        "in": "path",
+                        "required": true,
+                        "description": "NIF del profesor",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Nomina"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/eliminarMatriculas": {
-      "delete": {
-        "tags": [
-          "Matricula"
-        ],
-        "summary": "Anula las matriculas de los alumnos que no han pagado la reserva",
-        "description": "Elimina la matricula de un alumno que no ha hecho el pago",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "promocion de la matricula a eliminar",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/eliminarMatriculasPorPlazo": {
-      "delete": {
-        "tags": [
-          "Matricula"
-        ],
-        "summary": "Anula las matriculas de los alumnos que no han pagado un plazo concreto",
-        "description": "Elimina las matriculas de los alumnos que no han hecho un pago concreto",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "promocion de la matricula a eliminar",
-            "type": "integer"
-          },
-          {
-            "name": "numPago",
-            "in": "query",
-            "required": true,
-            "description": "numero de pago",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/reservaMatricula": {
-      "put": {
-        "tags": [
-          "Matricula"
-        ],
-        "summary": "Actualizar el estado de reserva de la matricula",
-        "description": "Actualizacion del estado de la reserva de una matricula de un alumno determinado a true",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "Promocion de la matricula que se quiere actualizar",
-            "type": "integer"
-          },
-          {
-            "name": "alumno",
-            "in": "query",
-            "required": true,
-            "description": "NIF del alumno del que se quiere actualizar su matricula",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/actualizarPago": {
-      "put": {
-        "tags": [
-          "Pagos"
-        ],
-        "summary": "Actualiza el estado de un plazo de pago",
-        "description": "Actualiza el atributo Pagado de un Pago a true",
-        "parameters": [
-          {
-            "name": "Promocion",
-            "in": "query",
-            "required": true,
-            "description": "Promocion de la matricula de la que se quiere actualizar el pago",
-            "type": "integer"
-          },
-          {
-            "name": "alumno",
-            "in": "query",
-            "required": true,
-            "description": "NIF del alumno del que se quiere actualizar el pago",
-            "type": "string"
-          },
-          {
-            "name": "numeroPago",
-            "in": "query",
-            "required": true,
-            "description": "Numero de pago que se quiere actualiazr",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito'"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/nomina": {
-      "post": {
-        "tags": [
-          "Nomina"
-        ],
-        "summary": "Dar de alta una nomina",
-        "description": "Integrar en la base de datos una nueva nomina.",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "query",
-            "required": true,
-            "description": "NIF del profesor",
-            "type": "string"
-          },
-          {
-            "name": "fecha",
-            "in": "query",
-            "required": true,
-            "description": "fecha de la nomina",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/nominas/{NIF}": {
-      "get": {
-        "tags": [
-          "Nomina"
-        ],
-        "summary": "Obtener todas las nominas de un profesor",
-        "description": "",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "path",
-            "required": true,
-            "description": "NIF del profesor",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Nomina"
-              }
+        },
+        "/facturas": {
+            "get": {
+                "tags": [
+                    "Factura"
+                ],
+                "summary": "Obtener la factura",
+                "description": "Obtener la factura de una profesor en un año y mes determinado",
+                "parameters": [
+                    {
+                        "name": "NIF",
+                        "in": "query",
+                        "required": true,
+                        "description": "NIF del profesor",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Mes",
+                        "in": "query",
+                        "required": true,
+                        "description": "Mes correspondiente a la factura",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "Año",
+                        "in": "query",
+                        "required": true,
+                        "description": "Año correspondiente a la factura",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Factura"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/facturas": {
-      "get": {
-        "tags": [
-          "Factura"
-        ],
-        "summary": "Obtener la factura",
-        "description": "Obtener la factura de una profesor en un año y mes determinado",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "query",
-            "required": true,
-            "description": "NIF del profesor",
-            "type": "string"
-          },
-          {
-            "name": "Mes",
-            "in": "query",
-            "required": true,
-            "description": "Mes correspondiente a la factura",
-            "type": "integer"
-          },
-          {
-            "name": "Año",
-            "in": "query",
-            "required": true,
-            "description": "Año correspondiente a la factura",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Factura"
-              }
+        },
+        "/creditosalumno/{numeroExpediente}": {
+            "get": {
+                "tags": [
+                    "Creditos Alumno"
+                ],
+                "summary": "Creditos superados del alumno",
+                "description": "Devuelve los créditos superados por parte del alumno que quiere hacer una nueva matricula",
+                "parameters": [
+                    {
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "required": true,
+                        "description": "Numero de expediente del alumno.",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "$ref": "#/definitions/CreditosAlumno"
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/creditosalumno/{numeroExpediente}": {
-      "get": {
-        "tags": [
-          "CreditosAlumno"
-        ],
-        "summary": "Creditos restantes del alumno",
-        "description": "Devuelve los créditos que le falta al alumno para terminar la carrera.",
-        "parameters": [
-          {
-            "name": "numeroExpediente",
-            "in": "path",
-            "description": "Numero de expediente del alumno.",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "$ref": "#/definitions/CreditosAlumno"
+        },
+        "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
+            "get": {
+                "tags": [
+                    "Grupos Asignaturas"
+                ],
+                "summary": "Obtener las asignaturas matriculables del alumno.",
+                "description": "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
+                "parameters": [
+                    {
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "required": true,
+                        "description": "Numero de expediente del alumno.",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Grupo_Asignatura"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/asignaturasMatriculablesByAlumno/{numeroExpediente}": {
-      "get": {
-        "tags": [
-          "GruposAsignaturas"
-        ],
-        "summary": "Obtener las asignaturas matriculables del alumno.",
-        "description": "Obtener la informacion de las asignaturas en las que un alumno se puede matricular.",
-        "parameters": [
-          {
-            "name": "numeroExpediente",
-            "in": "path",
-            "description": "Numero de expediente del alumno.",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AsignaturaMatriculable"
-              }
+        },
+        "/crearMatricula/{numeroExpediente}": {
+            "post": {
+                "tags": [
+                    "Matriculas"
+                ],
+                "summary": "Creacion de una nueva matricula",
+                "description": "Creacion de una nueva matricula en el expediente del alumno indicado a partir de los grupos seleccionados.",
+                "parameters": [
+                    {
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "required": true,
+                        "description": "Numero de expediente del alumno",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "grupos",
+                        "in": "body",
+                        "required": true,
+                        "description": "Grupos que el alumno ha decidido matricularse",
+                        "schema": {
+                            "$ref": "#/definitions/MatriculaAlta"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/crearMatricula/{numeroExpediente}": {
-      "post": {
-        "tags": [
-          "Matriculas"
-        ],
-        "summary": "Creacion de una nueva matricula",
-        "description": "Creacion de una nueva matricula en el expediente del alumno indicado a partir de los grupos seleccionados.",
-        "parameters": [
-          {
-            "name": "numeroExpediente",
-            "in": "path",
-            "description": "Numero de expediente del alumno",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "body",
-            "name": "grupos",
-            "description": "Grupos que el alumno ha decidido matricularse",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MatriculaAlta"
+        },
+        "/verExpediente/{numeroExpediente}": {
+            "get": {
+                "tags": [
+                    "Matriculas"
+                ],
+                "summary": "Ver las matriculas",
+                "description": "Ver todo el expediente del alumno",
+                "parameters": [
+                    {
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "required": true,
+                        "description": "Numero de expediente del alumno",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Matricula"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/verExpediente/{numeroExpediente}": {
-      "get": {
-        "tags": [
-          "Matriculas"
-        ],
-        "summary": "Ver las matriculas",
-        "description": "Ver todo el expediente del alumno",
-        "parameters": [
-          {
-            "name": "numeroExpediente",
-            "in": "path",
-            "description": "Numero de expediente del alumno",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Matricula"
-              }
+        },
+        "/realizarReserva/{numeroExpediente}": {
+            "put": {
+                "tags": [
+                    "Matriculas"
+                ],
+                "summary": "Realizar la reserva",
+                "description": "Realiza la reserva de la ultima matricula dada de alta en el expediente",
+                "parameters": [
+                    {
+                        "name": "numeroExpediente",
+                        "in": "path",
+                        "required": true,
+                        "description": "Numero de expediente del alumno",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+        },
+        "/espacios": {
+            "get": {
+                "tags": [
+                    "Espacios"
+                ],
+                "summary": "Obtener una lista con todos los espacios de la universidad",
+                "description": "Busqueda de la informacion de todos los espacios de la universidad",
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Espacio"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/reservas/disponibles/horas": {
+            "get": {
+                "tags": [
+                    "Consulta Reservas"
+                ],
+                "summary": "Obtener horas libres",
+                "description": "Obtener las horas libres en un espacio y un dia determinados",
+                "parameters": [
+                    {
+                        "name": "dia",
+                        "in": "query",
+                        "required": true,
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "type": "string"
+                    },
+                    {
+                        "name": "espacio",
+                        "in": "query",
+                        "required": true,
+                        "description": "Espacio del que se quiere comprobar las reservas",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "$ref": "#/definitions/HorasLibres"
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Espacio no registrado"
+                    }
+                }
+            }
+        },
+        "/reservas/disponibles/espacios": {
+            "get": {
+                "tags": [
+                    "Consulta Reservas"
+                ],
+                "summary": "Obtener los espacios libres",
+                "description": "Obtener los espacios libres a una hora y un dia determinados",
+                "parameters": [
+                    {
+                        "name": "dia",
+                        "in": "query",
+                        "required": true,
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hora",
+                        "in": "query",
+                        "required": true,
+                        "description": "Hora de la que se quiere comprobar las reservas",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/EspaciosLibres"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/reservas/reservar": {
+            "post": {
+                "tags": [
+                    "Gestion Reservas"
+                ],
+                "summary": "Realizar reserva",
+                "description": "Realizar una reserva de profesor",
+                "parameters": [
+                    {
+                        "name": "reserva",
+                        "in": "body",
+                        "required": true,
+                        "description": "Reserva actualizada",
+                        "schema": {
+                            "$ref": "#/definitions/Reserva"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Espacio ocupado en el momento requerido"
+                    },
+                    "601": {
+                        "description": "El NIF introducido no esta registrado"
+                    }
+                }
+            }
+        },
+        "/reservas/cancelar": {
+            "delete": {
+                "tags": [
+                    "Gestion Reservas"
+                ],
+                "summary": "Eliminar reserva",
+                "description": "Eliminar una reserva de un dia, hora y espacio",
+                "parameters": [
+                    {
+                        "name": "dia",
+                        "in": "query",
+                        "required": true,
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hora",
+                        "in": "query",
+                        "required": true,
+                        "description": "Hora de la que se quiere comprobar las reservas",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "espacio",
+                        "in": "query",
+                        "required": true,
+                        "description": "Espacio del que se quiere comprobar las reservas",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Reseva no existente"
+                    }
+                }
+            }
+        },
+        "/reservas/actualizar": {
+            "put": {
+                "tags": [
+                    "Gestion Reservas"
+                ],
+                "summary": "Cambiar reserva",
+                "description": "Cambiar datos de una determinada reserva",
+                "parameters": [
+                    {
+                        "name": "dia",
+                        "in": "query",
+                        "required": true,
+                        "description": "Dia del que se quiere comprobar las reservas",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hora",
+                        "in": "query",
+                        "required": true,
+                        "description": "Hora de la que se quiere comprobar las reservas",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "espacio",
+                        "in": "query",
+                        "required": true,
+                        "description": "Espacio del que se quiere comprobar las reservas",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "reserva",
+                        "in": "body",
+                        "required": true,
+                        "description": "Reserva actualizada",
+                        "schema": {
+                            "$ref": "#/definitions/Reserva"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion realizada con exito"
+                    },
+                    "405": {
+                        "description": "Operacion sin realizar"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "600": {
+                        "description": "Reseva no existente"
+                    }
+                }
+            }
         }
-      }
     },
-    "/realizarReserva/{numeroExpediente}": {
-      "post": {
-        "tags": [
-          "Matriculas"
-        ],
-        "summary": "Realizar la reserva",
-        "description": "Realiza la reserva de la ultima matricula dada de alta en el expediente",
-        "parameters": [
-          {
-            "name": "numeroExpediente",
-            "in": "path",
-            "description": "Numero de expediente del alumno",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/espacios": {
-      "get": {
-        "tags": [
-          "Espacios"
-        ],
-        "summary": "Obtener una lista con todos los espacios de la universidad",
-        "description": "Busqueda de la informacion de todos los espacios de la universidad",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
+    "definitions": {
+        "Usuario": {
+            "type": "object",
+            "required": [
+                "name",
+                "nif",
+                "tipo_user",
+                "authTokent",
+                "num_expediente"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "nif": {
+                    "type": "string"
+                },
+                "tipo_user": {
+                    "type": "string"
+                },
+                "authTokent": {
+                    "type": "string"
+                },
+                "num_expediente": {
+                    "type": "string"
+                }
+            }
+        },
+        "Grupo": {
+            "type": "object",
+            "required": [
+                "ID",
+                "Actas",
+                "Tipo",
+                "Miembros",
+                "Asignatura",
+                "Anno"
+            ],
+            "properties": {
+                "ID": {
+                    "type": "integer"
+                },
+                "Actas": {
+                    "type": "boolean"
+                },
+                "Tipo": {
+                    "type": "string"
+                },
+                "Miembros": {
+                    "type": "integer"
+                },
+                "Asignatura": {
+                    "type": "integer"
+                },
+                "Anno": {
+                    "type": "integer"
+                }
+            }
+        },
+        "AlumnoActas": {
+            "type": "object",
+            "required": [
+                "DNI",
+                "Nombre",
+                "Apellido1",
+                "Apellido2",
+                "Email",
+                "Nota",
+                "Expediente"
+            ],
+            "properties": {
+                "DNI": {
+                    "type": "string"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Apellido1": {
+                    "type": "string"
+                },
+                "Apellido2": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Nota": {
+                    "type": "number"
+                },
+                "Expediente": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Alumno": {
+            "type": "object",
+            "required": [
+                "Apellido1",
+                "Apellido2",
+                "Carrera",
+                "Contrasenna",
+                "CuentaCorriente",
+                "Email",
+                "Expediente",
+                "FechaNacimiento",
+                "NIF",
+                "Nombre"
+            ],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Contrasenna": {
+                    "type": "string"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Apellido1": {
+                    "type": "string"
+                },
+                "Apellido2": {
+                    "type": "string"
+                },
+                "FechaNacimiento": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "CuentaCorriente": {
+                    "type": "string"
+                },
+                "Carrera": {
+                    "type": "integer"
+                },
+                "Expediente": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Carrera": {
+            "type": "object",
+            "required": [
+                "Codigo",
+                "Facultad",
+                "Nombre",
+                "Numero_Creditos",
+                "Numero_Creditos_Obligatorios",
+                "Numero_Creditos_Optativos",
+                "Numero_Creditos_Transversales"
+            ],
+            "properties": {
+                "Codigo": {
+                    "type": "integer"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Facultad": {
+                    "type": "string"
+                },
+                "Numero_Creditos": {
+                    "type": "integer"
+                },
+                "Numero_Creditos_Optativos": {
+                    "type": "integer"
+                },
+                "Numero_Creditos_Obligatorios": {
+                    "type": "integer"
+                },
+                "Numero_Creditos_Transversales": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Nomina": {
+            "type": "object",
+            "required": [
+                "NIF",
+                "Salario"
+            ],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Numero": {
+                    "type": "integer"
+                },
+                "Fecha": {
+                    "type": "string"
+                },
+                "Salario": {
+                    "type": "number"
+                }
+            }
+        },
+        "Factura": {
+            "type": "object",
+            "required": [
+                "Espacio",
+                "Fecha",
+                "Hora",
+                "Coste"
+            ],
+            "properties": {
+                "Espacio": {
+                    "type": "string"
+                },
+                "Fecha": {
+                    "type": "string"
+                },
+                "Hora": {
+                    "type": "string"
+                },
+                "Coste": {
+                    "type": "number"
+                }
+            }
+        },
+        "Asignatura": {
+            "type": "object",
+            "required": [
+                "Codigo",
+                "Nombre",
+                "Tipo",
+                "Creditos",
+                "Carrera"
+            ],
+            "properties": {
+                "Codigo": {
+                    "type": "integer"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Carrera": {
+                    "type": "integer"
+                },
+                "Tipo": {
+                    "type": "string"
+                },
+                "Creditos": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Asignatura_Matriculada": {
+            "type": "object",
+            "required": [
+                "Asignatura",
+                "Nota"
+            ],
+            "properties": {
+                "Asignatura": {
+                    "$ref": "#/definitions/Asignatura"
+                },
+                "Nota": {
+                    "type": "integer"
+                }
+            }
+        },
+        "MatriculaAlta": {
+            "type": "object",
+            "required": [
+                "Grupos",
+                "TipoPago"
+            ],
+            "properties": {
+                "Grupos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Grupo_Asignatura"
+                    }
+                },
+                "TipoPago": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Matricula": {
+            "type": "object",
+            "required": [
+                "Asignaturas",
+                "Anno"
+            ],
+            "properties": {
+                "Asignaturas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Asignatura_Matriculada"
+                    }
+                },
+                "Anno": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Grupo_Asignatura": {
+            "type": "object",
+            "required": [
+                "Asignatura",
+                "IdGrupo",
+                "Miembros",
+                "Tipo"
+            ],
+            "properties": {
+                "Asignatura": {
+                    "$ref": "#/definitions/Asignatura"
+                },
+                "IdGrupo": {
+                    "type": "integer"
+                },
+                "Miembros": {
+                    "type": "integer"
+                },
+                "Tipo": {
+                    "type": "string"
+                }
+            }
+        },
+        "CreditosAlumno": {
+            "type": "object",
+            "required": [
+                "CreditosObligatorios",
+                "CreditosOptativos",
+                "CreditosTransversales"
+            ],
+            "properties": {
+                "CreditosObligatorios": {
+                    "type": "integer"
+                },
+                "CreditosOptativos": {
+                    "type": "integer"
+                },
+                "CreditosTransversales": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Espacio": {
+            "type": "object",
+            "required": [
+                "Codigo",
+                "Nombre",
+                "Aforo",
+                "Precio"
+            ],
+            "properties": {
+                "Codigo": {
+                    "type": "integer"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "Aforo": {
+                    "type": "integer"
+                },
+                "Precio": {
+                    "type": "number"
+                }
+            }
+        },
+        "Reserva": {
+            "type": "object",
+            "required": [
+                "NIF",
+                "Espacio",
+                "Fecha",
+                "Hora"
+            ],
+            "properties": {
+                "NIF": {
+                    "type": "string"
+                },
+                "Espacio": {
+                    "type": "integer"
+                },
+                "Fecha": {
+                    "type": "string"
+                },
+                "Hora": {
+                    "type": "integer"
+                }
+            }
+        },
+        "HorasLibres": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "EspaciosLibres": {
+            "type": "array",
+            "items": {
                 "$ref": "#/definitions/Espacio"
-              }
             }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
         }
-      }
-    },
-    "/reservas/disponibles/horas": {
-      "get": {
-        "tags": [
-          "Consulta Reservas"
-        ],
-        "summary": "Obtener horas libres",
-        "description": "Obtener las horas libres en un espacio y un dia determinados",
-        "parameters": [
-          {
-            "name": "dia",
-            "in": "query",
-            "description": "Dia del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "espacio",
-            "in": "query",
-            "description": "Espacio del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "$ref": "#/definitions/HorasLibres"
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "600": {
-            "description": "Espacio no registrado"
-          }
-        }
-      }
-    },
-    "/reservas/disponibles/espacios": {
-      "get": {
-        "tags": [
-          "Consulta Reservas"
-        ],
-        "summary": "Obtener los espacios libres",
-        "description": "Obtener los espacios libres a una hora y un dia determinados",
-        "parameters": [
-          {
-            "name": "dia",
-            "in": "query",
-            "description": "Dia del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "hora",
-            "in": "query",
-            "description": "Hora de la que se quiere comprobar las reservas",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/EspaciosLibres"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/reservas/{nif}": {
-      "get": {
-        "tags": [
-          "Gestion Reservas"
-        ],
-        "summary": "Ver reservas",
-        "description": "Ver reservas de un profesor",
-        "parameters": [
-          {
-            "name": "nif",
-            "in": "path",
-            "description": "NIF del profesor",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Reserva"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/reservas/reservar": {
-      "post": {
-        "tags": [
-          "Gestion Reservas"
-        ],
-        "summary": "Realizar reserva",
-        "description": "Realizar una reserva de profesor",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "reserva",
-            "description": "Reserva actualizada",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Reserva"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "600": {
-            "description": "Espacio ocupado en el momento requerido"
-          },
-          "601": {
-            "description": "El NIF introducido no esta registrado"
-          }
-        }
-      }
-    },
-    "/reservas/cancelar": {
-      "delete": {
-        "tags": [
-          "Gestion Reservas"
-        ],
-        "summary": "Eliminar reserva",
-        "description": "Eliminar una reserva de un dia, hora y espacio",
-        "parameters": [
-          {
-            "name": "dia",
-            "in": "query",
-            "description": "Dia del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "hora",
-            "in": "query",
-            "description": "Hora de la que se quiere comprobar las reservas",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "espacio",
-            "in": "query",
-            "description": "Espacio del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "600": {
-            "description": "Reseva no existente"
-          }
-        }
-      }
-    },
-    "/reservas/actualizar": {
-      "put": {
-        "tags": [
-          "Gestion Reservas"
-        ],
-        "summary": "Cambiar reserva",
-        "description": "Cambiar datos de una determinada reserva",
-        "parameters": [
-          {
-            "name": "dia",
-            "in": "query",
-            "description": "Dia del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "hora",
-            "in": "query",
-            "description": "Hora de la que se quiere comprobar las reservas",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "espacio",
-            "in": "query",
-            "description": "Espacio del que se quiere comprobar las reservas",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "body",
-            "name": "reserva",
-            "description": "Reserva actualizada",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Reserva"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "600": {
-            "description": "Reseva no existente"
-          }
-        }
-      }
-    },
-    "/getGrupos": {
-      "get": {
-        "tags": [
-          "Grupos"
-        ],
-        "summary": "Devuelve el listado de grupos no asignados a un profesor de la universidad",
-        "description": "Devuelve el listado de grupos (id del grupo, asignatura y tipo) no asignados a un profesor de la universidad",
-        "parameters": [],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/GrupoAsignado"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/postGrupoAsignado": {
-      "post": {
-        "tags": [
-          "Grupos"
-        ],
-        "summary": "Post de una nueva asignacion Profesor_Grupo",
-        "description": "Introduce en la base de datos una nueva relacion Profesor_Grupo",
-        "parameters": [
-          {
-            "name": "profesor",
-            "in": "query",
-            "description": "NIF del profesor",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "grupo",
-            "in": "query",
-            "description": "id del grupo",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito"
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getCargaDocente": {
-      "get": {
-        "tags": [
-          "Departamento"
-        ],
-        "summary": "Calcula y devuelve la carga docente de un departamento",
-        "description": "Calcula la carga docente de un departamento",
-        "parameters": [
-          {
-            "name": "departamento",
-            "in": "path",
-            "description": "codigo del departamento",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getInfoGrupo": {
-      "get": {
-        "tags": [
-          "Grupos"
-        ],
-        "summary": "Obtener informacion del grupo",
-        "description": "Devuelve un array de objetos con el id del grupo y la asignatura que imparte a partir del id de un profesor",
-        "parameters": [
-          {
-            "name": "NIF",
-            "in": "path",
-            "description": "NIF del profesor",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/infoGrupo"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getProfesores": {
-      "get": {
-        "tags": [
-          "Profesores"
-        ],
-        "summary": "Obtener una lista de profesores",
-        "description": "Obtener los profesores con sus atributos principales",
-        "parameters": [],
-        "responses": {
-          "202": {
-            "description": "Operacion realizada con exito",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Profesor"
-              }
-            }
-          },
-          "405": {
-            "description": "Operacion sin realizar"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
     }
-  },
-  "definitions": {
-    "Usuario": {
-      "type": "object",
-      "required": [
-        "name",
-        "nif",
-        "tipo_user",
-        "authTokent",
-        "num_expediente"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "nif": {
-          "type": "string"
-        },
-        "tipo_user": {
-          "type": "string"
-        },
-        "authTokent": {
-          "type": "string"
-        },
-        "num_expediente": {
-          "type": "string"
-        }
-      }
-    },
-    "Grupo": {
-      "type": "object",
-      "required": [
-        "ID",
-        "Actas",
-        "Tipo",
-        "Miembros",
-        "Asignatura",
-        "Anno"
-      ],
-      "properties": {
-        "ID": {
-          "type": "integer"
-        },
-        "Actas": {
-          "type": "boolean"
-        },
-        "Tipo": {
-          "type": "string"
-        },
-        "Miembros": {
-          "type": "integer"
-        },
-        "Asignatura": {
-          "type": "integer"
-        },
-        "Anno": {
-          "type": "integer"
-        }
-      }
-    },
-    "AlumnoActas": {
-      "type": "object",
-      "required": [
-        "DNI",
-        "Nombre",
-        "Apellido1",
-        "Apellido2",
-        "Email",
-        "Nota",
-        "Expediente"
-      ],
-      "properties": {
-        "DNI": {
-          "type": "string"
-        },
-        "Nombre": {
-          "type": "string"
-        },
-        "Apellido1": {
-          "type": "string"
-        },
-        "Apellido2": {
-          "type": "string"
-        },
-        "Email": {
-          "type": "string"
-        },
-        "Nota": {
-          "type": "number"
-        },
-        "Expediente": {
-          "type": "integer"
-        }
-      }
-    },
-    "Alumno": {
-      "type": "object",
-      "required": [
-        "Apellido1",
-        "Apellido2",
-        "Carrera",
-        "Contrasenna",
-        "CuentaCorriente",
-        "Email",
-        "Expediente",
-        "FechaNacimiento",
-        "NIF",
-        "Nombre"
-      ],
-      "properties": {
-        "NIF": {
-          "type": "string"
-        },
-        "Contrasenna": {
-          "type": "string"
-        },
-        "Nombre": {
-          "type": "string"
-        },
-        "Apellido1": {
-          "type": "string"
-        },
-        "Apellido2": {
-          "type": "string"
-        },
-        "FechaNacimiento": {
-          "type": "string"
-        },
-        "Email": {
-          "type": "string"
-        },
-        "CuentaCorriente": {
-          "type": "string"
-        },
-        "Carrera": {
-          "type": "integer"
-        },
-        "Expediente": {
-          "type": "integer"
-        }
-      }
-    },
-    "Carrera": {
-      "type": "object",
-      "required": [
-        "Codigo",
-        "Facultad",
-        "Nombre",
-        "Numero_Creditos",
-        "Numero_Creditos_Obligatorios",
-        "Numero_Creditos_Optativos",
-        "Numero_Creditos_Transversales"
-      ],
-      "properties": {
-        "Codigo": {
-          "type": "integer"
-        },
-        "Nombre": {
-          "type": "string"
-        },
-        "Facultad": {
-          "type": "string"
-        },
-        "Numero_Creditos": {
-          "type": "integer"
-        },
-        "Numero_Creditos_Optativos": {
-          "type": "integer"
-        },
-        "Numero_Creditos_Obligatorios": {
-          "type": "integer"
-        },
-        "Numero_Creditos_Transversales": {
-          "type": "integer"
-        }
-      }
-    },
-    "Nomina": {
-      "type": "object",
-      "required": [
-        "NIF",
-        "Salario"
-      ],
-      "properties": {
-        "NIF": {
-          "type": "string"
-        },
-        "Numero": {
-          "type": "integer"
-        },
-        "Fecha": {
-          "type": "string"
-        },
-        "Salario": {
-          "type": "number"
-        }
-      }
-    },
-    "Factura": {
-      "type": "object",
-      "required": [
-        "Espacio",
-        "Fecha",
-        "Hora",
-        "Coste"
-      ],
-      "properties": {
-        "Espacio": {
-          "type": "string"
-        },
-        "Fecha": {
-          "type": "string"
-        },
-        "Hora": {
-          "type": "string"
-        },
-        "Coste": {
-          "type": "number"
-        }
-      }
-    },
-    "Asignatura": {
-      "type": "object",
-      "required": [
-        "Carrera",
-        "Codigo",
-        "Creditos",
-        "Nombre",
-        "Tipo"
-      ],
-      "properties": {
-        "Codigo": {
-          "type": "integer"
-        },
-        "Nombre": {
-          "type": "string"
-        },
-        "Carrera": {
-          "type": "integer"
-        },
-        "Tipo": {
-          "type": "string"
-        },
-        "Creditos": {
-          "type": "integer"
-        }
-      }
-    },
-    "AsignaturaMatriculable": {
-      "type": "object",
-      "required": [
-        "Asignatura",
-        "Grupos"
-      ],
-      "properties": {
-        "Asignatura": {
-          "$ref": "#/definitions/Asignatura"
-        },
-        "Grupos": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/GruposAsignatura"
-          }
-        }
-      }
-    },
-    "AsignaturaMatriculada": {
-      "type": "object",
-      "required": [
-        "Asignatura",
-        "Nota"
-      ],
-      "properties": {
-        "Asignatura": {
-          "$ref": "#/definitions/Asignatura"
-        },
-        "Nota": {
-          "type": "integer"
-        }
-      }
-    },
-    "MatriculaAlta": {
-      "type": "object",
-      "required": [
-        "Grupos",
-        "TipoPago"
-      ],
-      "properties": {
-        "Grupos": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AsignaturaAlta"
-          }
-        },
-        "TipoPago": {
-          "type": "integer"
-        }
-      }
-    },
-    "AsignaturaAlta": {
-      "type": "object",
-      "required": [
-        "CodigoAsignatura",
-        "CodigoGrupoLab",
-        "CodigoGrupoTeoria"
-      ],
-      "properties": {
-        "CodigoAsignatura": {
-          "type": "integer"
-        },
-        "CodigoGrupoTeoria": {
-          "type": "integer"
-        },
-        "CodigoGrupoLab": {
-          "type": "integer"
-        }
-      }
-    },
-    "Matricula": {
-      "type": "object",
-      "required": [
-        "Anno",
-        "Asignaturas"
-      ],
-      "properties": {
-        "Asignaturas": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AsignaturaMatriculada"
-          }
-        },
-        "Anno": {
-          "type": "integer"
-        }
-      }
-    },
-    "GruposAsignatura": {
-      "type": "object",
-      "required": [
-        "IdGrupo",
-        "Miembros",
-        "Tipo"
-      ],
-      "properties": {
-        "IdGrupo": {
-          "type": "integer"
-        },
-        "Miembros": {
-          "type": "integer"
-        },
-        "Tipo": {
-          "type": "string"
-        }
-      }
-    },
-    "CreditosAlumno": {
-      "type": "object",
-      "required": [
-        "CreditosObligatorios",
-        "CreditosOptativos",
-        "CreditosTransversales"
-      ],
-      "properties": {
-        "CreditosObligatorios": {
-          "type": "integer"
-        },
-        "CreditosOptativos": {
-          "type": "integer"
-        },
-        "CreditosTransversales": {
-          "type": "integer"
-        }
-      }
-    },
-    "Espacio": {
-      "type": "object",
-      "required": [
-        "Codigo",
-        "Nombre",
-        "Aforo",
-        "Precio"
-      ],
-      "properties": {
-        "Codigo": {
-          "type": "integer"
-        },
-        "Nombre": {
-          "type": "string"
-        },
-        "Aforo": {
-          "type": "integer"
-        },
-        "Precio": {
-          "type": "number"
-        }
-      }
-    },
-    "Reserva": {
-      "type": "object",
-      "required": [
-        "NIF",
-        "Espacio",
-        "Fecha",
-        "Hora"
-      ],
-      "properties": {
-        "NIF": {
-          "type": "string"
-        },
-        "Espacio": {
-          "type": "integer"
-        },
-        "Fecha": {
-          "type": "string"
-        },
-        "Hora": {
-          "type": "integer"
-        }
-      }
-    },
-    "HorasLibres": {
-      "type": "array",
-      "items": {
-        "type": "integer"
-      }
-    },
-    "EspaciosLibres": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Espacio"
-      }
-    },
-    "GrupoAsignado": {
-      "type": "object",
-      "required": [
-        "asignatura",
-        "id",
-        "tipo"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "asignatura": {
-          "type": "string"
-        },
-        "tipo": {
-          "type": "string"
-        }
-      }
-    },
-    "Profesor": {
-      "type": "object",
-      "required": [
-        "Apellido1",
-        "Apellido2",
-        "Departamento",
-        "NIF",
-        "Nombre"
-      ],
-      "properties": {
-        "NIF": {
-          "type": "string"
-        },
-        "Nombre": {
-          "type": "string"
-        },
-        "Apellido1": {
-          "type": "string"
-        },
-        "Apellido2": {
-          "type": "string"
-        },
-        "FechaNacimiento": {
-          "type": "string"
-        },
-        "Departamento": {
-          "type": "integer"
-        }
-      }
-    },
-    "infoGrupo": {
-      "type": "object",
-      "required": [
-        "Asignatura_grupo",
-        "Id_grupo"
-      ],
-      "properties": {
-        "Id_grupo": {
-          "type": "integer"
-        },
-        "Asignatura_grupo": {
-          "type": "string"
-        }
-      }
-    }
-  }
 }

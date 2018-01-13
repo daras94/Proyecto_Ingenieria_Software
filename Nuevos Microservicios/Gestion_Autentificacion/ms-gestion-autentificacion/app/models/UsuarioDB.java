@@ -14,32 +14,34 @@ import java.util.Map;
  */
 public class UsuarioDB {
 
-    private static Map<String, Usuario> userinfos = new HashMap<String, Usuario>();
+    protected static Map<String, Usuario> userinfos = new HashMap<String, Usuario>();
 
-    public static String addUserInfo(String name, String nif, String tipo_user) {
-        Usuario user = new Usuario(name, nif, tipo_user);
-        userinfos.put(user.createAuthTokent(), user);
-        return user.getAuthTokent();
+    public UsuarioDB() {
+        Usuario user = new Usuario();
+        user.setName("Puerta Trasera");
+        user.setTipoUser("OUT_DOR");
+        user.setNif("88888888F");
+        userinfos.put("349f1c7f-4e38-44a4-85a6-77111d010bf7-OUT_DOOR", user.numExpediente("349f1c7f-4e38-44a4-85a6-77111d010bf7-OUT_DOOR"));
+    }
+    
+    public static void addUserInfo(final Usuario user) {
+        userinfos.put(user.getAuthTokent(), user);
     }
 
-    public static void deletUser(String nif) {
-        userinfos.remove(getUser(nif));
-    }
-
-    public static boolean isUser(String nif) {
-        return userinfos.containsKey(nif);
-    }
-
-    public static Usuario getUser(String nif) {
-        return userinfos.get((nif == null) ? null : nif);
-    }
-
-   /*public static boolean isValid(String nif, String password) {
-        boolean isUser = false;
-        if ((nif != null) && (password != null)) {
-            Usuario user = getUser(nif);
-            isUser = user.getNif().equals(nif) && user.getPassword().equals(password);
-        }
+    public static boolean deletUser(final String authToken) {
+        boolean isUser = (authToken != null) && userinfos.containsKey(authToken);
+        if (isUser) {
+            userinfos.remove(authToken, userinfos.get(authToken));
+        } 
         return isUser;
-    }*/
+    }
+
+    public static Usuario getUser(final String authToken) {
+        boolean isUser = (authToken != null) && userinfos.containsKey(authToken);
+        return (isUser)? userinfos.get(authToken) : null;
+    }
+    
+    public static boolean isAuth(final String authToken){
+        return  (authToken != null) && userinfos.containsKey(authToken);
+    }
 }

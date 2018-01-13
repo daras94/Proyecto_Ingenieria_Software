@@ -1,22 +1,42 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API Rest gestion de autentificacion para la Universidad de Villamayor.",
         "version": "2.0.0",
+        "description": "API Rest gestion de autentificacion para la Universidad de Villamayor.",
         "title": "API Rest MS Gestion de Autenficacion de usuarios."
     },
     "host": "localhost:9300",
     "basePath": "/",
+    "securityDefinitions": {
+        "OauthSecurity": {
+            "type": "oauth2",
+            "flow": "accessCode",
+            "authorizationUrl": "https://localhost:9300/login",
+            "tokenUrl": "https://localhost:9300/token",
+            "scopes": {
+                "ROLE_ADMIN": "Admin scope",
+                "ROLE_ALUMNO": "Alumno scope",
+                "ROLE_PROFESOR": "Profesor scope"
+            }
+        }
+    },
     "paths": {
         "/login": {
             "post": {
-                "tags": [" - Gestion de Authentificacion:"],
+                "tags": [
+                    " - Gestion de Authentificacion:"
+                ],
                 "summary": "Iniciar sesion por NIF",
                 "description": "",
                 "operationId": "loginUser",
-                "consumes": ["consumes application/x-www-form-urlencoded"],
-                "produces": ["application/json"],
-                "parameters": [{
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
                         "name": "nif",
                         "in": "query",
                         "description": "Introduca su NIF como usuario.",
@@ -25,19 +45,21 @@
                         "maxLength": 9,
                         "minLength": 9,
                         "pattern": "^([0-9]{8}|[XYZ]{1}[0-9]{7})[TRWAGMYFPDXBNJZSQVHLCKET]{1}$"
-                    }, {
+                    },
+                    {
                         "name": "password",
                         "in": "query",
                         "description": "Introduca su contraseña de usuario.",
                         "required": true,
                         "type": "string",
                         "format": "password"
-                    }],
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Se Inicio la sesion correctamente",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/Usuario"
                         },
                         "headers": {
                             "X-Rate-Limit": {
@@ -67,16 +89,103 @@
             }
         },
         "/logout": {
-            "get": {
-                "tags": [" - Gestion de Authentificacion:"],
+            "post": {
+                "tags": [
+                    " - Gestion de Authentificacion:"
+                ],
                 "summary": "Logs out current logged in user session",
+                "security": [
+                    {
+                        "OauthSecurity": [
+                            "ROLE_ADMIN",
+                            "ROLE_ALUMNO",
+                            "ROLE_PROFESOR"
+                        ]
+                    }
+                ],
                 "description": "",
                 "operationId": "logoutUser",
-                "produces": ["application/json"],
-                "parameters": [],
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "tokenUser",
+                        "in": "query",
+                        "description": "El token del usuario que esta cerrando sesion.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
-                    "default": {
-                        "description": "La sesion se ha cerrado correctamente"
+                    "200": {
+                        "description": "Se cero la sesion correctamente.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "400": {
+                        "description": "Error al cerrar la sesion."
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    },
+                    "500": {
+                        "description": "Error Interno del Servidor"
+                    }
+                },
+                "x-contentType": "application/json",
+                "x-accepts": "application/json"
+            }
+        },
+        "/token": {
+            "get": {
+                "tags": [
+                    " - Gestion de Authentificacion:"
+                ],
+                "summary": "Valida el token del Usuario autentificado y devuelve el objeto del usuario asociado.",
+                "description": "",
+                "operationId": "token",
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authtokent",
+                        "in": "query",
+                        "description": "Introducasu tokent de uthentificacion.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se valido correctamente la authentificacion de su tokent.",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "headers": {
+                            "X-AUTH-TOKEN": {
+                                "type": "string",
+                                "format": "UIID",
+                                "description": "token de authentificacion de usuario."
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error durante la validacion de su token de segurida."
+                    },
+                    "401": {
+                        "description": "Usuario no authentificado."
+                    },
+                    "500": {
+                        "description": "Error Interno del Servidor"
                     }
                 },
                 "x-contentType": "application/json",
@@ -84,23 +193,33 @@
             }
         }
     },
-    "securityDefinitions": {
-        "uvportal_auth": {
-            "type": "oauth2",
-            "authorizationUrl": "http://localhost:9300/login",
-            "flow": "implicit",
-            "scopes": {
-                "write:pets": "modify pets in your account",
-                "read:pets": "read your pets"
+    "definitions": {
+        "Usuario": {
+            "type": "object",
+            "required": [
+                "name",
+                "nif",
+                "tipo_user",
+                "authTokent",
+                "num_expediente"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "nif": {
+                    "type": "string"
+                },
+                "tipo_user": {
+                    "type": "string"
+                },
+                "authTokent": {
+                    "type": "string"
+                },
+                "num_expediente": {
+                    "type": "string"
+                }
             }
-        },
-        "api_key": {
-            "type": "apiKey",
-            "name": "api_key",
-            "in": "header"
         }
-    },
-    "definitions": { 
-
     }
 }

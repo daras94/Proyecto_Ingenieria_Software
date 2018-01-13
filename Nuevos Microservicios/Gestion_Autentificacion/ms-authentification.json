@@ -8,15 +8,15 @@
     "host": "localhost:9300",
     "basePath": "/",
     "securityDefinitions": {
-          "OauthSecurity": {
-              "type": "oauth2",
-              "flow": "accessCode",
-              "authorizationUrl": "https://localhost:9300/login",
-              "tokenUrl": "https://localhost:9300/token",
-              "scopes": {
-                  "ROLE_ADMIN": "Admin scope",
-                  "ROLE_ALUMNO": "Alumno scope",
-                  "ROLE_PROFESOR": "Profesor scop'e"
+        "OauthSecurity": {
+            "type": "oauth2",
+            "flow": "accessCode",
+            "authorizationUrl": "https://localhost:9300/login",
+            "tokenUrl": "https://localhost:9300/token",
+            "scopes": {
+                "ROLE_ADMIN": "Admin scope",
+                "ROLE_ALUMNO": "Alumno scope",
+                "ROLE_PROFESOR": "Profesor scope"
             }
         }
     },
@@ -95,16 +95,19 @@
                 ],
                 "summary": "Logs out current logged in user session",
                 "security": [
-                  {
-                    "OauthSecurity": [
-                      "ROLE_ADMIN",
-                      "ROLE_ALUMNO",
-                      "ROLE_PROFESOR"
-                    ]
-                  }
+                    {
+                        "OauthSecurity": [
+                            "ROLE_ADMIN",
+                            "ROLE_ALUMNO",
+                            "ROLE_PROFESOR"
+                        ]
+                    }
                 ],
                 "description": "",
                 "operationId": "logoutUser",
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -119,7 +122,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Se cero la sesion correctamente."
+                        "description": "Se cero la sesion correctamente.",
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     "400": {
                         "description": "Error al cerrar la sesion."
@@ -141,17 +147,11 @@
                     " - Gestion de Authentificacion:"
                 ],
                 "summary": "Valida el token del Usuario autentificado y devuelve el objeto del usuario asociado.",
-                "security": [
-                  {
-                    "OauthSecurity": [
-                      "ROLE_ADMIN",
-                      "ROLE_ALUMNO",
-                      "ROLE_PROFESOR"
-                    ]
-                  }
-                ],
                 "description": "",
                 "operationId": "token",
+                "consumes": [
+                    "consumes application/x-www-form-urlencoded"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -168,7 +168,14 @@
                     "200": {
                         "description": "Se valido correctamente la authentificacion de su tokent.",
                         "schema": {
-                            "$ref": "#/definitions/Usuario"
+                            "type": "boolean"
+                        },
+                        "headers": {
+                            "X-AUTH-TOKEN": {
+                                "type": "string",
+                                "format": "UIID",
+                                "description": "token de authentificacion de usuario."
+                            }
                         }
                     },
                     "400": {
