@@ -81,7 +81,10 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "Operacion realizada con exito"
+            "description" : "Operacion realizada con exito",
+            "schema" : {
+              "type" : "integer"
+            }
           },
           "405" : {
             "description" : "Operacion sin realizar"
