@@ -36,8 +36,8 @@ public class GestionDeAuthentificacionApiControllerImp implements GestionDeAuthe
             user.setName(rs.getString("nombre") + " " + rs.getString("apellido1") + " " + rs.getString("apellido2"));
             user.setTipoUser(rs.getString("tipo_user"));
             user.setAuthTokent();
-            if (user.getTipoUser().equals("ROLE_ALUMNO")) {
-                rs = st.executeQuery("SELECT * Alumno where Usuario_NIF = '" + nif + "'");
+            if (user.getTipoUser().equals("ALUMNO")) {
+                rs = st.executeQuery("SELECT * FROM Alumno where Usuario_NIF = '" + nif + "'");
                 if (rs.next()) {
                     user.setNumExpediente(rs.getString("num_expediente"));
                 }
