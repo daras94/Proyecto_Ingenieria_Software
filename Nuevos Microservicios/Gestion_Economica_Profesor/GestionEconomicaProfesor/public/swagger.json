@@ -5,7 +5,7 @@
     "version" : "1.0.0",
     "title" : "API Universidad Villamayor Profesores"
   },
-  "host" : "localhost:9200",
+  "host" : "localhost:9700",
   "paths" : {
     "/nomina" : {
       "post" : {
