@@ -45,12 +45,14 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             String sql_pago = "INSERT INTO Pago VALUES(";
             String sql_pago_aux="";
             if(grupos.getTipoPago()==1){
-                sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'UNITARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
+                int numero_pago = generar_pago();
+                sql_pago_aux+=sql_pago+String.valueOf(numero_pago)+", 'UNITARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
                 
             }
             else{
                 for(int i=0;i<grupos.getTipoPago();i++){
-                    sql_pago_aux+=sql_pago+String.valueOf((int) (Math.random() * 999999999) + 1)+", 'UNITARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
+                    int numero_pago = generar_pago();
+                    sql_pago_aux+=sql_pago+String.valueOf(numero_pago)+", 'UNITARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
                     sentencias_sql.add(sql_pago_aux);
                     System.out.println(sql_pago_aux);
                     sql_pago_aux="";
@@ -130,7 +132,7 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
                     asig_aux.setNombre(aux.getString("nombre"));
                     
                     aux_asig_matri.setAsignatura(asig_aux);
-                    aux_asig_matri.setNota((aux.getInt("nota_teoria")+aux.getInt("nota_lab")/2));
+                    aux_asig_matri.setNota((aux.getInt("nota_teoria")+aux.getInt("nota_lab"))/2);
                     
                     asignaturas_matriculadas.add(aux_asig_matri);
                     asig_aux=null;
@@ -159,6 +161,27 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
                 conexion.close();
             }
             return matriculas;
+        }
+    }
+    
+    private int generar_pago(){
+        int numero=0;
+        try{
+            ResultSet result = null;
+            String sql = "SELECT * FROM Pago WHERE numero_pago = ";
+            do{
+                numero = (int) (Math.random() * 999999999) + 1;
+                result = consulta_BDD(sql+String.valueOf(numero)+";");
+                
+            }while(result.next());
+              
+            
+            
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            return numero;
         }
     }
     
