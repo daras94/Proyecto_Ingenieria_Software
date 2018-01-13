@@ -30,6 +30,7 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             datos.add("'"+alumno.getContrasenna()+"'");
             datos.add(alumno.getCuentaCorriente());
             datos.add(String.valueOf(alumno.getCarrera()));
+            int numero = generar_expediente();
             Integer exp = (int) (Math.random() * 20000) + 1;
             datos.add(String.valueOf(exp));
             
@@ -201,6 +202,28 @@ public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
             return exito;
         }
         
+    }
+    
+    private int generar_expediente(){
+        int numero=0;
+        try{
+            ResultSet result = null;
+            String SQL = "SELECT * FROM Alumno WHERE num_expediente = ";
+            do{
+                numero = (int) (Math.random() * 20000) + 1;
+                result = consulta_BDD(SQL+String.valueOf(numero)+";");
+                
+            }while(result.next());
+            
+            
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            return numero;
+        }
     }
 
 }
