@@ -130,7 +130,7 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
                     asig_aux.setNombre(aux.getString("nombre"));
                     
                     aux_asig_matri.setAsignatura(asig_aux);
-                    aux_asig_matri.setNota((aux.getInt("nota_teoria")+aux.getInt("nota_lab")/2));
+                    aux_asig_matri.setNota((aux.getInt("nota_teoria")+aux.getInt("nota_lab"))/2);
                     
                     asignaturas_matriculadas.add(aux_asig_matri);
                     asig_aux=null;
