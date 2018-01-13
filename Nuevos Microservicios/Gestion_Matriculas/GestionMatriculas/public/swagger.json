@@ -287,11 +287,7 @@
         },
         "CreditosTransversales" : {
           "type" : "integer"
-        },
-        "CreditosOptativosExtra" : {
-          "type" : "integer"
         }
-        
       }
     }
   }
