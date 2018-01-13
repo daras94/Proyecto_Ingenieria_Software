@@ -52,8 +52,40 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
 
     @Override
     public List<InfoGrupo> getInfoGrupoGet(String NIF) throws Exception {
-        //Do your magic!!!
-        return new ArrayList<InfoGrupo>();
+        String query = "SELECT grupo_id FROM profesor_grupo WHERE Profesor_NIF= "+NIF;
+        ArrayList<InfoGrupo> infoGrupos = new ArrayList<InfoGrupo>();
+        
+        try{
+            conectar();
+        
+            ResultSet respuesta = consulta_BDD(query);
+            while(respuesta.next()){
+                int grupoId = respuesta.getInt("grupo_id");
+                String query2 = "SELECT Cod_asignatura FROM grupo WHERE id_grupo = "+grupoId+";";
+                ResultSet respuesta2 = consulta_BDD(query2);
+                if(respuesta2.next()){
+                    int codAsignatura = respuesta2.getInt("Cod_asignatura");
+                    String query3 = "SELECT nombre FROM asginatura WHERE Cod_asignatura = "+codAsignatura+";";
+                    ResultSet respuesta3 = consulta_BDD(query3);
+                    if(respuesta3.next()){
+                        String nombre = respuesta3.getString("nombre");
+                        InfoGrupo infogrupo = new InfoGrupo();
+                        infogrupo.setAsignaturaGrupo(nombre);
+                        infogrupo.setIdGrupo(grupoId);
+                        infoGrupos.add(infogrupo);
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+        finally{
+            if(conexion!=null){
+                conexion.close();
+            }
+            return infoGrupos;
+        }
     }
 
     @Override
