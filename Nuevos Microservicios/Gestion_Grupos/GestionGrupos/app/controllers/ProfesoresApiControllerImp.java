@@ -1,9 +1,7 @@
 package controllers;
 
 import apimodels.Profesor;
-import static conexionbbdd.BBDD.conectar;
-import static conexionbbdd.BBDD.conexion;
-import static conexionbbdd.BBDD.consulta_BDD;
+import static conexionbbdd.BBDD.*;
 
 import play.mvc.Http;
 import java.util.List;
@@ -12,11 +10,11 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T16:40:26.439Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T17:36:45.634Z")
 
 public class ProfesoresApiControllerImp implements ProfesoresApiControllerImpInterface {
     @Override
-    public List<Profesor> getProfesoresGet() throws Exception {
+    public List<Profesor> profesoresGet() throws Exception {
         String query = "SELECT NIF, departamento FROM profesor";
         ArrayList<Profesor> profesores = new ArrayList<Profesor>();
         

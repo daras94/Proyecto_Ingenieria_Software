@@ -11,10 +11,10 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface GruposApiControllerImpInterface {
-    List<Grupo> getGruposGet() throws Exception;
+    void grupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo, Object cuerpo) throws Exception;
 
-    List<InfoGrupo> getInfoGrupoGet(String NIF) throws Exception;
+    List<Grupo> gruposGet() throws Exception;
 
-    void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo, Object cuerpo) throws Exception;
+    List<InfoGrupo> infoGrupoNIFGet(String NIF) throws Exception;
 
 }

@@ -7,7 +7,7 @@
   },
   "host": "localhost:9700",
   "paths": {
-    "/getGrupos": {
+    "/grupos": {
       "get": {
         "tags": [
           "Grupos"
@@ -33,7 +33,7 @@
         }
       }
     },
-    "/postGrupoAsignado": {
+    "/grupoAsignado": {
       "post": {
         "tags": [
           "Grupos"
@@ -77,7 +77,7 @@
         }
       }
     },
-    "/getCargaDocente": {
+    "/cargaDocente/{departamento}": {
       "get": {
         "tags": [
           "Departamento"
@@ -109,7 +109,7 @@
         }
       }
     },
-    "/getInfoGrupo": {
+    "/infoGrupo/{NIF}": {
       "get": {
         "tags": [
           "Grupos"
@@ -144,7 +144,7 @@
         }
       }
     },
-    "/getProfesores": {
+    "/profesores": {
       "get": {
         "tags": [
           "Profesores"

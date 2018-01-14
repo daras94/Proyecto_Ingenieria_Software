@@ -7,7 +7,7 @@
   },
   "host" : "localhost:9520",
   "paths" : {
-    "/getGrupos" : {
+    "/grupos" : {
       "get" : {
         "tags" : [ "Grupos" ],
         "summary" : "Devuelve el listado de grupos no asignados a un profesor de la universidad",
@@ -34,7 +34,7 @@
         "x-accepts" : "application/json"
       }
     },
-    "/postGrupoAsignado" : {
+    "/grupoAsignado" : {
       "post" : {
         "tags" : [ "Grupos" ],
         "summary" : "Post de una nueva asignacion Profesor_Grupo",
@@ -74,7 +74,7 @@
         "x-accepts" : "application/json"
       }
     },
-    "/getCargaDocente" : {
+    "/cargaDocente/{departamento}" : {
       "get" : {
         "tags" : [ "Departamento" ],
         "summary" : "Calcula y devuelve la carga docente de un departamento",
@@ -104,7 +104,7 @@
         "x-accepts" : "application/json"
       }
     },
-    "/getInfoGrupo" : {
+    "/infoGrupo/{NIF}" : {
       "get" : {
         "tags" : [ "Grupos" ],
         "summary" : "Obtener informacion del grupo",
@@ -137,7 +137,7 @@
         "x-accepts" : "application/json"
       }
     },
-    "/getProfesores" : {
+    "/profesores" : {
       "get" : {
         "tags" : [ "Profesores" ],
         "summary" : "Obtener una lista de profesores",

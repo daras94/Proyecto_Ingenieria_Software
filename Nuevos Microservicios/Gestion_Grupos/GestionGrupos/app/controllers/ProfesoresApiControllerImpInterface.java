@@ -10,6 +10,6 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface ProfesoresApiControllerImpInterface {
-    List<Profesor> getProfesoresGet() throws Exception;
+    List<Profesor> profesoresGet() throws Exception;
 
 }
