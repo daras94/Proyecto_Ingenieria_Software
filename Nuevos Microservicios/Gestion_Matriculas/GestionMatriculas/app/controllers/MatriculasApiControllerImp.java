@@ -59,6 +59,8 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
                 }
             }
             
+            String sql_update = "UPDATE Matricula SET reserva = TRUE WHERE num_expediente= "+String.valueOf(numeroExpediente);
+            sentencias_sql.add(sql_update);
             
             int resultado = actualizar_BDD(sentencias_sql);
             if(resultado==0){
