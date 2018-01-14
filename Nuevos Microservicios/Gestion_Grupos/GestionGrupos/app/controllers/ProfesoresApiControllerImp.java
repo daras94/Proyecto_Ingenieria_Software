@@ -17,7 +17,7 @@ import javax.validation.constraints.*;
 public class ProfesoresApiControllerImp implements ProfesoresApiControllerImpInterface {
     @Override
     public List<Profesor> getProfesoresGet() throws Exception {
-        String query = "SELECT NIF, departamento FROM profesor WHERE";
+        String query = "SELECT NIF, departamento FROM profesor";
         ArrayList<Profesor> profesores = new ArrayList<Profesor>();
         
         try{
