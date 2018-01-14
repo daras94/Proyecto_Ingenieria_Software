@@ -34,32 +34,56 @@ public class CarreraApiController extends Controller {
 
     @ApiAction
     public Result editarCarreraNumeroCarreraPut(Integer numeroCarrera) throws Exception {
+        try{
         JsonNode nodeaula = request().body().asJson();
         Carrera aula;
 
         aula = mapper.readValue(nodeaula.toString(), Carrera.class);
 
-        imp.editarCarreraNumeroCarreraPut(numeroCarrera, aula);
+        if(!imp.editarCarreraNumeroCarreraPut(numeroCarrera, aula)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println();
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result eliminarCarreraCodigoCarreraDelete(Integer codigoCarrera) throws Exception {
-        imp.eliminarCarreraCodigoCarreraDelete(codigoCarrera);
+        try{
+        if(!imp.eliminarCarreraCodigoCarreraDelete(codigoCarrera)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println();
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result insertarCarreraPost() throws Exception {
+        try{
         JsonNode nodecarrera = request().body().asJson();
         Carrera carrera;
 
         carrera = mapper.readValue(nodecarrera.toString(), Carrera.class);
 
-        imp.insertarCarreraPost(carrera);
+        if(!imp.insertarCarreraPost(carrera)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println();
+            return internalServerError("Error interno del servidor");
+        }
     }
 }
