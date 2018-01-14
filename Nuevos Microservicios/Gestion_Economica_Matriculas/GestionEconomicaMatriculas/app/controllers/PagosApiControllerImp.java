@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 public class PagosApiControllerImp implements PagosApiControllerImpInterface {
     @Override
     public void actualizarPagoPut( @NotNull Integer promocion,  @NotNull String alumno,  @NotNull Integer numeroPago) throws Exception {
-        String query = "UPDATE Pago SET pagado = true WHERE numero_pago = "+numeroPago+" AND Curso = "+promocion+" AND num_expediente = (SELECT num_expediente FROM Alumno WHERE Usuario_DNI = "+alumno+");";
+        String query = "UPDATE pago SET pagado = true WHERE numero_pago = "+numeroPago+" AND Curso = "+promocion+" AND num_expediente = (SELECT num_expediente FROM alumno WHERE Usuario_DNI = "+alumno+");";
         
         try{
             conectar();

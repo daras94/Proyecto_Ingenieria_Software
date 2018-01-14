@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 public class AlumnoApiControllerImp implements AlumnoApiControllerImpInterface {
     @Override
     public List<String> getCorreosGet( @NotNull Integer promocion,  @NotNull Integer plazo) throws Exception {
-        String query = "SELECT email FROM Ususario WHERE NIF = (SELECT Usuario_NIF FROM Alumno WHERE num_expediente = (SELECT num_expediente FROM Pago WHERE Curso = "+promocion+" AND numero_pago = "+plazo+" AND pagado = false));";
+        String query = "SELECT email FROM ususario WHERE NIF = (SELECT Usuario_NIF FROM alumno WHERE num_expediente = (SELECT num_expediente FROM pago WHERE Curso = "+promocion+" AND numero_pago = "+plazo+" AND pagado = false));";
         ArrayList<String> correos = new ArrayList<String>();
         
         try{

@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 public class DepartamentoApiControllerImp implements DepartamentoApiControllerImpInterface {
     @Override
     public Integer getCargaDocenteGet(Integer departamento) throws Exception {
-        String query = "SELECT NIF, categoria FROM Profesor WHERE departamento = "+departamento+";";
+        String query = "SELECT NIF, categoria FROM profesor WHERE departamento = "+departamento+";";
         int horasDadas = 0;
         int horasTotalesDepartamento = 0;
         
@@ -23,12 +23,12 @@ public class DepartamentoApiControllerImp implements DepartamentoApiControllerIm
         
             ResultSet respuesta = consulta_BDD(query);
             while(respuesta.next()){
-                String query2 = "SELECT COUNT(grupo_id) FROM Profesor_Grupo WHERE Profesor_NIF = "+respuesta.getInt("NIF")+";";
+                String query2 = "SELECT COUNT(grupo_id) FROM profesor_grupo WHERE Profesor_NIF = "+respuesta.getInt("NIF")+";";
                 ResultSet respuesta2 = consulta_BDD(query2);
                 //Suponemos que un profesor da 2 horas semanales a cada grupo
                 horasDadas += respuesta2.getInt(1)*2;
                 
-                String query3 = "SELECT horas_semanales FROM Categoria WHERE nombre = "+respuesta.getString("categoria")+";";
+                String query3 = "SELECT horas_semanales FROM categoria WHERE nombre = "+respuesta.getString("categoria")+";";
                 ResultSet respuesta3 = consulta_BDD(query3);
                 horasTotalesDepartamento += respuesta3.getInt("horas_semanales");
             }

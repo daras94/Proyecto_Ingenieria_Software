@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
 public class GruposApiControllerImp implements GruposApiControllerImpInterface {
     @Override
     public List<Grupo> getGruposGet() throws Exception {
-        String query = "SELECT id_grupo, Cod_asignatura, tipo FROM Grupo WHERE id_grupo NOT IN (SELECT grupo_id FROM Profesor_Grupo);";
+        String query = "SELECT id_grupo, Cod_asignatura, tipo FROM grupo WHERE id_grupo NOT IN (SELECT grupo_id FROM profesor_grupo);";
         ArrayList<Grupo> grupos = new ArrayList<Grupo>();
         
         try{
@@ -25,7 +25,7 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
             ResultSet respuesta = consulta_BDD(query);
             while(respuesta.next()){
                 int codAsignatura = respuesta.getInt("Cod_asignatura");
-                String query2 = "SELECT nombre FROM Asignatura WHERE Cod_asignatura = "+codAsignatura+";";
+                String query2 = "SELECT nombre FROM asignatura WHERE Cod_asignatura = "+codAsignatura+";";
                 ResultSet respuesta2 = consulta_BDD(query2);
                 if(respuesta2.next()){
                     int idGrupo = respuesta.getInt("id_grupo");
@@ -90,7 +90,7 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
 
     @Override
     public void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo) throws Exception {
-        String query = "INSERT INTO Profesor_Grupo VALUES("+grupo+","+profesor+");";
+        String query = "INSERT INTO profesor_grupo VALUES("+grupo+","+profesor+");";
         
         try{
             conectar();

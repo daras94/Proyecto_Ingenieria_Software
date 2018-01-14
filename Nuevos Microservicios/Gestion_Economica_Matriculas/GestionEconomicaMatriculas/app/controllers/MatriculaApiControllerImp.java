@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 public class MatriculaApiControllerImp implements MatriculaApiControllerImpInterface {
     @Override
     public void eliminarMatriculasDelete( @NotNull Integer promocion) throws Exception {
-        String query = "DELETE FROM Matricula WHERE Curso = "+promocion+" AND reserva = false);";
+        String query = "DELETE FROM matricula WHERE Curso = "+promocion+" AND reserva = false);";
         try{
             conectar();
         
