@@ -89,7 +89,7 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             conectar();
             String sql="";
             
-            sql += "SELECT * FROM Asignatura_Matriculada WHERE num_expediente=";
+            sql += "SELECT * FROM Asignatura_Matriculada NATURAL JOIN Asignatura WHERE num_expediente=";
             sql+=String.valueOf(numeroExpediente)+" and nota_teoria>=5 and nota_lab>=5 AND tipo = 'TFG';";
             
             result = consulta_BDD(sql);
