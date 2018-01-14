@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T20:12:09.365Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T17:04:47.834Z")
 
 public class FacturaApiControllerImp implements FacturaApiControllerImpInterface {
     @Override
@@ -45,6 +45,4 @@ public class FacturaApiControllerImp implements FacturaApiControllerImpInterface
         }
         return facturas;
     }
-    
-
 }

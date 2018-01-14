@@ -18,7 +18,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-04T20:12:09.365Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T17:04:47.834Z")
 
 public class NominaApiController extends Controller {
 
@@ -34,6 +34,11 @@ public class NominaApiController extends Controller {
 
     @ApiAction
     public Result nominaPost() throws Exception {
+        JsonNode nodesdfv = request().body().asJson();
+        Object sdfv;
+
+        sdfv = mapper.readValue(nodesdfv.toString(), Object.class);
+
         String valueNIF = request().getQueryString("NIF");
         String NIF;
 
@@ -44,7 +49,7 @@ public class NominaApiController extends Controller {
 
         fecha = (String)valuefecha;
 
-        imp.nominaPost(NIF, fecha);
+        imp.nominaPost(sdfv, NIF, fecha);
         
         return ok();
     }

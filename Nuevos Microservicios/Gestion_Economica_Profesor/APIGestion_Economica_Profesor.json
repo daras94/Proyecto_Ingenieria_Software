@@ -16,6 +16,14 @@
         "description": "Integrar en la base de datos una nueva nomina.",
         "parameters": [
           {
+            "name": "sdfv",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
             "name": "NIF",
             "in": "query",
             "required": true,

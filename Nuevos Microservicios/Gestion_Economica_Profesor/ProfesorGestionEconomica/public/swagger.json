@@ -5,7 +5,7 @@
     "version" : "1.0.0",
     "title" : "API Universidad Villamayor Profesores"
   },
-  "host" : "localhost:9700",
+  "host" : "localhost:9200",
   "paths" : {
     "/nomina" : {
       "post" : {
@@ -13,6 +13,13 @@
         "summary" : "Dar de alta una nomina",
         "description" : "Integrar en la base de datos una nueva nomina.",
         "parameters" : [ {
+          "in" : "body",
+          "name" : "sdfv",
+          "required" : true,
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
           "name" : "NIF",
           "in" : "query",
           "description" : "NIF del profesor",
