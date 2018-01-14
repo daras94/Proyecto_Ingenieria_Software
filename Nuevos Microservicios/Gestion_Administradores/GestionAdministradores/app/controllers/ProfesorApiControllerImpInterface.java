@@ -10,10 +10,10 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface ProfesorApiControllerImpInterface {
-    void editarProfesorNumeroProfesorPut(Integer numeroProfesor, Profesor aula) throws Exception;
+    boolean editarProfesorNumeroProfesorPut(Integer numeroProfesor, Profesor profesor) throws Exception;
 
-    void eliminarProfesorNIFDelete(String NIF) throws Exception;
+    boolean eliminarProfesorNIFDelete(String NIF) throws Exception;
 
-    void insertarProfesorPost(Profesor profesor) throws Exception;
+    boolean insertarProfesorPost(Profesor profesor) throws Exception;
 
 }

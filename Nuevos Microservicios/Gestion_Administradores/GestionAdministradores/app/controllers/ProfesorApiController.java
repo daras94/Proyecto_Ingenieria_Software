@@ -34,32 +34,55 @@ public class ProfesorApiController extends Controller {
 
     @ApiAction
     public Result editarProfesorNumeroProfesorPut(Integer numeroProfesor) throws Exception {
+        try{
         JsonNode nodeaula = request().body().asJson();
-        Profesor aula;
+        Profesor profesor;
 
-        aula = mapper.readValue(nodeaula.toString(), Profesor.class);
+        profesor = mapper.readValue(nodeaula.toString(), Profesor.class);
 
-        imp.editarProfesorNumeroProfesorPut(numeroProfesor, aula);
+        if(!imp.editarProfesorNumeroProfesorPut(numeroProfesor, profesor)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result eliminarProfesorNIFDelete(String NIF) throws Exception {
-        imp.eliminarProfesorNIFDelete(NIF);
+        try{
+        if(!imp.eliminarProfesorNIFDelete(NIF)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result insertarProfesorPost() throws Exception {
+        try{
         JsonNode nodeprofesor = request().body().asJson();
         Profesor profesor;
 
         profesor = mapper.readValue(nodeprofesor.toString(), Profesor.class);
 
-        imp.insertarProfesorPost(profesor);
+        if(!imp.insertarProfesorPost(profesor)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 }
