@@ -42,7 +42,7 @@ public class ListaNotasApiController extends Controller {
             return badRequest("Introduzca correctamente los datos");
         }
         
-        return ok();
+        return ok(mapper.createObjectNode());
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -78,7 +78,7 @@ public class ListaNotasApiController extends Controller {
             return badRequest("Introduzca los datos correctamente");
         }
         
-        return ok();
+        return ok(mapper.createObjectNode());
         }
         catch(Exception e){
             System.out.println(e.toString());

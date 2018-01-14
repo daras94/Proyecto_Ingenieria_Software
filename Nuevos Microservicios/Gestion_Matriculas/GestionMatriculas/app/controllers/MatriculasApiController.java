@@ -50,7 +50,7 @@ public class MatriculasApiController extends Controller {
             return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
         
-        return ok();
+        return ok(mapper.createObjectNode());
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -66,7 +66,7 @@ public class MatriculasApiController extends Controller {
         if(!resultado){
             return badRequest("Los datos introducidos no son correctos. Por favor vuelve a introducirlos correctamente.");
         }
-        return ok();
+        return ok(mapper.createObjectNode());
         }
         catch(Exception e){
             System.out.println(e.toString());

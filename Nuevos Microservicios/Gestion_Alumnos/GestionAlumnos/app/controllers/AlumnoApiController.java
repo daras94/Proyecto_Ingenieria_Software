@@ -47,7 +47,7 @@ public class AlumnoApiController extends Controller {
 
         boolean exito = imp.altaAlumnoPost(alumno);
         if(exito){
-            return ok("Usuario Creado Correctamente");
+            return ok(mapper.createObjectNode());
         }
         
         else{
@@ -65,7 +65,7 @@ public class AlumnoApiController extends Controller {
         try{
             boolean exito = imp.alumnoByNIFNIFDelete(NIF);
             if(exito){
-                return ok();
+                return ok(mapper.createObjectNode());
             }
             else{
                 return badRequest("Los datos que se han introducido no son correctos. Por favor repaselos de nuevo.");
@@ -108,7 +108,7 @@ public class AlumnoApiController extends Controller {
 
             boolean exito = imp.alumnoByNIFNIFPut(NIF, alumno);
             if(exito){
-                return ok();
+                return ok(mapper.createObjectNode());
             }
             else{
                 return badRequest("Los datos que se han introducido no son correctos. Por favor repaselos de nuevo.");
