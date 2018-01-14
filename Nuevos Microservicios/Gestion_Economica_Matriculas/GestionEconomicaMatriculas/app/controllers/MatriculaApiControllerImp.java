@@ -18,7 +18,7 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
         try{
             conectar();
         
-            consulta_BDD(query);
+            actualizar_BDD(query);
         }
         catch (Exception e){
             System.out.println(e.toString());
@@ -42,8 +42,7 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
                 if(respuesta.getBoolean("pagado") == false){
                     String query2 = "DELETE FROM Pago WHERE num_expediente = "+respuesta.getInt("num_expediente")+" AND Curso = "+promocion+";";
                     String query3 = "DELETE FROM Matricula WHERE Curso = "+promocion+" AND num_expediente = "+respuesta.getInt("num_expediente")+";";
-                    consulta_BDD(query2);
-                    consulta_BDD(query3);
+                    actualizar_BDD(query2, query3);
                 }
             }
         }
