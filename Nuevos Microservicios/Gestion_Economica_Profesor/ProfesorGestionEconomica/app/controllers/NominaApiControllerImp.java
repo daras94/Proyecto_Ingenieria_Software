@@ -20,7 +20,7 @@ public class NominaApiControllerImp implements NominaApiControllerImpInterface {
     public void nominaPost(@NotNull Object svjf, @NotNull String NIF,  @NotNull String fecha) throws Exception {
         try{
             conectar();
-            String sql = "SELECT categoria, antiguedad, num_tramos_investigacion, num_tramos_docentes FROM profesor WHERE NIF= "+NIF;
+            String sql = "SELECT categoria, antiguedad, num_tramos_investigacion, num_tramos_docentes FROM profesor WHERE NIF= '"+NIF+"'";
             ResultSet resultado = consulta_BDD(sql);
             String sql2= "SELECT MAX(numero) AS numero FROM nomina";
             ResultSet resultado2 = consulta_BDD(sql2);
@@ -40,7 +40,7 @@ public class NominaApiControllerImp implements NominaApiControllerImpInterface {
                 }else if (categoria=="Suplente"){
                     pago_categoria=100;
                 double salario= 1500+num_tramos_investigacion*40+num_tramos_docentes*30+antiguedad*20+pago_categoria;
-                String sql3 = "INSERT INTO nomina VALUES("+NIF+","+numero_actual+","+fecha+","+salario+");";
+                String sql3 = "INSERT INTO nomina VALUES('"+NIF+"',"+numero_actual+",'"+fecha+"',"+salario+");";
                 actualizar_BDD(sql3);
         }    
         }

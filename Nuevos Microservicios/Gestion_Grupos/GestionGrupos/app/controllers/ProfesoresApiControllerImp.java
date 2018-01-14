@@ -26,7 +26,7 @@ public class ProfesoresApiControllerImp implements ProfesoresApiControllerImpInt
             ResultSet respuesta = consulta_BDD(query);
             while(respuesta.next()){
                 String NIF = respuesta.getString("NIF");
-                String query2 = "SELECT nombre, apellido1, apellido2 FROM usuario WHERE NIF = "+NIF+";";
+                String query2 = "SELECT nombre, apellido1, apellido2 FROM usuario WHERE NIF = '"+NIF+"';";
                 ResultSet respuesta2 = consulta_BDD(query2);
                 if(respuesta2.next()){
                     int departamento = respuesta.getInt("departamento");

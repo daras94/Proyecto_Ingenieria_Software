@@ -52,7 +52,7 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
 
     @Override
     public List<InfoGrupo> getInfoGrupoGet(String NIF) throws Exception {
-        String query = "SELECT grupo_id FROM profesor_grupo WHERE Profesor_NIF= "+NIF;
+        String query = "SELECT grupo_id FROM profesor_grupo WHERE Profesor_NIF= '"+NIF+"'";
         ArrayList<InfoGrupo> infoGrupos = new ArrayList<InfoGrupo>();
         
         try{

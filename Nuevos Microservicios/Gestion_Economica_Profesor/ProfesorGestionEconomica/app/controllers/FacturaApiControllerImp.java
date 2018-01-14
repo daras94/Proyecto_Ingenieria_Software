@@ -20,7 +20,7 @@ public class FacturaApiControllerImp implements FacturaApiControllerImpInterface
         ArrayList<Factura> facturas= new ArrayList<>();
         try{
             conectar();
-            String sql = "SELECT * FROM reservaprofesor WHERE Profesor_NIF = "+NIF+ " AND MONTH(fecha)= "+mes+" AND YEAR(fecha)= "+ao;
+            String sql = "SELECT * FROM reservaprofesor WHERE Profesor_NIF = '"+NIF+ "' AND MONTH(fecha)= "+mes+" AND YEAR(fecha)= "+ao;
             ResultSet resultado = consulta_BDD(sql);
              
             while (resultado.next()){
