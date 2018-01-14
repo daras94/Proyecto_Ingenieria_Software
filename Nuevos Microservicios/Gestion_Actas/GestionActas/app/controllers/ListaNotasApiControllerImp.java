@@ -47,6 +47,18 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
         ResultSet result = null;
         try{
             conectar();
+            String SQL_aux = "SELECT tipo FROM Grupo WHERE id_grupo = "+String.valueOf(id);
+            ResultSet result2 = consulta_BDD(SQL_aux);
+            String tipo_nota="";
+            result2.next();
+            if(result2.getString("tipo").equals("T")){
+                tipo_nota = "nota_teoria";
+            }
+            else{
+                tipo_nota = "nota_lab";
+            }
+            result2=null;
+            
             String SQL = "";
             SQL+="SELECT * FROM Asignatura_Matriculada NATURAL JOIN Alumno INNER JOIN Usuario ON (Usuario_NIF=NIF) WHERE Curso= "+anno+" AND (id_grupo_teoria = ";
             SQL+=String.valueOf(id)+" OR id_grupo_lab= "+String.valueOf(id)+");";
@@ -61,7 +73,7 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
                 aux.setApellido1(result.getString("apellido1"));
                 aux.setApellido2(result.getString("apellido2"));
                 aux.setEmail(result.getString("email"));
-                aux.setNota(result.getDouble("nota"));
+                aux.setNota(result.getDouble(tipo_nota));
                 aux.setExpediente(result.getInt("num_expediente"));
                 
                 alumnos.add(aux);
@@ -95,11 +107,15 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
             String SQL = "SELECT tipo FROM Grupo WHERE id_grupo = "+String.valueOf(id);
             ResultSet result = consulta_BDD(SQL);
             String tipo_nota="";
+            String tipo_grupo="";
+            result.next();
             if(result.getString("tipo").equals("T")){
                 tipo_nota = "nota_teoria";
+                tipo_grupo= "id_grupo_teoria";
             }
             else{
                 tipo_nota = "nota_lab";
+                tipo_grupo = "id_grupo_lab";
             }
             result = null;
             sentencias=new ArrayList<>();
@@ -108,7 +124,7 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
             Alumno alum_aux=null;
             for(int i =0;i<alumnos.size();i++){
                 alum_aux=alumnos.get(i);
-                sql_aux=String.valueOf(alum_aux.getNota())+" WHERE num_expediente = "+String.valueOf(alum_aux.getExpediente())+" AND Grupo_id_grupo= "+String.valueOf(id)+";";
+                sql_aux=String.valueOf(alum_aux.getNota())+" WHERE num_expediente = "+String.valueOf(alum_aux.getExpediente())+" AND "+tipo_grupo+"= "+String.valueOf(id)+";";
                 sentencias.add(SQL+sql_aux);
                 alum_aux=null;
                 sql_aux="";
