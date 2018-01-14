@@ -24,16 +24,17 @@ public class GruposAsignaturasApiControllerImp implements GruposAsignaturasApiCo
         List<AsignaturaMatriculable> asignaturas_disponibles = new ArrayList<>();
         ResultSet result = null;
         String sql = "";
+        boolean error = false;
         try{
             conectar();
             //Comprobar Reserva
             sql="SELECT * FROM Matricula WHERE num_expediente ="+String.valueOf(numeroExpediente)+" AND Curso= "+anno;
             result=consulta_BDD(sql);
             if(!result.next()){
-                return null;
+                throw new Exception();
             }else{
                 if(result.getBoolean("reserva")){
-                    return null;
+                    throw new Exception();
                 }
             }
             sql="";
@@ -146,13 +147,18 @@ public class GruposAsignaturasApiControllerImp implements GruposAsignaturasApiCo
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return null;
+            error = true;
         }
         finally{
             if(conexion!=null){
                 conexion.close();
             }
-            return asignaturas_disponibles;
+            if(error){
+                throw new Exception();
+            }else{
+                return asignaturas_disponibles;
+            }
+            
         }
     }
 
