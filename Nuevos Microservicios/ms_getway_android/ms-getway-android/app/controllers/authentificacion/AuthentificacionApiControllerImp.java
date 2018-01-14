@@ -40,6 +40,7 @@ public class AuthentificacionApiControllerImp implements AuthentificacionApiCont
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
         HttpResponse response = new DefaultHttpClient().execute(post);
         JsonNode auth = mapper.readTree(response.getEntity().getContent());
+        System.out.println(" - Logout POST: " + response.getStatusLine().getStatusCode() + ", Protocolo = " + response.getProtocolVersion().getProtocol() + ", Response: " +response.getStatusLine().getReasonPhrase());
         log.info(" - Logout POST: " + response.getStatusLine().getStatusCode() + ", Protocolo = " + response.getProtocolVersion().getProtocol() + ", Response: " +response.getStatusLine().getReasonPhrase());
         return Json.fromJson(auth, Usuario.class);
     }

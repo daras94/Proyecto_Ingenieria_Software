@@ -1,6 +1,6 @@
 package controllers.actas;
 
-import models.AlumnoActas;
+import models.acta.Alumno;
 import java.util.List;
 
 import play.mvc.Controller;
@@ -42,7 +42,7 @@ public class ListaNotasApiController extends Controller {
 
     @ApiAction
     public Result obtenerListaIdGet(Integer id) throws Exception {
-        List<AlumnoActas> obj = imp.obtenerListaIdGet(id);
+        List<Alumno> obj = imp.obtenerListaIdGet(id);
         JsonNode result = mapper.valueToTree(obj);
         return ok(result);
         
@@ -51,9 +51,9 @@ public class ListaNotasApiController extends Controller {
     @ApiAction
     public Result subirNotasIdPut(Integer id) throws Exception {
         JsonNode nodealumnos = request().body().asJson();
-        List<AlumnoActas> alumnos;
+        List<Alumno> alumnos;
 
-        alumnos = mapper.readValue(nodealumnos.toString(), new TypeReference<List<List<AlumnoActas>>>(){});
+        alumnos = mapper.readValue(nodealumnos.toString(), new TypeReference<List<List<Alumno>>>(){});
 
         imp.subirNotasIdPut(id, alumnos);
         

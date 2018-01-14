@@ -66,6 +66,18 @@ GET       /espacios                                              controllers.res
 PUT       /reservas/actualizar                                   controllers.reservas.GestionReservasApiController.reservasActualizarPut()
 DELETE    /reservas/cancelar                                     controllers.reservas.GestionReservasApiController.reservasCancelarDelete()
 POST      /reservas/reservar                                     controllers.reservas.GestionReservasApiController.reservasReservarPost()
+GET       /reservas/:nif                                         controllers.reservas.GestionReservasApiController.reservasNifGet(nif: String)
+
+#Functions for Departamento API
+GET       /getCargaDocente                                       controllers.grupos.DepartamentoApiController.getCargaDocenteGet(departamento: Integer)
+
+#Functions for Grupos API
+GET       /getGrupos                                             controllers.grupos.GruposApiController.getGruposGet()
+GET       /getInfoGrupo                                          controllers.grupos.GruposApiController.getInfoGrupoGet(NIF: String)
+POST      /postGrupoAsignado                                     controllers.grupos.GruposApiController.postGrupoAsignadoPost()
+
+#Functions for Profesores API
+GET       /getProfesores                                         controllers.grupos.ProfesoresApiController.getProfesoresGet()
 
 # Map static resources from the /public folder to the /assets URL path
 GET       /assets/*file                                          controllers.Assets.versioned(path="/public", file: Asset)

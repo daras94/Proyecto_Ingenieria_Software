@@ -15,5 +15,7 @@ public interface GestionReservasApiControllerImpInterface {
     void reservasCancelarDelete( @NotNull String dia,  @NotNull Integer hora,  @NotNull Integer espacio) throws Exception;
 
     void reservasReservarPost(Reserva reserva) throws Exception;
+    
+    List<Reserva> reservasNifGet(String nif) throws Exception;
 
 }

@@ -31,7 +31,6 @@ public class GestionReservasApiController extends Controller {
         mapper = new ObjectMapper();
     }
 
-
     @ApiAction
     public Result reservasActualizarPut() throws Exception {
         JsonNode nodereserva = request().body().asJson();
@@ -42,7 +41,7 @@ public class GestionReservasApiController extends Controller {
         String valuedia = request().getQueryString("dia");
         String dia;
 
-        dia = (String)valuedia;
+        dia = (String) valuedia;
 
         String valuehora = request().getQueryString("hora");
         Integer hora;
@@ -55,7 +54,7 @@ public class GestionReservasApiController extends Controller {
         espacio = Integer.parseInt(valueespacio);
 
         imp.reservasActualizarPut(dia, hora, espacio, reserva);
-        
+
         return ok();
     }
 
@@ -64,7 +63,7 @@ public class GestionReservasApiController extends Controller {
         String valuedia = request().getQueryString("dia");
         String dia;
 
-        dia = (String)valuedia;
+        dia = (String) valuedia;
 
         String valuehora = request().getQueryString("hora");
         Integer hora;
@@ -77,7 +76,7 @@ public class GestionReservasApiController extends Controller {
         espacio = Integer.parseInt(valueespacio);
 
         imp.reservasCancelarDelete(dia, hora, espacio);
-        
+
         return ok();
     }
 
@@ -89,7 +88,14 @@ public class GestionReservasApiController extends Controller {
         reserva = mapper.readValue(nodereserva.toString(), Reserva.class);
 
         imp.reservasReservarPost(reserva);
-        
+
         return ok();
+    }
+
+    @ApiAction
+    public Result reservasNifGet(String nif) throws Exception {
+        List<Reserva> obj = imp.reservasNifGet(nif);
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
     }
 }

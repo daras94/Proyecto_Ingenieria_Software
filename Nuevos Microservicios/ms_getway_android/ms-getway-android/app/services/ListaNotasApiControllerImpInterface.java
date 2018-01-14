@@ -1,6 +1,6 @@
 package services;
 
-import models.AlumnoActas;
+import models.acta.Alumno;
 import java.util.List;
 
 import play.mvc.Http;
@@ -11,10 +11,11 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface ListaNotasApiControllerImpInterface {
-    void cerrarActasIdPut(Integer id) throws Exception;
 
-    List<AlumnoActas> obtenerListaIdGet(Integer id) throws Exception;
+    Integer cerrarActasIdPut(Integer id) throws Exception;
 
-    void subirNotasIdPut(Integer id, List<AlumnoActas> alumnos) throws Exception;
+    List<Alumno> obtenerListaIdGet(Integer id) throws Exception;
+
+    Integer subirNotasIdPut(Integer id, List<Alumno> alumnos) throws Exception;
 
 }
