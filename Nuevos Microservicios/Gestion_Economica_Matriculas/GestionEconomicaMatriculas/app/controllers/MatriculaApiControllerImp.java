@@ -58,7 +58,7 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
 
     @Override
     public void reservaMatriculaPut( @NotNull Integer promocion,  @NotNull String alumno) throws Exception {
-        String query = "UPDATE Matricula SET reserva = true WHERE Curso = "+promocion+" AND num_expediente = (SELECT num_expediente FROM Alumno WHERE Usuario_DNI = "+alumno+");";
+        String query = "UPDATE Matricula SET reserva = true WHERE Curso = "+promocion+" AND num_expediente = (SELECT num_expediente FROM Alumno WHERE Usuario_DNI = '"+alumno+"');";
         try{
             conectar();
         
