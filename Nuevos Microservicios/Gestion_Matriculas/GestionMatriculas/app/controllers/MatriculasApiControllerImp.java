@@ -82,9 +82,24 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
     public boolean realizarReservaNumeroExpedientePost(Integer numeroExpediente) throws Exception {
         //Do your magic!!!
         boolean exito=false;
+        ResultSet result = null;
         try{
             conectar();
-            String sql = "INSERT INTO Matricula VALUES ("+String.valueOf(numeroExpediente)+", "+anno+", FALSE);";
+            String sql="";
+            
+            sql += "SELECT * FROM Asignatura_Matriculada WHERE num_expediente=";
+            sql+=String.valueOf(numeroExpediente)+" and nota_teoria>=5 and nota_lab>=5 AND tipo = 'TFG';";
+            
+            result = consulta_BDD(sql);
+            
+            
+            if(result.next()){
+                return false;
+            }
+            
+            sql="";
+            result=null;
+            sql = "INSERT INTO Matricula VALUES ("+String.valueOf(numeroExpediente)+", "+anno+", FALSE);";
             int resultado = actualizar_BDD(sql);
             if(resultado==0){
                 exito=true;
