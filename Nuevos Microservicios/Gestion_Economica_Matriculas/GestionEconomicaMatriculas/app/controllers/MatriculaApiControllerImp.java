@@ -63,7 +63,7 @@ public class MatriculaApiControllerImp implements MatriculaApiControllerImpInter
         try{
             conectar();
         
-            consulta_BDD(query);
+            actualizar_BDD(query);
         }
         catch (Exception e){
             System.out.println(e.toString());
