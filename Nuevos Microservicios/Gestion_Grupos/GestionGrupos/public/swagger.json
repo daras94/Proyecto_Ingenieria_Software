@@ -5,7 +5,7 @@
     "version" : "1.0.0",
     "title" : "API Gestion de Grupos Universidad Villamayor"
   },
-  "host" : "localhost:9700",
+  "host" : "localhost:9520",
   "paths" : {
     "/getGrupos" : {
       "get" : {
