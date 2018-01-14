@@ -39,6 +39,9 @@
     <string name="title_activity_tipo_reserva">TipoReserva</string>
     <string name="title_activity_reserva_espacio">ReservaEspacio</string>
     <string name="title_activity_ver_reservas">VerReservas</string>
+    <string name="title_activity_matriculas_alumno">MatriculasAlumno</string>
+    <string name="title_activity_datos_alumno">DatosAlumno</string>
+    <string name="title_activity_elegir_grupos">ElegirGrupos</string>
 
 
 </resources>

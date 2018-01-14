@@ -80,6 +80,11 @@ public class Login extends AppCompatActivity  {
 
         PassView = (EditText) findViewById(R.id.password);
 
+        Intent intent = getIntent();
+        if(intent.getStringExtra("login")!=null){
+            NIFView.setText(intent.getStringExtra("login"));
+        }
+
         rq = Volley.newRequestQueue(this);
 
         Button accederButton = (Button) findViewById(R.id.nif_sign_in_button);
@@ -96,22 +101,28 @@ public class Login extends AppCompatActivity  {
                         try{
 
                             String nif = response.getString("nif");
+                            String expediente = response.getString("num_expediente");
 
                             SharedPreferences sp = getSharedPreferences("usuario", MODE_PRIVATE);
                             SharedPreferences.Editor e = sp.edit();
                             e.putString("nif", nif);
+                            e.putString("expediente",expediente);
                             e.commit();
 
                             String tipo = response.getString("tipo_user");
                             if(tipo.equals("ALUMNO")){
-                                //Intent intent = new Intent(getApplicationContext(), CuentaAlumno.class);
-                                //startActivity(intent);
+                                e.putString("expediente",expediente);
+                                e.commit();
+                                Intent intent = new Intent(getApplicationContext(), CuentaAlumno.class);
+                                startActivity(intent);
                             }else if (tipo.equals("PROFESOR")) {
+                                e.putString("expediente","");
+                                e.commit();
                                 Intent intent = new Intent(getApplicationContext(), CuentaProfesor.class);
                                 startActivity(intent);
                             }else{
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT);
-                                    toast.show();
+                                Toast toast = Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT);
+                                toast.show();
 
                             }
 

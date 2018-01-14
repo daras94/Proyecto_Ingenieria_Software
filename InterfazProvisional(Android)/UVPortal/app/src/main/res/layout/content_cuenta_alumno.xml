@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.uvportal.uahgii.uvportal.CuentaAlumno"
-    tools:showIn="@layout/app_bar_cuenta_alumno">
+    tools:showIn="@layout/activity_cuenta_alumno">
 
-</android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button_ver_datos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Ver Datos" />
+
+    <Button
+        android:id="@+id/button_ver_matriculas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Ver Matriculas" />
+
+    <Button
+        android:id="@+id/button_reservar_matricula"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Reservar Matricula" />
+
+    <Button
+        android:id="@+id/button_realizar_matricula"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Realizar Matricula" />
+
+
+</LinearLayout>

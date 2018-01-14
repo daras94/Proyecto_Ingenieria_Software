@@ -1,68 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.uvportal.uahgii.uvportal.ListaAsignaturas">
+    tools:context="com.uvportal.uahgii.uvportal.MatriculasAlumno"
+    tools:showIn="@layout/activity_matriculas_alumno">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp">
+        android:layout_weight="1">
 
         <TextView
-            android:id="@+id/textview_tipo"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="5"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Creditos tipo"/>
-
-        <TextView
-            android:id="@+id/textview_cred_tipo"
+            android:id="@+id/textview_año"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_weight="5"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="0"/>
+            android:textSize="16dp"
+            android:text="AÑO"/>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
+        <Spinner
+            android:id="@+id/spinner_año"
             android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="5"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Creditos globales"/>
-
-        <TextView
-            android:id="@+id/textview_cred_glob"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="5"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="0"/>
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"/>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
@@ -83,9 +58,23 @@
             android:text="Nombre"/>
 
         <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"/>
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/textview_año"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Tipo"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
 
         <TextView
             android:id="@+id/textview_año"
@@ -101,14 +90,15 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"/>
 
-        <ImageView
+        <TextView
             android:id="@+id/textview_año"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_gravity="center"
             android:gravity="center"
-            android:src="@mipmap/ic_check"/>
+            android:text="Nota"/>
+
 
     </LinearLayout>
 
@@ -117,19 +107,12 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/lista_asignaturas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="15"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <LinearLayout
-            android:id="@+id/lista_asignaturas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

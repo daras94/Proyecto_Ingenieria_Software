@@ -54,6 +54,22 @@
         <activity
             android:name=".VerReservas"
             android:label="@string/title_activity_ver_reservas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CuentaAlumno"
+            android:label="@string/title_activity_cuenta_alumno"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MatriculasAlumno"
+            android:label="@string/title_activity_matriculas_alumno"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DatosAlumno"
+            android:label="@string/title_activity_datos_alumno"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ElegirGrupos"
+            android:label="@string/title_activity_elegir_grupos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

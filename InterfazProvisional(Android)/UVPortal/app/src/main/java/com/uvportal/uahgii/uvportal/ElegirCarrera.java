@@ -89,14 +89,14 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
             alumno.put("Email",email);
             alumno.put("CuentaCorriente",cc);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("KJBN",e.toString());
         }
 
         SharedPreferences sp = getSharedPreferences("ip",MODE_PRIVATE);
         ip = sp.getString("ip","localhost");
 
 
-        JsonRequest jr = new JsonArrayRequest(Request.Method.GET, "http://" + ip + ":9000/carreras", null, new Response.Listener<JSONArray>() {
+        JsonRequest jr = new JsonArrayRequest(Request.Method.GET, "http://" + ip + ":9100/getCarreras", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
@@ -127,7 +127,7 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
         adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.list_item_simple,R.id.txt_carrera_item,new ArrayList<String>());
         listaCarreras.setAdapter(adapter);
 
-        Log.d("QWERT","Request enviada");
+        Log.e("QWERT","Request enviada");
 
         listaCarreras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -149,14 +149,19 @@ public class ElegirCarrera extends AppCompatActivity implements LoaderManager.Lo
     }
 
     public void enviarAlumno(){
-        JsonRequest jr = new JsonObjectRequest(Request.Method.POST, "http://" + ip + ":9000/alumno", alumno, new Response.Listener<JSONObject>() {
+        JsonRequest jr = new JsonObjectRequest(Request.Method.POST, "http://" + ip + ":9100/alta_alumno", alumno, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
-                intent.putExtra("login",nif);
+                intent.putExtra("login", nif);
                 startActivity(intent);
             }
-        },null);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("kjbn",error.toString());
+            }
+        });
         jr.setRetryPolicy(new DefaultRetryPolicy(0,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rq.add(jr);
     }
