@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-13T15:37:03.349Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T16:40:26.439Z")
 
 public class DepartamentoApiControllerImp implements DepartamentoApiControllerImpInterface {
     @Override

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-13T15:37:03.349Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T16:40:26.439Z")
 
 public class GruposApiControllerImp implements GruposApiControllerImpInterface {
     @Override
@@ -52,44 +52,12 @@ public class GruposApiControllerImp implements GruposApiControllerImpInterface {
 
     @Override
     public List<InfoGrupo> getInfoGrupoGet(String NIF) throws Exception {
-        String query = "SELECT grupo_id FROM profesor_grupo WHERE Profesor_NIF= "+NIF;
-        ArrayList<InfoGrupo> infoGrupos = new ArrayList<InfoGrupo>();
-        
-        try{
-            conectar();
-        
-            ResultSet respuesta = consulta_BDD(query);
-            while(respuesta.next()){
-                int grupoId = respuesta.getInt("grupo_id");
-                String query2 = "SELECT Cod_asignatura FROM grupo WHERE id_grupo = "+grupoId+";";
-                ResultSet respuesta2 = consulta_BDD(query2);
-                if(respuesta2.next()){
-                    int codAsignatura = respuesta2.getInt("Cod_asignatura");
-                    String query3 = "SELECT nombre FROM asginatura WHERE Cod_asignatura = "+codAsignatura+";";
-                    ResultSet respuesta3 = consulta_BDD(query3);
-                    if(respuesta3.next()){
-                        String nombre = respuesta3.getString("nombre");
-                        InfoGrupo infogrupo = new InfoGrupo();
-                        infogrupo.setAsignaturaGrupo(nombre);
-                        infogrupo.setIdGrupo(grupoId);
-                        infoGrupos.add(infogrupo);
-                    }
-                }
-            }
-        }
-        catch (Exception e){
-            System.out.println(e.toString());
-        }
-        finally{
-            if(conexion!=null){
-                conexion.close();
-            }
-            return infoGrupos;
-        }
+        //Do your magic!!!
+        return new ArrayList<InfoGrupo>();
     }
 
     @Override
-    public void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo) throws Exception {
+    public void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo, Object cuerpo) throws Exception {
         String query = "INSERT INTO profesor_grupo VALUES("+grupo+","+profesor+");";
         
         try{

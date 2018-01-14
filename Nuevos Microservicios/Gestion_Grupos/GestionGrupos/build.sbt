@@ -13,5 +13,4 @@ javaWs,
 "org.webjars" % "swagger-ui" % "2.2.10-1",
 "javax.validation" % "validation-api" % "1.1.0.Final"
 )
-
 PlayKeys.devSettings := Seq("play.server.http.port" -> "9520")

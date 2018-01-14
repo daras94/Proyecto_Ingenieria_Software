@@ -15,6 +15,6 @@ public interface GruposApiControllerImpInterface {
 
     List<InfoGrupo> getInfoGrupoGet(String NIF) throws Exception;
 
-    void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo) throws Exception;
+    void postGrupoAsignadoPost( @NotNull String profesor,  @NotNull Integer grupo, Object cuerpo) throws Exception;
 
 }

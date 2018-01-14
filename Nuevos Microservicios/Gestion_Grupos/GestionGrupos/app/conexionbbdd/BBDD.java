@@ -23,22 +23,20 @@ public class BBDD {
     public static Connection conexion;
     
     //Conexion Base de datos
-    public static void conectar(){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String BaseDeDatos = "jdbc:mysql://localhost:3306/UVisa2017";
-            conexion=DriverManager.getConnection(BaseDeDatos,"root","0000");
-            if (conexion != null) {
-                System.out.println("Conexion exitosa!");
-            } else {
-                System.out.println("Conexion fallida!");
-            }
+    public static void conectar() throws ClassNotFoundException, SQLException{
+        
+        Class.forName("com.mysql.jdbc.Driver");
+        String BaseDeDatos = "jdbc:mysql://localhost:3306/UVisa2017";
+        conexion=DriverManager.getConnection(BaseDeDatos,"root","0000");
+        if (conexion != null) {
+            System.out.println("Conexion exitosa!");
+        } else {
+            System.out.println("Conexion fallida!");
         }
-        catch(Exception e){
-            System.out.println(e.toString());
-        }
-    
     }
+        
+    
+    
     
     public static ResultSet consulta_BDD (String SQL) throws SQLException{
         ResultSet resultado = null;

@@ -51,6 +51,13 @@
           "description" : "id del grupo",
           "required" : true,
           "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "cuerpo",
+          "required" : true,
+          "schema" : {
+            "type" : "object"
+          }
         } ],
         "responses" : {
           "202" : {
