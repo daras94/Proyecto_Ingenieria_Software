@@ -1,0 +1,34 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /api                        controllers.ApiDocController.api
+
+
+#Functions for Asignatura API
+PUT     /editarAsignatura/:numeroAsignatura                     controllers.AsignaturaApiController.editarAsignaturaNumeroAsignaturaPut(numeroAsignatura: Integer)
+DELETE     /eliminarAsignatura/:codigoAsignatura                     controllers.AsignaturaApiController.eliminarAsignaturaCodigoAsignaturaDelete(codigoAsignatura: Integer)
+POST     /insertarAsignatura                     controllers.AsignaturaApiController.insertarAsignaturaPost()
+
+#Functions for Carrera API
+PUT     /editarCarrera/:numeroCarrera                     controllers.CarreraApiController.editarCarreraNumeroCarreraPut(numeroCarrera: Integer)
+DELETE     /eliminarCarrera/:codigoCarrera                     controllers.CarreraApiController.eliminarCarreraCodigoCarreraDelete(codigoCarrera: Integer)
+POST     /insertarCarrera                     controllers.CarreraApiController.insertarCarreraPost()
+
+#Functions for Departamento API
+DELETE     /borrarDepartamento/:numeroDepartamento                     controllers.DepartamentoApiController.borrarDepartamentoNumeroDepartamentoDelete(numeroDepartamento: Integer)
+PUT     /editarDepartamento/:numeroDepartamento                     controllers.DepartamentoApiController.editarDepartamentoNumeroDepartamentoPut(numeroDepartamento: Integer)
+POST     /insertarDepartamento                     controllers.DepartamentoApiController.insertarDepartamentoPost()
+
+#Functions for Espacio API
+PUT     /editarEspacio/:numeroEspacio                     controllers.EspacioApiController.editarEspacioNumeroEspacioPut(numeroEspacio: Integer)
+DELETE     /eliminarEspacio/:numeroEspacio                     controllers.EspacioApiController.eliminarEspacioNumeroEspacioDelete(numeroEspacio: Integer)
+POST     /insertarEspacio                     controllers.EspacioApiController.insertarEspacioPost()
+
+#Functions for Profesor API
+PUT     /editarProfesor/:numeroProfesor                     controllers.ProfesorApiController.editarProfesorNumeroProfesorPut(numeroProfesor: Integer)
+DELETE     /eliminarProfesor/:NIF                     controllers.ProfesorApiController.eliminarProfesorNIFDelete(NIF: String)
+POST     /insertarProfesor                     controllers.ProfesorApiController.insertarProfesorPost()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,0 +1,658 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API Rest administracion  para la Universidad de Villamayor.",
+    "version": "2.0.0",
+    "title": "Administrador."
+  },
+  "host": "localhost:9800",
+  "paths": {
+    "/insertarEspacio": {
+      "post": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "insertar un aula en la base de datos",
+        "description": "permite al administrados insertar aulas o recursos nuevos",
+        "parameters": [
+          {
+            "name": "aula",
+            "in": "body",
+            "required": true,
+            "description": "el aula a insertar",
+            "schema": {
+              "$ref": "#/definitions/Espacio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      }
+    },
+    "/editarEspacio/{numeroEspacio}": {
+      "put": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "insertar un espacio en la base de datos",
+        "description": "permite al administrados editar aulas o recursos nuevos",
+        "parameters": [
+          {
+            "name": "numeroEspacio",
+            "in": "path",
+            "required": true,
+            "description": "Numero del espacio",
+            "type": "integer"
+          },
+          {
+            "name": "aula",
+            "in": "body",
+            "required": true,
+            "description": "el aula a insertar",
+            "schema": {
+              "$ref": "#/definitions/Espacio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      }
+    },
+    "/eliminarEspacio/{numeroEspacio}": {
+      "delete": {
+        "tags": [
+          "Espacio"
+        ],
+        "summary": "eliminación de espacio en la base de datos",
+        "description": "eliminar un espacio mediante su codigo id.",
+        "parameters": [
+          {
+            "name": "numeroEspacio",
+            "in": "path",
+            "required": true,
+            "description": "id del espacio",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/insertarProfesor": {
+      "post": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "inserta un profesor",
+        "description": "mete un profesor nuevo en la base de datos",
+        "parameters": [
+          {
+            "name": "profesor",
+            "in": "body",
+            "required": true,
+            "description": "el profesor a insertar",
+            "schema": {
+              "$ref": "#/definitions/Profesor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/editarProfesor/{numeroProfesor}": {
+      "put": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "edita un profesor en la base de datos",
+        "description": "permite al administrados editar profesores",
+        "parameters": [
+          {
+            "name": "numeroProfesor",
+            "in": "path",
+            "required": true,
+            "description": "Numero del profesor",
+            "type": "integer"
+          },
+          {
+            "name": "aula",
+            "in": "body",
+            "required": true,
+            "description": "el profesor a editar",
+            "schema": {
+              "$ref": "#/definitions/Profesor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      }
+    },
+    "/eliminarProfesor/{NIF}": {
+      "delete": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "elimina un profesor",
+        "description": "permite eliminar profesores de la base de datos mediante su nif.",
+        "parameters": [
+          {
+            "name": "NIF",
+            "in": "path",
+            "required": true,
+            "description": "el nif del profesor",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/insertarAsignatura": {
+      "post": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "insertar una asignatura",
+        "description": "permite insertar una asignatura nueva en la base de datos",
+        "parameters": [
+          {
+            "name": "asignatura",
+            "in": "body",
+            "required": true,
+            "description": "la asignatura a añadir",
+            "schema": {
+              "$ref": "#/definitions/Asignatura"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/editarAsignatura/{numeroAsignatura}": {
+      "put": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "edita un Asignatura en la base de datos",
+        "description": "permite al administrados editar Asignaturas",
+        "parameters": [
+          {
+            "name": "numeroAsignatura",
+            "in": "path",
+            "required": true,
+            "description": "Numero del Asignatura",
+            "type": "integer"
+          },
+          {
+            "name": "aula",
+            "in": "body",
+            "required": true,
+            "description": "la Asignatura a editar",
+            "schema": {
+              "$ref": "#/definitions/Asignatura"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      }
+    },
+    "/eliminarAsignatura/{codigoAsignatura}": {
+      "delete": {
+        "tags": [
+          "Asignatura"
+        ],
+        "summary": "permite eliminar una asignatura",
+        "description": "permite eliminar una asignatura de la base de datos utilizando su codigo.",
+        "parameters": [
+          {
+            "name": "codigoAsignatura",
+            "in": "path",
+            "required": true,
+            "description": "el codigo de la asignatura",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/insertarCarrera": {
+      "post": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "permite introducir una carrera",
+        "description": "Introducir una carrera en la base de datos",
+        "parameters": [
+          {
+            "name": "carrera",
+            "in": "body",
+            "required": true,
+            "description": "Objeto de la carrera",
+            "schema": {
+              "$ref": "#/definitions/Carrera"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operacion realizada con exito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/editarCarrera/{numeroCarrera}": {
+      "put": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "edita una Carrera en la base de datos",
+        "description": "permite al administrados editar Carreras",
+        "parameters": [
+          {
+            "name": "numeroCarrera",
+            "in": "path",
+            "required": true,
+            "description": "Numero del Carrera",
+            "type": "integer"
+          },
+          {
+            "name": "aula",
+            "in": "body",
+            "required": true,
+            "description": "la Carrera a editar",
+            "schema": {
+              "$ref": "#/definitions/Carrera"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      }
+    },
+    "/eliminarCarrera/{codigoCarrera}": {
+      "delete": {
+        "tags": [
+          "Carrera"
+        ],
+        "summary": "permite eliminar una carrera",
+        "description": "permite eliminar una carrera de la base de datos utilizando su codigo.",
+        "parameters": [
+          {
+            "name": "codigoCarrera",
+            "in": "path",
+            "required": true,
+            "description": "el codigo de la carrera",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/insertarDepartamento": {
+      "post": {
+        "tags": [
+          "Departamento"
+        ],
+        "summary": "Permite introducir un departamento",
+        "description": "Introducción de un departamento en la base de datos.",
+        "parameters": [
+          {
+            "name": "departamento",
+            "in": "body",
+            "required": true,
+            "description": "Objeto del departamento",
+            "schema": {
+              "$ref": "#/definitions/Departamento"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/editarDepartamento/{numeroDepartamento}": {
+      "put": {
+        "tags": [
+          "Departamento"
+        ],
+        "summary": "edita un Departamento en la base de datos",
+        "description": "permite a los administradores editar Departamentos",
+        "parameters": [
+          {
+            "name": "numeroDepartamento",
+            "in": "path",
+            "required": true,
+            "description": "Numero del Departamento",
+            "type": "integer"
+          },
+          {
+            "name": "aula",
+            "in": "body",
+            "required": true,
+            "description": "el Departamento a editar",
+            "schema": {
+              "$ref": "#/definitions/Departamento"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal sever error"
+          }
+        }
+      }
+    },
+    "/borrarDepartamento/{numeroDepartamento}": {
+      "delete": {
+        "tags": [
+          "Departamento"
+        ],
+        "summary": "Permite eliminar un departamento",
+        "description": "Eliminar un departamento de la base de datos",
+        "parameters": [
+          {
+            "name": "numeroDepartamento",
+            "in": "path",
+            "required": true,
+            "description": "Codigo departamento que se quiere borrar",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación realizada conexito"
+          },
+          "405": {
+            "description": "operacion sin realizar"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Espacio": {
+      "type": "object",
+      "required": [
+        "codigo",
+        "nombre",
+        "aforo_max",
+        "precio_alquiler"
+      ],
+      "properties": {
+        "codigo": {
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "aforo_max": {
+          "type": "integer"
+        },
+        "precio_alquiler": {
+          "type": "integer"
+        }
+      }
+    },
+    "Profesor": {
+      "type": "object",
+      "required": [
+        "NIF",
+        "CuentaCorriente",
+        "Contrasenna",
+        "Nombre",
+        "Apellido1",
+        "Apellido2",
+        "FechaNacimiento",
+        "Email",
+        "Categoria",
+        "Antiguedad",
+        "TramosInvestigacion",
+        "TramosDocentes",
+        "Departamento"
+      ],
+      "properties": {
+        "NIF": {
+          "type": "string"
+        },
+        "Contrasenna": {
+          "type": "string"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Apellido1": {
+          "type": "string"
+        },
+        "Apellido2": {
+          "type": "string"
+        },
+        "FechaNacimiento": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "CuentaCorriente": {
+          "type": "integer"
+        },
+        "Categoria": {
+          "type": "string"
+        },
+        "Antiguedad": {
+          "type": "integer"
+        },
+        "TramosInvestigacion": {
+          "type": "integer"
+        },
+        "TramosDocentes": {
+          "type": "integer"
+        },
+        "Departamento": {
+          "type": "integer"
+        }
+      }
+    },
+    "Asignatura": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre",
+        "Tipo",
+        "Creditos",
+        "Carrera"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Carrera": {
+          "type": "integer"
+        },
+        "Tipo": {
+          "type": "string"
+        },
+        "Creditos": {
+          "type": "integer"
+        }
+      }
+    },
+    "Carrera": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre",
+        "Facultad",
+        "CreditosOptativos",
+        "CreditosTransversales",
+        "CreditosObligatorios"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        },
+        "Facultad": {
+          "type": "string"
+        },
+        "CreditosOptativos": {
+          "type": "integer"
+        },
+        "CreditosTransversales": {
+          "type": "integer"
+        },
+        "CreditosObligatorios": {
+          "type": "integer"
+        }
+      }
+    },
+    "Departamento": {
+      "type": "object",
+      "required": [
+        "Codigo",
+        "Nombre"
+      ],
+      "properties": {
+        "Codigo": {
+          "type": "integer"
+        },
+        "Nombre": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
