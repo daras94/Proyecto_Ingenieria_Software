@@ -34,32 +34,57 @@ public class EspacioApiController extends Controller {
 
     @ApiAction
     public Result editarEspacioNumeroEspacioPut(Integer numeroEspacio) throws Exception {
+        try{
         JsonNode nodeaula = request().body().asJson();
         Espacio aula;
 
         aula = mapper.readValue(nodeaula.toString(), Espacio.class);
 
-        imp.editarEspacioNumeroEspacioPut(numeroEspacio, aula);
+        if(!imp.editarEspacioNumeroEspacioPut(numeroEspacio, aula)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result eliminarEspacioNumeroEspacioDelete(Integer numeroEspacio) throws Exception {
-        imp.eliminarEspacioNumeroEspacioDelete(numeroEspacio);
+        try{
+        if(!imp.eliminarEspacioNumeroEspacioDelete(numeroEspacio)){
+            return badRequest("Introduzca los datos correctamente");
+        }
+            
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result insertarEspacioPost() throws Exception {
+        try{
         JsonNode nodeaula = request().body().asJson();
         Espacio aula;
 
         aula = mapper.readValue(nodeaula.toString(), Espacio.class);
 
-        imp.insertarEspacioPost(aula);
+        if(!imp.insertarEspacioPost(aula)){
+            return badRequest("Introduzca los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 }

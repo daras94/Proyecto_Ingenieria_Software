@@ -10,10 +10,10 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface EspacioApiControllerImpInterface {
-    void editarEspacioNumeroEspacioPut(Integer numeroEspacio, Espacio aula) throws Exception;
+    boolean editarEspacioNumeroEspacioPut(Integer numeroEspacio, Espacio aula) throws Exception;
 
-    void eliminarEspacioNumeroEspacioDelete(Integer numeroEspacio) throws Exception;
+    boolean eliminarEspacioNumeroEspacioDelete(Integer numeroEspacio) throws Exception;
 
-    void insertarEspacioPost(Espacio aula) throws Exception;
+    boolean insertarEspacioPost(Espacio espacio) throws Exception;
 
 }
