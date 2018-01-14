@@ -31,6 +31,10 @@ public class GruposAsignaturasApiControllerImp implements GruposAsignaturasApiCo
             result=consulta_BDD(sql);
             if(!result.next()){
                 return null;
+            }else{
+                if(result.getBoolean("reserva")){
+                    return null;
+                }
             }
             sql="";
             result=null;
