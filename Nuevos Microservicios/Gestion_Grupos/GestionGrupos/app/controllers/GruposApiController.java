@@ -19,7 +19,7 @@ import javax.validation.constraints.*;
 
 import swagger.SwaggerUtils.ApiAction;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-13T15:37:03.349Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaPlayFrameworkCodegen", date = "2018-01-14T17:36:45.634Z")
 
 public class GruposApiController extends Controller {
 
@@ -34,23 +34,12 @@ public class GruposApiController extends Controller {
 
 
     @ApiAction
-    public Result getGruposGet() throws Exception {
-        List<Grupo> obj = imp.getGruposGet();
-        JsonNode result = mapper.valueToTree(obj);
-        return ok(result);
-        
-    }
+    public Result grupoAsignadoPost() throws Exception {
+        JsonNode nodecuerpo = request().body().asJson();
+        Object cuerpo;
 
-    @ApiAction
-    public Result getInfoGrupoGet(String NIF) throws Exception {
-        List<InfoGrupo> obj = imp.getInfoGrupoGet(NIF);
-        JsonNode result = mapper.valueToTree(obj);
-        return ok(result);
-        
-    }
+        cuerpo = mapper.readValue(nodecuerpo.toString(), Object.class);
 
-    @ApiAction
-    public Result postGrupoAsignadoPost() throws Exception {
         String valueprofesor = request().getQueryString("profesor");
         String profesor;
 
@@ -61,8 +50,24 @@ public class GruposApiController extends Controller {
 
         grupo = Integer.parseInt(valuegrupo);
 
-        imp.postGrupoAsignadoPost(profesor, grupo);
+        imp.grupoAsignadoPost(profesor, grupo, cuerpo);
         
         return ok();
+    }
+
+    @ApiAction
+    public Result gruposGet() throws Exception {
+        List<Grupo> obj = imp.gruposGet();
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
+        
+    }
+
+    @ApiAction
+    public Result infoGrupoNIFGet(String NIF) throws Exception {
+        List<InfoGrupo> obj = imp.infoGrupoNIFGet(NIF);
+        JsonNode result = mapper.valueToTree(obj);
+        return ok(result);
+        
     }
 }

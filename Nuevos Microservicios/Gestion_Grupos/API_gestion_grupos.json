@@ -7,7 +7,7 @@
   },
   "host": "localhost:9700",
   "paths": {
-    "/getGrupos": {
+    "/grupos": {
       "get": {
         "tags": [
           "Grupos"
@@ -33,7 +33,7 @@
         }
       }
     },
-    "/postGrupoAsignado": {
+    "/grupoAsignado": {
       "post": {
         "tags": [
           "Grupos"
@@ -54,6 +54,14 @@
             "required": true,
             "description": "id del grupo",
             "type": "integer"
+          },
+          {
+            "name": "cuerpo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
           }
         ],
         "responses": {
@@ -69,7 +77,7 @@
         }
       }
     },
-    "/getCargaDocente": {
+    "/cargaDocente/{departamento}": {
       "get": {
         "tags": [
           "Departamento"
@@ -87,7 +95,10 @@
         ],
         "responses": {
           "202": {
-            "description": "Operacion realizada con exito"
+            "description": "Operacion realizada con exito",
+            "schema": {
+              "type": "integer"
+            }
           },
           "405": {
             "description": "Operacion sin realizar"
@@ -98,7 +109,7 @@
         }
       }
     },
-    "/getInfoGrupo": {
+    "/infoGrupo/{NIF}": {
       "get": {
         "tags": [
           "Grupos"
@@ -133,7 +144,7 @@
         }
       }
     },
-    "/getProfesores": {
+    "/profesores": {
       "get": {
         "tags": [
           "Profesores"

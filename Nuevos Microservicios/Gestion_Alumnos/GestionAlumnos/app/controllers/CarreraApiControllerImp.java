@@ -31,6 +31,7 @@ public class CarreraApiControllerImp implements CarreraApiControllerImpInterface
                 aux.setNumeroCreditosObligatorios(result.getInt("num_cred_obl"));
                 aux.setNumeroCreditosOptativos(result.getInt("num_cred_obl"));
                 aux.setNumeroCreditosTransversales(result.getInt("num_cred_tran"));
+                aux.setNumeroCreditos(result.getInt("num_cred_obl")+result.getInt("num_cred_obl")+result.getInt("num_cred_tran")+15);
                 
                 carreras.add(aux);
                 aux=null;

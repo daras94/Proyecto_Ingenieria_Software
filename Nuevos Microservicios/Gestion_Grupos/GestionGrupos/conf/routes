@@ -6,15 +6,15 @@ GET     /api                        controllers.ApiDocController.api
 
 
 #Functions for Departamento API
-GET     /getCargaDocente                     controllers.DepartamentoApiController.getCargaDocenteGet(departamento: Integer)
+GET     /cargaDocente/:departamento                     controllers.DepartamentoApiController.cargaDocenteDepartamentoGet(departamento: Integer)
 
 #Functions for Grupos API
-GET     /getGrupos                     controllers.GruposApiController.getGruposGet()
-GET     /getInfoGrupo                     controllers.GruposApiController.getInfoGrupoGet(NIF: String)
-POST     /postGrupoAsignado                     controllers.GruposApiController.postGrupoAsignadoPost()
+POST     /grupoAsignado                     controllers.GruposApiController.grupoAsignadoPost()
+GET     /grupos                     controllers.GruposApiController.gruposGet()
+GET     /infoGrupo/:NIF                     controllers.GruposApiController.infoGrupoNIFGet(NIF: String)
 
 #Functions for Profesores API
-GET     /getProfesores                     controllers.ProfesoresApiController.getProfesoresGet()
+GET     /profesores                     controllers.ProfesoresApiController.profesoresGet()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

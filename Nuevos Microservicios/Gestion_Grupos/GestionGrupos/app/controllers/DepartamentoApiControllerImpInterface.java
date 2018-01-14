@@ -9,6 +9,6 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface DepartamentoApiControllerImpInterface {
-    Integer getCargaDocenteGet(Integer departamento) throws Exception;
+    Integer cargaDocenteDepartamentoGet(Integer departamento) throws Exception;
 
 }
