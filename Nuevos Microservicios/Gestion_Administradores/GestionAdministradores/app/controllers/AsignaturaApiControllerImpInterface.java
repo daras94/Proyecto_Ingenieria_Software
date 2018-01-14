@@ -10,10 +10,10 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface AsignaturaApiControllerImpInterface {
-    void editarAsignaturaNumeroAsignaturaPut(Integer numeroAsignatura, Asignatura aula) throws Exception;
+    boolean editarAsignaturaNumeroAsignaturaPut(Integer numeroAsignatura, Asignatura aula) throws Exception;
 
-    void eliminarAsignaturaCodigoAsignaturaDelete(Integer codigoAsignatura) throws Exception;
+    boolean eliminarAsignaturaCodigoAsignaturaDelete(Integer codigoAsignatura) throws Exception;
 
-    void insertarAsignaturaPost(Asignatura asignatura) throws Exception;
+    boolean insertarAsignaturaPost(Asignatura asignatura) throws Exception;
 
 }

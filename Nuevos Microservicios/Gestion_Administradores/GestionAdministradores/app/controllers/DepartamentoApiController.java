@@ -51,11 +51,11 @@ public class DepartamentoApiController extends Controller {
     public Result editarDepartamentoNumeroDepartamentoPut(Integer numeroDepartamento) throws Exception {
         try{
         JsonNode nodeaula = request().body().asJson();
-        Departamento aula;
+        Departamento departamento;
 
-        aula = mapper.readValue(nodeaula.toString(), Departamento.class);
+        departamento = mapper.readValue(nodeaula.toString(), Departamento.class);
 
-        if(!imp.editarDepartamentoNumeroDepartamentoPut(numeroDepartamento, aula)){
+        if(!imp.editarDepartamentoNumeroDepartamentoPut(numeroDepartamento, departamento)){
             return badRequest("Introduce los datos correctamente");
         }
         

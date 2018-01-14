@@ -34,32 +34,56 @@ public class AsignaturaApiController extends Controller {
 
     @ApiAction
     public Result editarAsignaturaNumeroAsignaturaPut(Integer numeroAsignatura) throws Exception {
+        try{
         JsonNode nodeaula = request().body().asJson();
-        Asignatura aula;
+        Asignatura asignatura;
 
-        aula = mapper.readValue(nodeaula.toString(), Asignatura.class);
+        asignatura = mapper.readValue(nodeaula.toString(), Asignatura.class);
 
-        imp.editarAsignaturaNumeroAsignaturaPut(numeroAsignatura, aula);
+        if(!imp.editarAsignaturaNumeroAsignaturaPut(numeroAsignatura, asignatura)){
+            return badRequest("Se han introducido mal los datos");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result eliminarAsignaturaCodigoAsignaturaDelete(Integer codigoAsignatura) throws Exception {
-        imp.eliminarAsignaturaCodigoAsignaturaDelete(codigoAsignatura);
+        try{
+        if(!imp.eliminarAsignaturaCodigoAsignaturaDelete(codigoAsignatura)){
+            return badRequest("Se han introducido mal los datos");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result insertarAsignaturaPost() throws Exception {
+        try{
         JsonNode nodeasignatura = request().body().asJson();
         Asignatura asignatura;
 
         asignatura = mapper.readValue(nodeasignatura.toString(), Asignatura.class);
 
-        imp.insertarAsignaturaPost(asignatura);
+        if(!imp.insertarAsignaturaPost(asignatura)){
+            return badRequest("Se han introducido mal los datos");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 }
