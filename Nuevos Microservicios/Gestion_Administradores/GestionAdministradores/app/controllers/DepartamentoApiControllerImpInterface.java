@@ -10,10 +10,10 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface DepartamentoApiControllerImpInterface {
-    void borrarDepartamentoNumeroDepartamentoDelete(Integer numeroDepartamento) throws Exception;
+    boolean borrarDepartamentoNumeroDepartamentoDelete(Integer numeroDepartamento) throws Exception;
 
-    void editarDepartamentoNumeroDepartamentoPut(Integer numeroDepartamento, Departamento aula) throws Exception;
+    boolean editarDepartamentoNumeroDepartamentoPut(Integer numeroDepartamento, Departamento aula) throws Exception;
 
-    void insertarDepartamentoPost(Departamento departamento) throws Exception;
+    boolean insertarDepartamentoPost(Departamento departamento) throws Exception;
 
 }

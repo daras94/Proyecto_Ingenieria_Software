@@ -34,32 +34,56 @@ public class DepartamentoApiController extends Controller {
 
     @ApiAction
     public Result borrarDepartamentoNumeroDepartamentoDelete(Integer numeroDepartamento) throws Exception {
-        imp.borrarDepartamentoNumeroDepartamentoDelete(numeroDepartamento);
+        try{
+        if(!imp.borrarDepartamentoNumeroDepartamentoDelete(numeroDepartamento)){
+            return badRequest("Introduce los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result editarDepartamentoNumeroDepartamentoPut(Integer numeroDepartamento) throws Exception {
+        try{
         JsonNode nodeaula = request().body().asJson();
         Departamento aula;
 
         aula = mapper.readValue(nodeaula.toString(), Departamento.class);
 
-        imp.editarDepartamentoNumeroDepartamentoPut(numeroDepartamento, aula);
+        if(!imp.editarDepartamentoNumeroDepartamentoPut(numeroDepartamento, aula)){
+            return badRequest("Introduce los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 
     @ApiAction
     public Result insertarDepartamentoPost() throws Exception {
+        try{
         JsonNode nodedepartamento = request().body().asJson();
         Departamento departamento;
 
         departamento = mapper.readValue(nodedepartamento.toString(), Departamento.class);
 
-        imp.insertarDepartamentoPost(departamento);
+        if(!imp.insertarDepartamentoPost(departamento)){
+            return badRequest("Introduce los datos correctamente");
+        }
         
         return ok();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return internalServerError("Error interno del servidor");
+        }
     }
 }

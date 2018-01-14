@@ -98,7 +98,7 @@ public class CarreraApiControllerImp implements CarreraApiControllerImpInterface
            
             String sql="";
             sql += "INSERT INTO Carrera values("+datos.get(0);
-            for(int i=1;i<(datos.size()-2);i++){
+            for(int i=1;i<datos.size();i++){
                 sql += ","+datos.get(i);
             
             
