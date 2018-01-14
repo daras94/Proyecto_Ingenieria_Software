@@ -47,14 +47,14 @@ public class MatriculasApiControllerImp implements MatriculasApiControllerImpInt
             if(grupos.getTipoPago()==1){
                 int numero_pago = generar_pago();
                 sql_pago_aux+=sql_pago+String.valueOf(numero_pago)+", 'UNITARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
+                sentencias_sql.add(sql_pago_aux);
                 
             }
             else{
                 for(int i=0;i<grupos.getTipoPago();i++){
                     int numero_pago = generar_pago();
-                    sql_pago_aux+=sql_pago+String.valueOf(numero_pago)+", 'UNITARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
+                    sql_pago_aux+=sql_pago+String.valueOf(numero_pago)+", 'FRACCIONARIO', "+importe+", FALSE, "+String.valueOf(numeroExpediente)+", "+anno+");";
                     sentencias_sql.add(sql_pago_aux);
-                    System.out.println(sql_pago_aux);
                     sql_pago_aux="";
                 }
             }
