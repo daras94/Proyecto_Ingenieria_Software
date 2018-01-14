@@ -48,8 +48,8 @@ public class ListaNotasApiControllerImp implements ListaNotasApiControllerImpInt
         try{
             conectar();
             String SQL = "";
-            SQL+="SELECT * FROM Asignatura_Matriculada NATURAL JOIN Alumno INNER JOIN Usuario ON (Usuario_NIF=NIF) WHERE Curso= "+anno+" AND Grupo_id_grupo = ";
-            SQL+=String.valueOf(id)+";";
+            SQL+="SELECT * FROM Asignatura_Matriculada NATURAL JOIN Alumno INNER JOIN Usuario ON (Usuario_NIF=NIF) WHERE Curso= "+anno+" AND (id_grupo_teoria = ";
+            SQL+=String.valueOf(id)+" OR id_grupo_lab= "+String.valueOf(id)+");";
             result = consulta_BDD(SQL);
             
             alumnos = new ArrayList<>();
