@@ -26,6 +26,14 @@ public class GruposAsignaturasApiControllerImp implements GruposAsignaturasApiCo
         String sql = "";
         try{
             conectar();
+            //Comprobar Reserva
+            sql="SELECT * FROM Matricula WHERE num_expediente ="+String.valueOf(numeroExpediente)+" AND Curso= "+anno;
+            result=consulta_BDD(sql);
+            if(!result.next()){
+                return null;
+            }
+            sql="";
+            result=null;
             
             //Obtener codigo de la carrera del alumno
             sql+="SELECT cod_carrera FROM Alumno WHERE num_expediente="+numeroExpediente+";";
