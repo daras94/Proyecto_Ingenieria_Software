@@ -41,6 +41,7 @@ public class FacturaApiControllerImp implements FacturaApiControllerImpInterface
             }
         }
         catch (Exception e){
+            e.printStackTrace();
             return null;
         }
         return facturas;
