@@ -1,0 +1,8 @@
+@(title: String, form: Form[authentificacion.LoginForm], isLoggedIn: Boolean, userInfo: Usuario)
+
+@import auth._
+@import controllers.authentificacion.routes
+
+@main(title, isLoggedIn, userInfo) {
+    @(loginform(routes.AuthentificacionApiController.loginUser(), form("nif"), form("password")))
+}
