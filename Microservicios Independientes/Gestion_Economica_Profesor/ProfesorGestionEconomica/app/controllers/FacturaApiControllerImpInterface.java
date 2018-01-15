@@ -10,6 +10,6 @@ import java.util.HashMap;
 import javax.validation.constraints.*;
 
 public interface FacturaApiControllerImpInterface {
-    List<Factura> facturasGet(String NIF, Integer mes, Integer ao) throws Exception;
+    List<Factura> facturasGet(String NIF, Integer mes, Integer anno) throws Exception;
 
 }

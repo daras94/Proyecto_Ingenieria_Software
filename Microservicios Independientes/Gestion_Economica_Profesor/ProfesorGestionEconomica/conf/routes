@@ -6,7 +6,7 @@ GET     /api                        controllers.ApiDocController.api
 
 
 #Functions for Factura API
-GET     /facturas                     controllers.FacturaApiController.facturasGet(NIF: String, mes: Integer, ao: Integer)
+GET     /facturas                     controllers.FacturaApiController.facturasGet()
 
 #Functions for Nomina API
 POST     /nomina                     controllers.NominaApiController.nominaPost()

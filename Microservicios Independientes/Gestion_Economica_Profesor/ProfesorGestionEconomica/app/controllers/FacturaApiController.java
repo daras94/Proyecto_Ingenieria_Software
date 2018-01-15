@@ -33,8 +33,24 @@ public class FacturaApiController extends Controller {
 
 
     @ApiAction
-    public Result facturasGet(String NIF,Integer mes,Integer ao) throws Exception {
-        List<Factura> obj = imp.facturasGet(NIF, mes, ao);
+    public Result facturasGet() throws Exception {
+        
+        String valueNIF = request().getQueryString("NIF");
+        String NIF;
+
+        NIF = (String)valueNIF;
+
+        String valuemes = request().getQueryString("mes");
+        Integer mes;
+
+        mes = Integer.parseInt(valuemes);
+
+        String valueanno = request().getQueryString("anno");
+        Integer anno;
+
+        anno = Integer.parseInt(valueanno);
+
+        List<Factura> obj = imp.facturasGet(NIF, mes, anno);
         JsonNode result = mapper.valueToTree(obj);
         return ok(result);
         

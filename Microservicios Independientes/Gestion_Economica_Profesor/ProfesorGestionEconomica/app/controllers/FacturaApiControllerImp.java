@@ -16,11 +16,11 @@ import javax.validation.constraints.*;
 
 public class FacturaApiControllerImp implements FacturaApiControllerImpInterface {
     @Override
-    public List<Factura> facturasGet(String NIF, Integer mes, Integer ao) throws Exception {
+    public List<Factura> facturasGet(String NIF, Integer mes, Integer anno) throws Exception {
         ArrayList<Factura> facturas= new ArrayList<>();
         try{
             conectar();
-            String sql = "SELECT * FROM reservaprofesor WHERE Profesor_NIF = '"+NIF+ "' AND MONTH(fecha)= "+mes+" AND YEAR(fecha)= "+ao;
+            String sql = "SELECT * FROM reservaprofesor WHERE Profesor_NIF = '"+NIF+ "' AND MONTH(fecha)= "+mes+" AND YEAR(fecha)= "+anno;
             ResultSet resultado = consulta_BDD(sql);
              
             while (resultado.next()){

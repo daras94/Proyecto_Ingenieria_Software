@@ -22,8 +22,10 @@ public class NominaApiControllerImp implements NominaApiControllerImpInterface {
             conectar();
             String sql = "SELECT categoria, antiguedad, num_tramos_investigacion, num_tramos_docentes FROM profesor WHERE NIF= '"+NIF+"'";
             ResultSet resultado = consulta_BDD(sql);
+            resultado.next();
             String sql2= "SELECT MAX(numero) AS numero FROM nomina";
             ResultSet resultado2 = consulta_BDD(sql2);
+                resultado2.next();
                 String categoria= resultado.getString("categoria");
                 int num_tramos_investigacion= resultado.getInt("num_tramos_investigacion");
                 int num_tramos_docentes= resultado.getInt("num_tramos_docentes");
@@ -39,13 +41,14 @@ public class NominaApiControllerImp implements NominaApiControllerImpInterface {
                     pago_categoria=500;
                 }else if (categoria=="Suplente"){
                     pago_categoria=100;
+                }
                 double salario= 1500+num_tramos_investigacion*40+num_tramos_docentes*30+antiguedad*20+pago_categoria;
                 String sql3 = "INSERT INTO nomina VALUES('"+NIF+"',"+numero_actual+",'"+fecha+"',"+salario+");";
                 actualizar_BDD(sql3);
-        }    
+                
         }
         catch (Exception e){
-            
+            e.printStackTrace();
         }
         
     }
@@ -55,7 +58,7 @@ public class NominaApiControllerImp implements NominaApiControllerImpInterface {
         ArrayList<Nomina> nominas= new ArrayList<>();
         try{
             conectar();
-            String sql = "SELECT * from nomina WHERE Profesor_NIF = "+NIF;
+            String sql = "SELECT * from nomina WHERE Profesor_NIF = '"+NIF+"'";
             ResultSet resultado = consulta_BDD(sql);
             while (resultado.next()){
                 String profesor= resultado.getString("Profesor_NIF");

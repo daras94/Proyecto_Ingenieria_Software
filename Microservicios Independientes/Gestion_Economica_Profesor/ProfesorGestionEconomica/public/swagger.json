@@ -87,19 +87,19 @@
         "description" : "Obtener la factura de una profesor en un año y mes determinado",
         "parameters" : [ {
           "name" : "NIF",
-          "in" : "path",
+          "in" : "query",
           "description" : "NIF del profesor",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Mes",
-          "in" : "path",
+          "in" : "query",
           "description" : "Mes correspondiente a la factura",
           "required" : true,
           "type" : "integer"
         }, {
-          "name" : "Año",
-          "in" : "path",
+          "name" : "Anno",
+          "in" : "query",
           "description" : "Año correspondiente a la factura",
           "required" : true,
           "type" : "integer"
