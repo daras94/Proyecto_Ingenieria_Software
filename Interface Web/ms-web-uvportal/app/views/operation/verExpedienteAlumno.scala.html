@@ -1,0 +1,14 @@
+@(page: String, isLoggedIn: Boolean, userInfo: Usuario, years: List[Integer], matricula: Matricula)
+
+@alumnoOP(page, isLoggedIn, userInfo) {
+    <div class="12u">
+        <div class="select-wrapper">
+            <select name="Curso" id="category">
+                @for(year <- years){
+                <option value="@(year)">Curso: @(year)</option>
+                }
+            </select>
+        </div>
+    </div>
+}
+

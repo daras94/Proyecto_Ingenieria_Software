@@ -1,0 +1,92 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET       /                                                      controllers.HomeController.index
+
+# An example controller showing a sample home page
+GET       /api                                                   controllers.ApiDocController.api
+
+# An example controller showing how to use dependency injection
+GET       /registro                                              controllers.HomeController.registro
+GET       /alumno                                                controllers.HomeAlumno.alumno()
+GET       /expediente                                            controllers.HomeAlumno.expediente()
+
+#Functions for Grupos API
+GET       /obtenerGrupos/:nif                                    controllers.actas.GruposApiController.obtenerGruposNifGet(nif: String)
+
+#Functions for ListaNotas API
+PUT       /cerrarActas/:id                                       controllers.actas.ListaNotasApiController.cerrarActasIdPut(id: Integer)
+GET       /obtenerLista/:id                                      controllers.actas.ListaNotasApiController.obtenerListaIdGet(id: Integer)
+PUT       /subirNotas/:id                                        controllers.actas.ListaNotasApiController.subirNotasIdPut(id: Integer)
+
+#Functions for Authentificacion API
+POST      /logout                                                controllers.authentificacion.AuthentificacionApiController.logoutUser()
+GET       /login                                                 controllers.authentificacion.AuthentificacionApiController.loginUserInit()
+POST      /login                                                 controllers.authentificacion.AuthentificacionApiController.loginUser()
+
+#Functions for Alumno API
+POST      /alta_alumno                                           controllers.alumno.AlumnoApiController.altaAlumnoPost()
+DELETE    /alumnoByNIF/:NIF                                      controllers.alumno.AlumnoApiController.alumnoByNIFNIFDelete(NIF: String)
+GET       /alumnoByNIF/:NIF                                      controllers.alumno.AlumnoApiController.alumnoByNIFNIFGet(NIF: String)
+PUT       /alumnoByNIF/:NIF                                      controllers.alumno.AlumnoApiController.alumnoByNIFNIFPut(NIF: String)
+
+#Functions for Carrera API
+GET       /getCarreras                                           controllers.alumno.CarreraApiController.getCarrerasGet()
+
+#Functions for Alumno API
+GET       /getCorreos                                            controllers.economicaMatricula.AlumnoApiController.getCorreosGet()
+
+#Functions for Matricula API
+DELETE    /eliminarMatriculas                                    controllers.economicaMatricula.MatriculaApiController.eliminarMatriculasDelete()
+DELETE    /eliminarMatriculasPorPlazo                            controllers.economicaMatricula.MatriculaApiController.eliminarMatriculasPorPlazoDelete()
+PUT       /reservaMatricula                                      controllers.economicaMatricula.MatriculaApiController.reservaMatriculaPut()
+
+#Functions for Pagos API
+PUT       /actualizarPago                                        controllers.economicaMatricula.PagosApiController.actualizarPagoPut()
+
+#Functions for Factura API
+GET       /facturas                                              controllers.economicaProfesor.FacturaApiController.facturasGet()
+
+#Functions for Nomina API
+POST      /nomina                                                controllers.economicaProfesor.NominaApiController.nominaPost()
+GET       /nominas/:NIF                                          controllers.economicaProfesor.NominaApiController.nominasNIFGet(NIF: String)
+
+#Functions for CreditosAlumno API
+GET       /creditosalumno/:numeroExpediente                      controllers.matricula.CreditosAlumnoApiController.creditosalumnoNumeroExpedienteGet(numeroExpediente: Integer)
+
+#Functions for GruposAsignaturas API
+GET       /asignaturasMatriculablesByAlumno/:numeroExpediente    controllers.matricula.GruposAsignaturasApiController.asignaturasMatriculablesByAlumnoNumeroExpedienteGet(numeroExpediente: Integer)
+
+#Functions for Matriculas API
+POST      /crearMatricula/:numeroExpediente                      controllers.matricula.MatriculasApiController.crearMatriculaNumeroExpedientePost(numeroExpediente: Integer)
+PUT       /realizarReserva/:numeroExpediente                     controllers.matricula.MatriculasApiController.realizarReservaNumeroExpedientePut(numeroExpediente: Integer)
+GET       /verExpediente/:numeroExpediente                       controllers.matricula.MatriculasApiController.verExpedienteNumeroExpedienteGet(numeroExpediente: Integer)
+
+#Functions for ConsultaReservas API
+GET       /reservas/disponibles/espacios                         controllers.reservas.ConsultaReservasApiController.reservasDisponiblesEspaciosGet()
+GET       /reservas/disponibles/horas                            controllers.reservas.ConsultaReservasApiController.reservasDisponiblesHorasGet()
+
+#Functions for Espacios API
+GET       /espacios                                              controllers.reservas.EspaciosApiController.espaciosGet()
+
+#Functions for GestionReservas API
+PUT       /reservas/actualizar                                   controllers.reservas.GestionReservasApiController.reservasActualizarPut()
+DELETE    /reservas/cancelar                                     controllers.reservas.GestionReservasApiController.reservasCancelarDelete()
+POST      /reservas/reservar                                     controllers.reservas.GestionReservasApiController.reservasReservarPost()
+GET       /reservas/:nif                                         controllers.reservas.GestionReservasApiController.reservasNifGet(nif: String)
+
+#Functions for Departamento API
+GET       /getCargaDocente                                       controllers.grupos.DepartamentoApiController.getCargaDocenteGet(departamento: Integer)
+
+#Functions for Grupos API
+GET       /getGrupos                                             controllers.grupos.GruposApiController.getGruposGet()
+GET       /getInfoGrupo                                          controllers.grupos.GruposApiController.getInfoGrupoGet(NIF: String)
+POST      /postGrupoAsignado                                     controllers.grupos.GruposApiController.postGrupoAsignadoPost()
+
+#Functions for Profesores API
+GET       /getProfesores                                         controllers.grupos.ProfesoresApiController.getProfesoresGet()
+
+# Map static resources from the /public folder to the /assets URL path
+GET       /assets/*file                                          controllers.Assets.versioned(path="/public", file: Asset)
+

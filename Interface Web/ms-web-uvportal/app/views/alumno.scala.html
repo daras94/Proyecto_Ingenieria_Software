@@ -1,0 +1,24 @@
+@(page: String, isLoggedIn: Boolean, userInfo: Usuario)(content: Html)
+
+@main(page, isLoggedIn, userInfo){
+    <div class="4u 12u" style="width: 15%; margin-top:20px;">
+        <div class="row">
+            <ul>
+                <!-- Interfaces de Aois para usuarios. -->
+                <li><a href="/espediente" target="myiframe">Registro</a></li>
+                <li><a href='' onclick="" target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+                <li><a href='' target="myiframe">Registro</a></li>
+            </ul>
+        </div>
+        <div class="4u 12u" id="my-div" style="margin-top:-70px; margin-bottom: -143px;">
+            @content
+        </div>
+    </div>
+}
