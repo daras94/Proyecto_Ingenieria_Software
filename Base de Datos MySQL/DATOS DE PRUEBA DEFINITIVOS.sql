@@ -1,3 +1,4 @@
+
 insert into Carrera (nombre, cod_carrera,facultad,num_cred_opt,num_cred_tran,num_cred_obl) values ('Ingenieria Informatica',1234,'Escuela Politecnica',30,12,42);
 insert into Carrera (nombre, cod_carrera,facultad,num_cred_opt,num_cred_tran,num_cred_obl) values ('Ingenieria Electronica',5738,'Escuela Politecnica',30,12,42);
 insert into Carrera (nombre, cod_carrera,facultad,num_cred_opt,num_cred_tran,num_cred_obl) values ('Ingenieria Robotica',2203,'Escuela Politecnica',30,6,36);
@@ -674,7 +675,7 @@ INSERT INTO Asignatura_Matriculada VALUES (4934, 847394193, 2016, 1172, 2, 9977,
 INSERT INTO Asignatura_Matriculada VALUES (4001, 847394193, 2016, 1212, 8, 9974, 8);
 INSERT INTO Asignatura_Matriculada VALUES (7008, 847394193, 2016, 9922, 8, 9971, 10);
 
-INSERT INTO Asignatura_Matriculada VALUES (3998, 847394193, 2017, 1249, 0, 2243, 0);
+INSERT INTO Asignatura_Matriculada VALUES (3800, 847394193, 2017, 1249, 0, 2243, 0);
 INSERT INTO Asignatura_Matriculada VALUES (7012, 847394193, 2017, 9960, 0, 9959, 0);
 
 
@@ -686,8 +687,15 @@ INSERT INTO Asignatura_Matriculada VALUES (8374, 720948110, 2016, 1111, 9, 9999,
 INSERT INTO Asignatura_Matriculada VALUES (1109, 720948110, 2016, 1162, 3, 9980, 6);
 INSERT INTO Asignatura_Matriculada VALUES (4001, 720948110, 2016, 1212, 8, 9974, 8);
 
-INSERT INTO Asignatura_Matriculada VALUES (3998, 720948110, 2017, 1249, 0, 2243, 0);
+INSERT INTO Asignatura_Matriculada VALUES (3111, 720948110, 2017, 1249, 0, 2243, 0);
 INSERT INTO Asignatura_Matriculada VALUES (7003, 720948110, 2017, 2943, 0, 3943, 0);
+
+INSERT INTO Matricula VALUES (820394111,2016,TRUE);
+
+INSERT INTO Asignatura_Matriculada VALUES (8390, 820394111, 2016, 1152, 7, 9983, 8);
+INSERT INTO Asignatura_Matriculada VALUES (1109, 820394111, 2016, 1162, 3, 9980, 6);
+INSERT INTO Asignatura_Matriculada VALUES (4001, 820394111, 2016, 1212, 8, 9974, 8);
+
 
 INSERT INTO pago VALUES(1, 'FRACIONARIO', 500, TRUE, 720948110, 2017);
 INSERT INTO pago VALUES(2, 'FRACIONARIO', 500, FALSE, 720948110, 2017);
