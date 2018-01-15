@@ -33,7 +33,7 @@ public class AlumnoApiController extends Controller {
 
     @ApiAction
     public Result getCorreosGet() throws Exception {
-        String valuepromocion = request().getQueryString("promocion");
+        String valuepromocion = request().getQueryString("Promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);

@@ -33,7 +33,7 @@ public class MatriculaApiController extends Controller {
 
     @ApiAction
     public Result eliminarMatriculasDelete() throws Exception {
-        String valuepromocion = request().getQueryString("promocion");
+        String valuepromocion = request().getQueryString("Promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);
@@ -45,7 +45,7 @@ public class MatriculaApiController extends Controller {
 
     @ApiAction
     public Result eliminarMatriculasPorPlazoDelete() throws Exception {
-        String valuepromocion = request().getQueryString("promocion");
+        String valuepromocion = request().getQueryString("Promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);
@@ -62,7 +62,7 @@ public class MatriculaApiController extends Controller {
 
     @ApiAction
     public Result reservaMatriculaPut() throws Exception {
-        String valuepromocion = request().getQueryString("promocion");
+        String valuepromocion = request().getQueryString("Promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);

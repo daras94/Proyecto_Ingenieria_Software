@@ -33,7 +33,7 @@ public class PagosApiController extends Controller {
 
     @ApiAction
     public Result actualizarPagoPut() throws Exception {
-        String valuepromocion = request().getQueryString("promocion");
+        String valuepromocion = request().getQueryString("Promocion");
         Integer promocion;
 
         promocion = Integer.parseInt(valuepromocion);
